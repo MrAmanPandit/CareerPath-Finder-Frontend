@@ -1,0 +1,125 @@
+/* Centers the content and applies the signature slate background */
+.coursesWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f8fafc;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  padding: 60px 20px;
+}
+
+/* Page Header Styling */
+.coursesHeader {
+  text-align: center;
+  margin-bottom: 50px;
+  max-width: 600px;
+}
+
+.coursesTitle {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.coursesSubtitle {
+  font-size: 16px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* The Grid that holds all the category cards */
+.coursesGrid {
+  display: grid;
+  /* Automatically fits as many columns as possible based on screen size */
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Individual Category Card (White, shadow, rounded corners) */
+.categoryCard {
+  background-color: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryCard:hover {
+  /* transform: translateY(-4px); */
+  box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: #e2e8f0;
+}
+
+/* Header inside the card */
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.categoryIcon {
+  font-size: 28px;
+}
+
+.categoryTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* List of courses inside the card */
+.courseList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.courseItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.courseInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.courseName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.courseDetail {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Little pill badge for the duration text */
+.courseDuration {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4f46e5;
+  background-color: #eef2ff; /* Very light indigo background */
+  padding: 6px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}

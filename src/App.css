@@ -1,0 +1,214 @@
+ /* Base styles and color variables */
+        :root {
+            --primary-bg: #111827; /* Dark background for hero */
+            --primary-text: #ffffff;
+            --secondary-bg: #f8fafc; /* Light gray for sections */
+            --secondary-text: #334155;
+            --accent-color: #4f46e5; /* Indigo for buttons and accents */
+            --border-color: #e2e8f0;
+        } 
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            color: var(--secondary-text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        
+        .active-link {
+            color: blue;
+        }
+        .inactive-link {
+            color: black;
+        }
+        
+        
+        /* ----- Hero Section ----- */
+        .hero {
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            text-align: center;
+            padding: 6rem 5%;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-inline: auto;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-inline: auto;
+        }
+
+        .btn-primary {
+            padding: 0.8rem 2rem;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+
+        /* ----- About Section ----- */
+        .about {
+            padding: 4rem 5%;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            color: #475569;
+        }
+
+        /* ----- Features Section ----- */
+        .features {
+            padding: 5rem 5%;
+            background-color: var(--secondary-bg);
+            text-align: center;
+        }
+
+        .features .section-title {
+            margin-bottom: 3rem;
+        }
+
+        .feature-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 250px;
+            max-width: 280px;
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        /* ----- Streams Section ----- */
+        .streams {
+            padding: 5rem 5%;
+            text-align: center;
+            background-color: white;
+        }
+
+        .streams .section-title {
+            margin-bottom: 3rem;
+        }
+
+        .stream-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stream-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .stream-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border-color: #cbd5e1;
+        }
+
+        .stream-card h3 {
+            color: #1e293b;
+            font-size: 1.2rem;
+        }
+
+        /* ----- Footer ----- */
+        footer {
+            background-color: var(--primary-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-nav a {
+            color: #cbd5e1;
+            transition: color 0.2s;
+        }
+
+        .footer-nav a:hover {
+            color: white;
+        }
+
+        .copyright {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+   
+        
