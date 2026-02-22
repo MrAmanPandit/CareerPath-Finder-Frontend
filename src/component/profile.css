@@ -1,0 +1,152 @@
+/* Centers the content and matches the slate background of the app */
+.profileWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 73.5vh;
+  padding: 40px 20px;
+  padding: 0;
+  background-color: #f8fafc;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+/* The main white card */
+.profileCard {
+  background-color: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 80vw;
+  box-sizing: border-box;
+}
+
+/* Avatar and Title Section */
+.profileHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* Circular Avatar with the user's initial */
+.profileAvatar {
+  font-size: 36px;
+  font-weight: 700;
+  color: #4f46e5;
+  background-color: #eef2ff;
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.15);
+}
+
+.profileName {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.profileRole {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Separation Line */
+.divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  width: 100%;
+  margin: 24px 0;
+}
+
+/* User Info Layout */
+.profileDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.detailGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+}
+
+.detailLabel {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailValue {
+  font-size: 13px;
+  color: #1e293b;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Special styling for the Stream and Dream fields */
+.streamHighlight {
+  color: #4f46e5;
+}
+
+.dreamHighlight {
+  color: #059669; /* A nice emerald green for the goal */
+}
+
+/* Buttons at the bottom */
+.profileActions {
+  display: flex;
+  gap: 16px;
+}
+
+.editBtn {
+  flex: 1;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editBtn:hover {
+  background-color: #e2e8f0;
+}
+
+.logoutBtn {
+  flex: 1;
+  background-color: #ffffff;
+  color: #ef4444; 
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #fef2f2;
+  border-color: #ef4444;
+}

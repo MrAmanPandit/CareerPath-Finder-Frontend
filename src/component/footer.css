@@ -1,0 +1,58 @@
+/* Main Footer Background */
+.footer {
+  background-color: #0f172a; /* The dark navy/slate color from your screenshot */
+  color: #ffffff;
+  padding: 40px 20px;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  
+  /* This ensures the footer pushes itself to the bottom of the page */
+  margin-top: auto; 
+}
+
+/* Centering Container */
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Links Layout */
+.footerLinks {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 24px;
+  flex-wrap: wrap; /* Allows links to stack neatly on mobile screens */
+  justify-content: center;
+}
+
+/* Individual Link Styling */
+.footerLink {
+  color: #cbd5e1; /* Light grayish-blue */
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+/* Hover effect to make links turn bright white */
+.footerLink:hover {
+  color: #ffffff;
+}
+
+/* Copyright Text Styling */
+.footerCopyright {
+  color: #64748b; /* Darker muted gray so it doesn't distract from the links */
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  .footerLinks {
+    gap: 20px;
+    flex-direction: row;
+    align-items: center;
+  }
+}

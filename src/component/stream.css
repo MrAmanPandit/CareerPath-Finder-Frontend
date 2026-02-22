@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 73vh; /* Keeps it centered between header and footer */
+  min-height: 73.5vh; /* Keeps it centered between header and footer */
   background-color: #f8fafc;
   font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
   padding: 40px 20px;

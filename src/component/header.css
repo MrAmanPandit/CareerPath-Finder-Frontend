@@ -1,11 +1,11 @@
-/* Main Navbar Container */
-.active-link {
+
+.active {
             color: blue;
         }
-.inactive-link {
+.inactive {
             color: black;
         }
-        
+ /* Main Navbar Container */   
 .navbar {
     display: flex;
     background-color: #ffffff;
@@ -37,7 +37,7 @@
 }
 
 /* --- DESKTOP STYLES --- */
-.desktopNav {
+.desktopNav{
     display: flex;
     gap: 32px;
 }
@@ -60,7 +60,7 @@
     color: #ffffff;
     border: none;
     padding: 10px 24px;
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 600;
     border-radius: 6px;
     cursor: pointer;
@@ -70,6 +70,7 @@
 .loginBtn:hover {
     background-color: blue;
 }
+
 
 /* Hide mobile toggle button on desktop */
 .mobileToggle {
@@ -104,7 +105,10 @@
     .mobileToggle {
         display: block;
     }
-
+    .mobileLoginBtn{
+        text-align: center;
+        
+    }
     /* Mobile Dropdown Menu Styling */
     .mobileNav {
         display: flex;
@@ -117,16 +121,15 @@
         left: 0;
         width: 100%;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-
         /* Animation settings */
         max-height: 0;
-        overflow: hidden;
+        overflow: scroll;
         transition: max-height 0.3s ease-in-out;
     }
 
     /* When 'open' class is added via React state, expand the menu */
     .mobileNav.open {
-        max-height: 300px;
+        max-height: 33vh;
         /* Large enough to fit the links */
     }
 

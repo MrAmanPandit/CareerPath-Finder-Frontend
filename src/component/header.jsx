@@ -33,6 +33,8 @@
 import React, { useState } from 'react';
 import './header.css';
 import { Link,NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Header = () => {
   // State to handle mobile menu toggle
@@ -42,6 +44,21 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const [userData, setUserData] = useState([]);
+
+ useEffect(() => {
+  axios.get('/api/headerAfterLogin')
+    .then(response => {
+      setUserData(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching profile data:', error);
+    });
+ }, []);
   return (
     <header className="navbar">
       <div className="navContainer">
@@ -53,14 +70,14 @@ const Header = () => {
 
         {/* Desktop Navigation (Hidden on Mobile) */}
         <nav className="desktopNav">
-          <NavLink to="/streams" className={({ isActive }) => `navLink ${isActive ? 'active-link' : 'inactive-link'}`}>Streams</NavLink>
-          <NavLink to="/about" className={({ isActive }) => `navLink ${isActive ? 'active-link' : 'inactive-link'}`}>About Us</NavLink>
-          <NavLink to="/contact" className={({ isActive }) => `navLink ${isActive ? 'active-link' : 'inactive-link'}`}>Contact Us</NavLink>
+          <NavLink to="/streams" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Streams</NavLink>
+          <NavLink to="/about" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>About Us</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Contact Us</NavLink>
         </nav>
 
         {/* Desktop Login Button (Hidden on Mobile) */}
         <div className="desktopLogin">
-          <Link className="loginBtn" to="/login">Login</Link>
+          <Link className="loginBtn" to="/login">{userData.name ? `👤 ${userData.name}` : "Login"}</Link>
         </div>
 
         {/* Mobile Hamburger Toggle (Hidden on Desktop) */}
@@ -71,10 +88,11 @@ const Header = () => {
 
       {/* Mobile Navigation Dropdown (Visible only when toggled on Mobile) */}
       <div className={`mobileNav ${isMenuOpen ? 'open' : ''}`}>
-        <Link to="/streams" className="mobileNavLink">Streams</Link>
-        <Link to="/about" className="mobileNavLink">About Us</Link>
-        <Link to="/contact" className="mobileNavLink">Contact Us</Link>
-        <Link to="/login" className="mobileLoginBtn">Login</Link>
+        <NavLink to="/" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Home</NavLink>
+        <NavLink to="/streams" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Streams</NavLink>
+        <NavLink to="/about" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>About Us</NavLink>
+        <NavLink to="/contact" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Contact Us</NavLink>
+        <Link to="/login" className="mobileLoginBtn" onClick={closeMenu}>{userData.name ? `👤 ${userData.name}` : "Login"}</Link>
       </div>
     </header>
   );

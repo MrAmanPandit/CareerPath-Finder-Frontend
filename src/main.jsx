@@ -15,6 +15,14 @@ import BiologyCourses from './streams/biologyCourses.jsx'
 import MathCourses from './streams/mathCourses.jsx'
 import CommerceCourses from './streams/commerceCourses.jsx'
 import ArtCourses from './streams/artCourses.jsx'
+import Profile from './component/profile.jsx' 
+import Career from './component/career.jsx'
+import SoftwareEngineer from './roadmaps/softwareEngineer.jsx'
+import InvestmentBanker from './roadmaps/investmentBanker.jsx'
+import ClinicalPsychologistRoadmap from './roadmaps/clinicalPsychologist.jsx'
+import CommercialPilotRoadmap from './roadmaps/commercialPilot.jsx' 
+import UiUxRoadmap from './roadmaps/uiDesigner.jsx'
+import DataScientistRoadmap from './roadmaps/dataScientist.jsx'
 import {  BrowserRouter , RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
@@ -73,7 +81,39 @@ const routers = createBrowserRouter([
       {
         path:"/streams/arts",
         element: <ArtCourses />
-      }
+      },
+      {
+        path:"/profile",
+        element: <Profile />
+      },
+      {
+        path:"/career",
+        element:<Career />
+      },
+      {
+        path:"/career/roadmap/software-engineer",
+        element:<SoftwareEngineer />
+      },
+      {
+        path:"/career/roadmap/investment-banker",
+        element:<InvestmentBanker />
+      },
+      {
+        path:"/career/roadmap/clinical-psychologist",
+        element:<ClinicalPsychologistRoadmap />
+      },
+      {
+        path:"/career/roadmap/commercial-pilot",
+        element:<CommercialPilotRoadmap />
+      },
+      {
+        path:"/career/roadmap/ui-ux-designer",
+        element:<UiUxRoadmap />
+      },
+      {
+        path:"/career/roadmap/data-scientist",
+        element:<DataScientistRoadmap />
+      },
     ]
   }
 ]);

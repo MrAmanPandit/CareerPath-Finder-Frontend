@@ -1,0 +1,168 @@
+/* Main Page Wrapper */
+.careersWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f8fafc;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  padding: 60px 20px;
+}
+
+/* Header Text */
+.careersHeader {
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 700px;
+}
+
+.careersTitle {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.careersSubtitle {
+  font-size: 16px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Search Bar Section */
+.searchContainer {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 50px;
+  gap: 12px;
+}
+
+.careerSearchInput {
+  flex: 1;
+  padding: 14px 20px;
+  font-size: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.careerSearchInput:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.searchBtn {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.searchBtn:hover {
+  background-color: #4338ca;
+}
+
+/* Responsive Grid for Career Cards */
+.careersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Individual Career Card */
+.careerCard {
+  background-color: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.careerCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: #e2e8f0;
+}
+
+/* Inside the Card */
+.careerCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.careerIcon {
+  font-size: 36px;
+  background-color: #f8fafc;
+  padding: 12px;
+  border-radius: 12px;
+  line-height: 1;
+}
+
+.careerGrowth {
+  background-color: #ecfdf5; /* Soft mint green */
+  color: #059669; /* Emerald green text */
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.careerName {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.careerStream {
+  font-size: 13px;
+  color: #4f46e5;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.careerDesc {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  flex-grow: 1; /* Pushes the button to the bottom if text is short */
+}
+
+/* Card Button */
+.readMoreBtn {
+  background-color: transparent;
+  color: #4f46e5;
+  border: 1px solid #e0e7ff;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.readMoreBtn:hover {
+  background-color: #eef2ff;
+  border-color: #c7d2fe;
+}

@@ -1,0 +1,156 @@
+/* Main Layout */
+.roadmapWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #f8fafc;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  padding: 60px 20px;
+}
+
+/* Header Text */
+.roadmapHeader {
+  text-align: center;
+  margin-bottom: 60px;
+  max-width: 650px;
+}
+
+.roadmapTitle {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.roadmapSubtitle {
+  font-size: 16px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Timeline Container */
+.timelineContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px; /* Keeps the cards from getting too stretched */
+}
+
+/* Individual Step Row */
+.timelineStep {
+  display: flex;
+  gap: 24px; /* Space between the dot and the card */
+  margin-bottom: 24px;
+}
+
+/* The Left Side (Dot + Line) */
+.timelineIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 40px;
+}
+
+/* The Numbered Circle */
+.timelineDot {
+  width: 40px;
+  height: 40px;
+  background-color: #4f46e5;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0; /* Prevents it from squishing */
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+  z-index: 2; /* Keeps it above the line */
+}
+
+/* The Connecting Vertical Line */
+.timelineLine {
+  width: 2px;
+  flex-grow: 1; /* Automatically stretches to connect to the next dot */
+  background-color: #cbd5e1;
+  margin-top: 8px;
+  margin-bottom: -16px; /* Pulls it down slightly into the next row's space */
+}
+
+/* The White Content Card */
+.timelineCard {
+  background-color: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timelineCard:hover {
+  transform: translateX(6px); /* Slides slightly to the right on hover */
+  box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.08);
+  border-color: #e2e8f0;
+}
+
+/* Card Content Typography */
+.stepPhase {
+  font-size: 13px;
+  font-weight: 700;
+  color: #4f46e5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.stepTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+
+.stepDesc {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+/* Tags Layout */
+.stepSkills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Individual Tag */
+.skillTag {
+  background-color: #f1f5f9;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Responsive adjust for mobile */
+@media (max-width: 600px) {
+  .timelineStep {
+    gap: 16px;
+  }
+  
+  .timelineCard {
+    padding: 24px 20px;
+  }
+  
+  .stepTitle {
+    font-size: 18px;
+  }
+}
