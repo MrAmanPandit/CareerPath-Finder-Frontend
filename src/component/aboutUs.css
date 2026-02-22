@@ -6,7 +6,7 @@
     min-height: 80vh;
     background-color: #f8fafc;
     font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-    padding: 3vh 2vh;
+    padding: 0vw 2vw;
 
 }
 
@@ -17,7 +17,7 @@
     border-radius: 16px;
     box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     padding: 3vw 5vw;
-    margin: 1vw 1vw;
+    margin: 0vw 1vw;
     width: 100vw;
     /* Wider than the login card to fit text nicely */
     width: 100%;
@@ -29,7 +29,7 @@
 .aboutTitle {
     font-size: 36px;
     font-weight: 700;
-    color: #1e293b;
+    color: #2b2d30;
     margin-top: 0;
     margin-bottom: 24px;
 }
@@ -87,8 +87,7 @@
     align-items: center;
     font-size: 18px;
     font-weight: 600;
-    color: #334155;
-    margin: 0 0 8px 0;
+    color: #12181f;
 }
 
 .members_row {

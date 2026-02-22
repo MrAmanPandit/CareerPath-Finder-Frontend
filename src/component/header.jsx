@@ -60,7 +60,7 @@ const Header = () => {
 
         {/* Desktop Login Button (Hidden on Mobile) */}
         <div className="desktopLogin">
-          <button className="loginBtn">Login</button>
+          <Link className="loginBtn" to="/login">Login</Link>
         </div>
 
         {/* Mobile Hamburger Toggle (Hidden on Desktop) */}
