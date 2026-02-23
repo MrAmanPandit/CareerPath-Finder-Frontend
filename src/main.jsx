@@ -23,7 +23,7 @@ import ClinicalPsychologistRoadmap from './roadmaps/clinicalPsychologist.jsx'
 import CommercialPilotRoadmap from './roadmaps/commercialPilot.jsx' 
 import UiUxRoadmap from './roadmaps/uiDesigner.jsx'
 import DataScientistRoadmap from './roadmaps/dataScientist.jsx'
-import {  BrowserRouter , RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const ProtectedRoute = ({ children }) => {
 };
 const routers = createBrowserRouter([
   {
-    path: "",
+    path: "/",
     element: <App />,
     children:[
       {
