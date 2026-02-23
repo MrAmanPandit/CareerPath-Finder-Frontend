@@ -167,7 +167,7 @@
 
     /* When 'open' class is added via React state, expand the menu */
     .mobileNav.open {
-        max-height: 33vh;
+        max-height: 40vh;
         /* Large enough to fit the links */
     }
 
