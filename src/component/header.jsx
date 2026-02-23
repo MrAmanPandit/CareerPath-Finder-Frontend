@@ -77,7 +77,7 @@ const Header = () => {
 
         {/* Desktop Login Button (Hidden on Mobile) */}
         <div className="desktopLogin">
-          <Link className="loginBtn" to="/login">{userData.name ? `👤 ${userData.name}` : "Login"}</Link>
+          <Link className="loginBtn" to="/login">{userData.name ? `👤 ${userData.name}` : ((<img src='/public/login.png'/>),'Login')}</Link>
         </div>
 
         {/* Mobile Hamburger Toggle (Hidden on Desktop) */}

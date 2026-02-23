@@ -42,33 +42,71 @@
     gap: 32px;
 }
 
-.navLink {
+/* .navLink {
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
     color: #1e293b;
     transition: color 0.2s ease;
+} */
+ /* Update your existing navLink style to be relative */
+.navLink {
+  position: relative; /* This is crucial for the line to attach correctly */
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+  transition: color 0.2s ease;
+  padding-bottom: 4px; /* Gives the line some breathing room below the text */
+}
+
+/* Color change on hover */
+.navLink:hover, .navLink.active {
+  color: #4f46e5;
+}
+
+/* The animated underline */
+.navLink::after {
+  content: '';
+  position: absolute;
+  width: 0; /* Starts at 0 width (invisible) */
+  height: 3px; /* Thickness of the line */
+  bottom: 0; /* Positions it at the very bottom of the link */
+  left: 0; /* Starts the animation from the left side */
+  background-color: #4f46e5; /* The line color */
+  transition: width 0.3s ease-in-out; /* Controls the speed of the sliding animation */
+}
+
+/* Expands the line to 100% width when hovered or active */
+.navLink:hover::after,
+.navLink.active::after {
+  width: 100%;
 }
 
 .navLink:hover {
-    color: #0b00e5;
+    color: rgb(69, 69, 220);
     /* Highlights blue on hover/active */
 }
-
+.desktopLogin{
+    display: flex;
+    align-items: center;
+}
 .loginBtn {
+    padding: 10px 25px;
     background-color: #000000;
     color: #ffffff;
     border: none;
-    padding: 10px 24px;
     font-size: 10px;
     font-weight: 600;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s;
+
 }
 
 .loginBtn:hover {
-    background-color: blue;
+    background-color: rgb(69, 69, 220);
+    box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
 }
 
 
@@ -144,8 +182,8 @@
     }
 
     .mobileNavLink:hover {
-        background-color: #f8fafc;
-        color: #4f46e5;
+        background-color: #2a2a2b;
+        color: #c9c9ca;
     }
 
     /* Mobile Login Button */

@@ -27,18 +27,37 @@
   justify-content: center;
 }
 
-/* Individual Link Styling */
+/* Update your existing footerLink style */
 .footerLink {
-  color: #cbd5e1; /* Light grayish-blue */
+  position: relative; /* Anchors the underline to the text */
+  color: #cbd5e1; 
   text-decoration: none;
   font-size: 15px;
   font-weight: 500;
   transition: color 0.2s ease;
+  padding-bottom: 4px; /* Adds a little gap between the text and the line */
 }
 
-/* Hover effect to make links turn bright white */
+/* Text turns white on hover */
 .footerLink:hover {
   color: #ffffff;
+}
+
+/* The invisible animated underline */
+.footerLink::after {
+  content: '';
+  position: absolute;
+  width: 0; /* Starts hidden */
+  height: 2px; /* Thickness of the line */
+  bottom: 0; /* Positions it at the bottom */
+  left: 0; /* Starts from the left */
+  background-color: #ffffff; /* White line to match the hover text */
+  transition: width 0.3s ease-in-out; /* Smooth sliding animation */
+}
+
+/* Expands the line to full width on hover */
+.footerLink:hover::after {
+  width: 100%;
 }
 
 /* Copyright Text Styling */

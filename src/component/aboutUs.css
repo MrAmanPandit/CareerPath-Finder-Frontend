@@ -117,6 +117,11 @@
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.memberscard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
+  border-color: #e2e8f0;
+}
 .memberscard img {
   width:  70px;
   height: 70px;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './courses.css'; // Reuses the exact same CSS file!
+import './Courses.css'; // Reuses the exact same CSS file!
 
 const ArtsCourses = () => {
   const courseCategories = [
