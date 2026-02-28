@@ -32,18 +32,61 @@
 // export default header
 import React, { useState } from 'react';
 import './header.css';
-import { Link,NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import axios from 'axios';
+import '../index.css';
+
+
 
 
 const Header = () => {
   // State to handle mobile menu toggle
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // 1. Create a reference for the header component
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const headerRef = useRef(null);
+
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+
+  // This React code remains the same in Header.jsx
+  const toggleDarkMode = () => {
+    document.body.classList.toggle('dark-mode');
+  };
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        // 'withCredentials' is required if you are using cookies for JWT
+        const response = await axios.get('http://localhost:3000/api/v1/users/current-user', {
+          headers: {
+            // Include this if you are using the Authorization Header instead of Cookies
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+          }
+        });
+
+        setUser(response.data.message); // Assuming your API wraps response in a 'data' object
+      } catch (err) {
+        setError(err.response?.data?.message || "Failed to load profile");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  // 2. Check LocalStorage when the header loads
+  useEffect(() => {
+    const loggedInStatus = localStorage.getItem("isLoggedIn");
+    if (loggedInStatus === "true") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+  // 1. Create a reference for the header component
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -71,9 +114,9 @@ const Header = () => {
     };
   }, []); // Empty array ensures this only runs once on mount
 
-  const [userData, setUserData] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
- // Close menu when clicking or tapping outside of the header
+  // Close menu when clicking or tapping outside of the header
   useEffect(() => {
     const handleClickOutside = (event) => {
       // If the menu is OPEN, and the click happened OUTSIDE the header...
@@ -93,9 +136,11 @@ const Header = () => {
     };
   }, [isMenuOpen]); // Dependency array ensures it always checks the current open/closed state
   return (
+
+
     <header className="navbar" ref={headerRef}>
       <div className="navContainer">
-        
+
         {/* Logo */}
         <div className="logo">
           CareerPath Finder
@@ -109,9 +154,17 @@ const Header = () => {
           <NavLink to="/contact" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Contact Us</NavLink>
         </nav>
 
+
         {/* Desktop Login Button (Hidden on Mobile) */}
         <div className="desktopLogin">
-          <Link className="loginBtn" to="/login">{userData.name ? `👤 ${userData.name}` : ((<img src='/public/login.png'/>),'Login')}</Link>
+          <button className="darkModeToggle" onClick={toggleDarkMode}>
+            🌓 Change Mode
+          </button>
+          {isLoggedIn ? (
+            <Link className="loginBtn" to="/profile">👤 {user?.firstName}</Link>
+          ) : (
+            <Link className="loginBtn" to="/login">Login</Link>
+          )}
         </div>
 
         {/* Mobile Hamburger Toggle (Hidden on Desktop) */}
@@ -127,10 +180,21 @@ const Header = () => {
         <NavLink to="/career" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Career</NavLink>
         <NavLink to="/about" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>About Us</NavLink>
         <NavLink to="/contact" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Contact Us</NavLink>
-        <Link to="/login" className="mobileLoginBtn" onClick={closeMenu}>{userData.name ? `👤 ${userData.name}` : "Login"}</Link>
+        <button className="darkModeToggle darkModeBtn " onClick={toggleDarkMode}>🌓 Change Mode </button>
+        {isLoggedIn ? (
+          <Link to="/profile" className="mobileLoginBtn" onClick={closeMenu}>{user?.firstName ? `👤 ${user?.firstName}` : "Profile"}</Link>
+        ) : (
+          <Link to="/login" className="mobileLoginBtn" onClick={closeMenu}>Login</Link>
+        )}
       </div>
     </header>
   );
 };
+
+
+
+
+
+
 
 export default Header;

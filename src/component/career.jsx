@@ -1,9 +1,23 @@
 import React from 'react';
 import './career.css';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const Careers = () => {
   // Sample data for the careers grid
+
+  // 1. State for the data from your database
+  const [careers, setCareers] = useState([]); 
+  
+  // 2. State for the search bar text
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // 3. The magic filter function
+  const filteredCareers = careers.filter((career) => {
+    // We convert everything to lowercase so "Software" and "software" both match
+    return career.title.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
     <div className="careersWrapper">
       
@@ -19,6 +33,7 @@ const Careers = () => {
           type="text" 
           className="careerSearchInput" 
           placeholder="Search for a career (e.g., Doctor, Designer)..." 
+          
         />
         <button className="searchBtn">Search</button>
       </div>

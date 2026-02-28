@@ -1,19 +1,46 @@
 /* Centers the content and matches the light slate background */
+/* 1. Define your standard "Light Mode" colors */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+  
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212; /* Dark grey, almost black */
+  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
+
+/* 3. Apply these variables to your entire website's body */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif; /* Example font */
+}
 .aboutWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-    background-color: #f8fafc;
+    background-color: var(--bg-color);
     font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-    padding: 0vw 2vw;
+    padding: 2rem 5%;
 
 }
 
 /* The main white card holding the content */
 .aboutCard {
-    background-color: #ffffff;
-    border: 1px solid #f1f5f9;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     padding: 3vw 5vw;
@@ -29,7 +56,7 @@
 .aboutTitle {
     font-size: 36px;
     font-weight: 700;
-    color: #2b2d30;
+    color: var(--text-color);
     margin-top: 0;
     margin-bottom: 24px;
 }
@@ -38,7 +65,7 @@
 .aboutText {
     font-size: 18px;
     line-height: 1.6;
-    color: #475569;
+    color: var(--text-color);
     margin-bottom: 40px;
 }
 
@@ -49,7 +76,7 @@
     gap: 40px;
     flex-wrap: wrap;
     /* Allows stacking on mobile screens */
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border-color);
     padding-top: 40px;
 }
 
@@ -71,7 +98,7 @@
 .featureTitle {
     font-size: 18px;
     font-weight: 600;
-    color: #334155;
+    color: var(--text-color);
     margin: 0 0 8px 0;
 }
 
@@ -87,7 +114,7 @@
     align-items: center;
     font-size: 18px;
     font-weight: 600;
-    color: #12181f;
+    color: var(--text-color) ;
 }
 
 .members_row {
@@ -103,8 +130,8 @@
 }
 
 .memberscard {
- background-color: #ffffff;
-  border: 1px solid #f1f5f9;
+  background-color: var(--bg-color);
+  border: 3px groove  silver;
   border-radius: 16px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   padding: 1;
@@ -120,7 +147,7 @@
 .memberscard:hover {
   transform: translateY(-8px);
   box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
-  border-color: #e2e8f0;
+  border-color: var(--border-color);
 }
 .memberscard img {
   width:  70px;
@@ -137,12 +164,26 @@
 .memberName {
     font-size: 20px;
     font-weight: 500;
-    color: #000000;
+    color: var(--text-color);
     padding: 5px;
 }
 .designation {
   font-size: 12px;
   font-weight: 400;
-  color: #666667;
+  color: var(--text-color);
   margin-top: 0px;
+}
+
+@media (max-width:800px){
+    .aboutTitle{
+        font-size: 2rem;
+    }
+    
+    .developers{
+        padding-top: 3rem;
+    }
+    .developers h1{
+        font-size: 1.8rem;
+        padding-bottom: 1rem;
+    }
 }

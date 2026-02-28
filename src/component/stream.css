@@ -1,10 +1,29 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+  
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212; /* Dark grey, almost black */
+  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
 /* Centers the entire section horizontally and vertically */
 .body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 73.5vh; /* Keeps it centered between header and footer */
-  background-color: #f8fafc;
+  background-color: var(--bg-color);
   font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
   padding: 40px 20px;
 }
@@ -22,7 +41,7 @@
 .streamTitle {
   font-size: 36px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-color);
   margin-bottom: 50px;
   text-align: center;
 }
@@ -40,8 +59,8 @@
 
 /* The actual card design (white background, shadow, rounded corners) */
 .streamCard {
-  background-color: #ffffff;
-  border: 1px solid #f1f5f9;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
   border-radius: 16px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   padding: 40px 20px;
@@ -58,7 +77,7 @@
 .streamCard:hover {
   transform: translateY(-8px);
   box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
-  border-color: #e2e8f0;
+  border-color: var(--text-color);
 }
 
 /* Makes the emojis look like large icons */
@@ -66,12 +85,20 @@
   font-size: 64px; 
   margin-bottom: 20px;
   line-height: 1; /* Prevents emojis from creating weird vertical spacing */
+  justify-content: center;
 }
 
 /* Styles the text inside the cards */
 .streamName {
   font-size: 22px;
   font-weight: 600;
-  color: #334155;
-  margin: 0;
+  color: var(--text-color);
+  text-align: center;
+}
+
+@media (max-width:800px) {
+  .streamTitle{
+    font-size: 1.9rem;
+  }
+ 
 }

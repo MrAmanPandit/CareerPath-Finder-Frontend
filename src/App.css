@@ -1,187 +1,230 @@
- /* Base styles and color variables */
-        :root {
-            --primary-bg: #111827; /* Dark background for hero */
-            --primary-text: #ffffff;
-            --secondary-bg: #f8fafc; /* Light gray for sections */
-            --secondary-text: #334155;
-            --accent-color: #4f46e5; /* Indigo for buttons and accents */
-            --border-color: #e2e8f0;
-        } 
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+  
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212; /* Dark grey, almost black */
+  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
 
-        body {
-            color: var(--secondary-text);
-            line-height: 1.6;
-        }
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+ }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+ body {
+     color: var(--text-color);
+     line-height: 1.6;
+ }
 
-        
-        .active-link {
-            color: blue;
-        }
-        .inactive-link {
-            color: black;
-        }
-        
-        
-        /* ----- Hero Section ----- */
-        .hero {
-            background-color: var(--primary-bg);
-            color: var(--primary-text);
-            text-align: center;
-            padding: 6rem 5%;
-        }
+ a {
+     text-decoration: none;
+     color: inherit;
+ }
 
-        .hero h1 {
-            font-size: 3rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            max-width: 800px;
-            margin-inline: auto;
-        }
 
-        .hero p {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            margin-inline: auto;
-        }
+ .active-link {
+     color: blue;
+ }
 
-        .btn-primary {
-            padding: 9px 17px;
-            background-color: rgb(250, 250, 251);
-            color: rgb(20, 20, 20);
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.4s;
-        }
+ .inactive-link {
+     color: black;
+ }
 
-        .btn-primary:hover {
-            background-color: rgb(69, 69, 220);
-             box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
-            color: #f8fafc;
-            transition: 0.3s;
-        }
 
-        /* ----- About Section ----- */
-        .about {
-            padding: 4rem 5%;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
+ /* ----- Hero Section ----- */
+ .hero {
+     background-color:rgb(3, 6, 3);
+     color: #ffffff ;
+     text-align: center;
+     padding: 6rem 5%;
+ }
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #1e293b;
-        }
+ .hero h1 {
+     font-size: 3rem;
+     line-height: 1.2;
+     margin-bottom: 1.5rem;
+     max-width: 800px;
+     margin-inline: auto;
+ }
 
-        .about p {
-            font-size: 1.1rem;
-            color: #475569;
-        }
+ .hero p {
+     font-size: 1.1rem;
+     color:#ffffff;
+     margin-bottom: 2.5rem;
+     max-width: 600px;
+     margin-inline: auto;
+ }
 
-        /* ----- Features Section ----- */
-        .features {
-            padding: 5rem 5%;
-            background-color: var(--secondary-bg);
-            text-align: center;
-        }
+ .btn-primary {
+     padding: 9px 17px;
+     background-color: var(--text-color);
+     color:var(--bg-color);
+     border: none;
+     border-radius: 6px;
+     font-size: 1rem;
+     font-weight: 600;
+     cursor: pointer;
+     transition: background-color 0.4s;
+ }
 
-        .features .section-title {
-            margin-bottom: 3rem;
-        }
+ .btn-primary:hover {
+     background-color: rgb(69, 69, 220);
+     box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
+     color: #f8fafc;
+     transition: 0.3s;
+ }
 
-        .feature-grid {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+ /* ----- About Section ----- */
+ .about {
+     padding: 4rem 5%;
+     text-align: center;
+     max-width: 900px;
+     margin: 0 auto;
+ }
 
-        .feature-card {
-            background: white;
-            padding: 2.5rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            flex: 1;
-            min-width: 250px;
-            max-width: 280px;
-        }
+ .section-title {
+     font-size: 2.5rem;
+     margin-bottom: 1.5rem;
+     color: var(--text-color);
+ }
 
-        .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
+ .about p {
+     font-size: 1.1rem;
+     color: var(--text-color);
+ }
 
-        .feature-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: #1e293b;
-        }
+ /* ----- Features Section ----- */
+ .features {
+     padding: 5rem 5%;
+     background-color: var(--bg-color);
+     text-align: center;
+ }
 
-        .feature-card p {
-            font-size: 0.95rem;
-            color: #64748b;
-        }
+ .features .section-title {
+     margin-bottom: 3rem;
+ }
 
-        /* ----- Streams Section ----- */
-        .streams {
-            padding: 5rem 5%;
-            text-align: center;
-            background-color: white;
-        }
+ .feature-grid {
+     display: flex;
+     justify-content: center;
+     gap: 2rem;
+     flex-wrap: wrap;
+     max-width: 1200px;
+     margin: 0 auto;
+ }
 
-        .streams .section-title {
-            margin-bottom: 3rem;
-        }
+ .feature-card {
+     background: var(--card-bg);
+     padding: 2.5rem 1.5rem;
+     border-radius: 8px;
+     border:1px solid var(--border-color);
+     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+     flex: 1;
+     min-width: 250px;
+     max-width: 280px;
+ }
 
-        .stream-grid {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
+ .icon {
+     font-size: 2.5rem;
+     margin-bottom: 1.5rem;
+ }
 
-        .stream-card {
-            background: white;
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            flex: 1;
-            min-width: 200px;
-            max-width: 250px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
+ .feature-card h3 {
+     font-size: 1.1rem;
+     margin-bottom: 1rem;
+     color: var(--text-color);
+ }
 
-        .stream-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
-            border-color: #cbd5e1;
-        }
+ .feature-card p {
+     font-size: 0.95rem;
+     color: var(--text-color);
+ }
 
-        .stream-card h3 {
-            color: #1e293b;
-            font-size: 1.2rem;
-        }
+ /* ----- Streams Section ----- */
+ .streams {
+     padding: 5rem 5%;
+     text-align: center;
+     background-color: var(--bg-color);
+ }
 
-        
+ .streams .section-title {
+     margin-bottom: 3rem;
+ }
+
+ .stream-grid {
+     display: flex;
+     justify-content: center;
+     gap: 2rem;
+     flex-wrap: wrap;
+ }
+
+ .stream-card {
+     background: var(--card-bg);
+     padding: 3rem 2rem;
+     border-radius: 12px;
+     border: 2px solid var(--border-color);
+     flex: 1;
+     min-width: 200px;
+     max-width: 250px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+ }
+
+ .stream-card:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+     border-color: #cbd5e1;
+ }
+
+ .stream-card h3 {
+     color: var(--text-color);
+     font-size: 1.2rem;
+ }
+
+ @media (max-width:800px) {
+     .hero {
+         padding: 3rem 5%;
+     }
+
+     .hero h1 {
+         font-size: 2.8rem;
+     }
+
+     .hero p {
+         font-size: 1rem;
+     }
+
+     .about {
+         padding: 2rem 5%;
+     }
+     
+     .section-title {
+         font-size: 2rem;
+        }
+     
+     .features {
+         padding: 2rem 5%;
+     }
+     
+     .streams {
+         padding: 2rem 5%;
+     }
+     .streams h2{
+        font-size: 1.8rem;
+     }
+ }

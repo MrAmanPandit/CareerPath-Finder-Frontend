@@ -1,4 +1,24 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+  --logo-color: #4f46e5;
+  
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212; /* Dark grey, almost black */
+  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+  --logo-color: #ffffff
+}
 .active {
             color: blue;
         }
@@ -8,8 +28,8 @@
  /* Main Navbar Container */   
 .navbar {
     display: flex;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
+    background-color: var(--navbar-bg);
+    border-bottom: 1px solid var(--border-color);
     position: relative;
     /* Needed for absolute positioning of mobile menu */
     z-index: 50;
@@ -29,9 +49,9 @@
 
 /* Logo Styling */
 .logo {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
-    color: #4f46e5;
+    color: var(--logo-color);
     /* Matches the blue/purple from your screenshot */
     cursor: pointer;
 }
@@ -42,20 +62,13 @@
     gap: 32px;
 }
 
-/* .navLink {
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    color: #1e293b;
-    transition: color 0.2s ease;
-} */
  /* Update your existing navLink style to be relative */
 .navLink {
   position: relative; /* This is crucial for the line to attach correctly */
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
-  color: #1e293b;
+  color: var(--text-color);
   transition: color 0.2s ease;
   padding-bottom: 4px; /* Gives the line some breathing room below the text */
 }
@@ -87,9 +100,31 @@
     color: rgb(69, 69, 220);
     /* Highlights blue on hover/active */
 }
+
+.darkModeToggle {
+    margin-left: 20px;
+    padding: 8px 16px;
+    min-height: 35px; ;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.darkModeToggle:hover {
+    background-color: rgb(40, 40, 46);
+    box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
+     transition: background-color 0.2s ease;
+}
+
 .desktopLogin{
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 .loginBtn {
     padding: 10px 25px;
@@ -113,10 +148,10 @@
 /* Hide mobile toggle button on desktop */
 .mobileToggle {
     display: none;
-    background: none;
+    background: var(--navbar-bg);
     border: none;
     font-size: 24px;
-    color: #1e293b;
+    color: var(--text-color);
     cursor: pointer;
 }
 
@@ -127,7 +162,7 @@
 
 
 /* --- MOBILE STYLES (Triggers on screens smaller than 768px) --- */
-@media (max-width: 768px) {
+@media (max-width: 1028px) {
     .navContainer {
         padding: 16px 20px;
         /* Smaller padding on mobile */
@@ -143,6 +178,19 @@
     .mobileToggle {
         display: block;
     }
+
+    .darkModeBtn{
+        margin: 10px 130px;
+        background-color: #4f46e5;
+        min-height: 40px; 
+        /* Using your brand purple for the mobile button */
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
     .mobileLoginBtn{
         text-align: center;
         
@@ -151,8 +199,8 @@
     .mobileNav {
         display: flex;
         flex-direction: column;
-        background-color: #ffffff;
-        border-top: 1px solid #e2e8f0;
+        background-color: var(--bg-color);
+        border-top: 1px solid var(--border-color);
         position: absolute;
         top: 100%;
         /* Places it right below the navbar */
@@ -177,18 +225,18 @@
         text-decoration: none;
         font-size: 16px;
         font-weight: 500;
-        color: #1e293b;
-        border-bottom: 1px solid #f1f5f9;
+        color: var(--text-color);
+        border-bottom: 1px solid var(--border-color);
     }
 
     .mobileNavLink:hover {
-        background-color: #2a2a2b;
-        color: #c9c9ca;
+        background-color: var(--text-color);
+        color: var(--bg-color);
     }
 
     /* Mobile Login Button */
     .mobileLoginBtn {
-        margin: 16px 20px;
+        margin: 0 20px;
         background-color: #4f46e5;
         /* Using your brand purple for the mobile button */
         color: white;

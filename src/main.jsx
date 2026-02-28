@@ -56,7 +56,7 @@ const routers = createBrowserRouter([
       },
       {
         path:"/contact",
-        element: <Contact />
+        element: <ProtectedRoute><Contact /></ProtectedRoute>
       },
       {
         path:"/login",
@@ -68,23 +68,23 @@ const routers = createBrowserRouter([
       },
       {
         path:"/streams/biology",
-        element: <BiologyCourses />
+        element: <ProtectedRoute><BiologyCourses /></ProtectedRoute>
       },
       {
         path:"/streams/maths",
-        element: <MathCourses />
+        element:<ProtectedRoute> <MathCourses /></ProtectedRoute>
       },
       {
         path:"/streams/commerce",
-        element: <CommerceCourses />
+        element:<ProtectedRoute> <CommerceCourses /></ProtectedRoute>
       },
       {
         path:"/streams/arts",
-        element: <ArtCourses />
+        element: <ProtectedRoute> <ArtCourses /></ProtectedRoute>
       },
       {
         path:"/profile",
-        element: <Profile />
+        element: <ProtectedRoute><Profile /></ProtectedRoute>
       },
       {
         path:"/career",
@@ -92,27 +92,27 @@ const routers = createBrowserRouter([
       },
       {
         path:"/career/roadmap/software-engineer",
-        element:<SoftwareEngineer />
+        element: <ProtectedRoute><SoftwareEngineer /></ProtectedRoute>
       },
       {
         path:"/career/roadmap/investment-banker",
-        element:<InvestmentBanker />
+        element: <ProtectedRoute><InvestmentBanker /></ProtectedRoute>
       },
       {
         path:"/career/roadmap/clinical-psychologist",
-        element:<ClinicalPsychologistRoadmap />
+        element: <ProtectedRoute><ClinicalPsychologistRoadmap /></ProtectedRoute>
       },
       {
         path:"/career/roadmap/commercial-pilot",
-        element:<CommercialPilotRoadmap />
+        element:<ProtectedRoute><CommercialPilotRoadmap /></ProtectedRoute>
       },
       {
         path:"/career/roadmap/ui-ux-designer",
-        element:<UiUxRoadmap />
+        element:<ProtectedRoute><UiUxRoadmap /></ProtectedRoute>
       },
       {
         path:"/career/roadmap/data-scientist",
-        element:<DataScientistRoadmap />
+        element:<ProtectedRoute><DataScientistRoadmap /></ProtectedRoute>
       },
     ]
   }
