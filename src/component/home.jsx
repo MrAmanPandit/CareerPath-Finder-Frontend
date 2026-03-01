@@ -41,35 +41,6 @@ const content = () => {
             </div>
         </section>
 
-        <section class="streams">
-            <h2 class="section-title">Choose Your Stream</h2>
-            <div class="stream-grid">
-               <Link to="/streams/biology" className="stream-card-link">
-                    <div class="stream-card">
-                        <div class="icon">🔬</div>
-                        <h3>Biology</h3>
-                    </div>
-                </Link>
-                <Link to="/streams/maths" className="stream-card-link">
-                    <div class="stream-card">
-                        <div class="icon">📊</div>
-                        <h3>Maths</h3>
-                    </div>
-                </Link>
-                <Link to="/streams/commerce" className="stream-card-link">
-                    <div class="stream-card">
-                        <div class="icon">📈</div>
-                        <h3>Commerce</h3>
-                    </div>
-                </Link>
-                <Link to="/streams/arts" className="stream-card-link">
-                    <div class="stream-card">
-                        <div class="icon">🎨</div>
-                        <h3>Arts</h3>
-                    </div>
-                </Link>
-            </div>
-        </section>
     </main>
   )
 }

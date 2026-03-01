@@ -24,10 +24,11 @@ import CommercialPilotRoadmap from './roadmaps/commercialPilot.jsx'
 import UiUxRoadmap from './roadmaps/uiDesigner.jsx'
 import DataScientistRoadmap from './roadmaps/dataScientist.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import EditDetails from './component/editDetail.jsx'
 
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem('token'); // Check for token in localStorage
+  const isAuthenticated = localStorage.getItem('accessToken'); // Check for token in localStorage
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -85,6 +86,10 @@ const routers = createBrowserRouter([
       {
         path:"/profile",
         element: <ProtectedRoute><Profile /></ProtectedRoute>
+      },
+      {
+        path:"/edit-details",
+        element:<ProtectedRoute><EditDetails /></ProtectedRoute>
       },
       {
         path:"/career",

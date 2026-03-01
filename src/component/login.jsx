@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault(); 
 
     try {
-      const response = await axios.post('${import.meta.env.VITE_API_URL}/api/v1/users/login', credentials);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/login`, credentials);
       
       const token = response.data?.message?.accessToken || response.data?.accessToken;
 
@@ -34,7 +34,7 @@ const Login = () => {
           localStorage.setItem("accessToken", token);
           localStorage.setItem("isLoggedIn", "true");
           
-          console.log("Login successful:", response.data);
+          console.log("Login successful:");
           window.location.href = '/'; 
       } else {
           console.error("Login failed: No access token received");
@@ -79,7 +79,7 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="loginButton">Login</button>
+          <button type="submit" className="loginButton" >Login</button>
         </form>
 
         <p className="signupText">

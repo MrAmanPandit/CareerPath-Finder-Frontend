@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './profile.css';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
@@ -15,7 +16,7 @@ const Profile = () => {
         const fetchUserProfile = async () => {
             try {
                 // 'withCredentials' is required if you are using cookies for JWT
-                const response = await axios.get('http://localhost:3000/api/v1/users/current-user', {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
                     headers: {
                         // Include this if you are using the Authorization Header instead of Cookies
                         Authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -54,7 +55,7 @@ const Profile = () => {
       const token = localStorage.getItem("accessToken");
 
       // 2. Tell the backend to clear the refresh tokens and cookies
-      await axios.post('http://localhost:3000/api/v1/users/logout', {}, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/logout`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         },
@@ -116,7 +117,7 @@ const Profile = () => {
         
         {/* Action Buttons */}
         <div className="profileActions">
-          <button className="editBtn">Edit Details</button>
+          <Link to="/edit-details" className="editBtn">Edit Details</Link>
           <button className="logoutBtn" onClick={handleLogout}>Log Out</button>
         </div>
 

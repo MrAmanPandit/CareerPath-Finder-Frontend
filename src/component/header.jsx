@@ -61,7 +61,7 @@ const Header = () => {
     const fetchUserProfile = async () => {
       try {
         // 'withCredentials' is required if you are using cookies for JWT
-        const response = await axios.get('http://localhost:3000/api/v1/users/current-user', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
           headers: {
             // Include this if you are using the Authorization Header instead of Cookies
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -148,6 +148,7 @@ const Header = () => {
 
         {/* Desktop Navigation (Hidden on Mobile) */}
         <nav className="desktopNav">
+          <NavLink to="/" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Home</NavLink>
           <NavLink to="/streams" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Streams</NavLink>
           <NavLink to="/career" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Career</NavLink>
           <NavLink to="/about" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>About Us</NavLink>

@@ -154,47 +154,6 @@ body.dark-mode {
      color: var(--text-color);
  }
 
- /* ----- Streams Section ----- */
- .streams {
-     padding: 5rem 5%;
-     text-align: center;
-     background-color: var(--bg-color);
- }
-
- .streams .section-title {
-     margin-bottom: 3rem;
- }
-
- .stream-grid {
-     display: flex;
-     justify-content: center;
-     gap: 2rem;
-     flex-wrap: wrap;
- }
-
- .stream-card {
-     background: var(--card-bg);
-     padding: 3rem 2rem;
-     border-radius: 12px;
-     border: 2px solid var(--border-color);
-     flex: 1;
-     min-width: 200px;
-     max-width: 250px;
-     cursor: pointer;
-     transition: all 0.3s ease;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
- }
-
- .stream-card:hover {
-     transform: translateY(-5px);
-     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-     border-color: #cbd5e1;
- }
-
- .stream-card h3 {
-     color: var(--text-color);
-     font-size: 1.2rem;
- }
 
  @media (max-width:800px) {
      .hero {
