@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AnimatedPage from './animation';
+import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
 
 const Login = () => {
 
@@ -26,7 +28,9 @@ const Login = () => {
     e.preventDefault(); 
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/login`, credentials);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/login`, credentials, {
+          withCredentials: true
+      });
       
       const token = response.data?.message?.accessToken || response.data?.accessToken;
 
@@ -35,19 +39,24 @@ const Login = () => {
           localStorage.setItem("isLoggedIn", "true");
           
           console.log("Login successful:");
+          await showSuccessAlert("Logged in successfully!");
           window.location.href = '/'; 
       } else {
           console.error("Login failed: No access token received");
+          showErrorAlert("Login failed: No access token received");
       }
       
     } catch (error) {
-      console.error("Error logging in:", error.response?.data?.message || error.message);
+      const errorMsg = error.response?.data?.message || error.message;
+      console.error("Error logging in:", errorMsg);
+      showErrorAlert(`Error logging in: ${errorMsg}`);
     }
   };
 
   // Keep your existing return ( ... ) statement exactly as it is below this line!
 
   return (
+    <AnimatedPage>
     <div className="loginWrapper">
       <div className="loginCard">
         <h2 className="loginTitle">Login</h2>
@@ -87,6 +96,7 @@ const Login = () => {
         </p>
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 

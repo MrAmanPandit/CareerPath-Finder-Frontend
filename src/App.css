@@ -1,189 +1,232 @@
 :root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
-  
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --navbar-bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #dddddd;
+
+    /* Smooth transition for when we switch */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 2. Define exactly what the "Dark Mode" colors should be */
 body.dark-mode {
-  --bg-color: #121212; /* Dark grey, almost black */
-  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
+    --bg-color: #121212;
+    /* Dark grey, almost black */
+    --text-color: #f1f1f1;
+    /* Off-white, easier on eyes than pure white */
+    --navbar-bg: #1a1a1a;
+    --card-bg: #1e1e1e;
+    --border-color: #333333;
 }
 
- * {
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
-     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
- }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
 
- body {
-     color: var(--text-color);
-     line-height: 1.6;
- }
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    color: var(--text-color);
+    line-height: 1.6;
+}
 
- a {
-     text-decoration: none;
-     color: inherit;
- }
-
-
- .active-link {
-     color: blue;
- }
-
- .inactive-link {
-     color: black;
- }
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
 
- /* ----- Hero Section ----- */
- .hero {
-     background-color:rgb(3, 6, 3);
-     color: #ffffff ;
-     text-align: center;
-     padding: 6rem 5%;
- }
+.active-link {
+    color: blue;
+}
 
- .hero h1 {
-     font-size: 3rem;
-     line-height: 1.2;
-     margin-bottom: 1.5rem;
-     max-width: 800px;
-     margin-inline: auto;
- }
-
- .hero p {
-     font-size: 1.1rem;
-     color:#ffffff;
-     margin-bottom: 2.5rem;
-     max-width: 600px;
-     margin-inline: auto;
- }
-
- .btn-primary {
-     padding: 9px 17px;
-     background-color: var(--text-color);
-     color:var(--bg-color);
-     border: none;
-     border-radius: 6px;
-     font-size: 1rem;
-     font-weight: 600;
-     cursor: pointer;
-     transition: background-color 0.4s;
- }
-
- .btn-primary:hover {
-     background-color: rgb(69, 69, 220);
-     box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
-     color: #f8fafc;
-     transition: 0.3s;
- }
-
- /* ----- About Section ----- */
- .about {
-     padding: 4rem 5%;
-     text-align: center;
-     max-width: 900px;
-     margin: 0 auto;
- }
-
- .section-title {
-     font-size: 2.5rem;
-     margin-bottom: 1.5rem;
-     color: var(--text-color);
- }
-
- .about p {
-     font-size: 1.1rem;
-     color: var(--text-color);
- }
-
- /* ----- Features Section ----- */
- .features {
-     padding: 5rem 5%;
-     background-color: var(--bg-color);
-     text-align: center;
- }
-
- .features .section-title {
-     margin-bottom: 3rem;
- }
-
- .feature-grid {
-     display: flex;
-     justify-content: center;
-     gap: 2rem;
-     flex-wrap: wrap;
-     max-width: 1200px;
-     margin: 0 auto;
- }
-
- .feature-card {
-     background: var(--card-bg);
-     padding: 2.5rem 1.5rem;
-     border-radius: 8px;
-     border:1px solid var(--border-color);
-     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-     flex: 1;
-     min-width: 250px;
-     max-width: 280px;
- }
-
- .icon {
-     font-size: 2.5rem;
-     margin-bottom: 1.5rem;
- }
-
- .feature-card h3 {
-     font-size: 1.1rem;
-     margin-bottom: 1rem;
-     color: var(--text-color);
- }
-
- .feature-card p {
-     font-size: 0.95rem;
-     color: var(--text-color);
- }
+.inactive-link {
+    color: black;
+}
 
 
- @media (max-width:800px) {
-     .hero {
-         padding: 3rem 5%;
-     }
+/* ----- Hero Section ----- */
+.hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 6rem 5%;
+}
 
-     .hero h1 {
-         font-size: 2.8rem;
-     }
+.hero h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+    margin-inline: auto;
+}
 
-     .hero p {
-         font-size: 1rem;
-     }
+.hero p {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-inline: auto;
+}
 
-     .about {
-         padding: 2rem 5%;
-     }
-     
-     .section-title {
-         font-size: 2rem;
-        }
-     
-     .features {
-         padding: 2rem 5%;
-     }
-     
-     .streams {
-         padding: 2rem 5%;
-     }
-     .streams h2{
+.btn-primary {
+    padding: 9px 17px;
+    background-color:#f1f1f1;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+.btn-primary:hover {
+    background-color: rgb(54, 54, 54);
+    box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
+    color: #f8fafc;
+    transition: 0.3s;
+}
+
+/* ----- About Section ----- */
+.about {
+    padding: 4rem 5%;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.about p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+/* ----- Features Section ----- */
+.features {
+    padding: 5rem 5%;
+    background-color: var(--bg-color);
+    text-align: center;
+}
+
+.features .section-title {
+    margin-bottom: 3rem;
+}
+
+.feature-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: var(--card-bg);
+    padding: 2.5rem 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 250px;
+    max-width: 280px;
+}
+
+.icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+
+/* ── Tablet (≤ 800px) ── */
+@media (max-width: 800px) {
+    .hero {
+        padding: 3rem 5%;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .about {
+        padding: 2rem 5%;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .features {
+        padding: 2rem 5%;
+    }
+
+    .streams {
+        padding: 2rem 5%;
+    }
+
+    .streams h2 {
         font-size: 1.8rem;
-     }
- }
+    }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+    .hero {
+        padding: 4rem 5%;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        text-align: center;
+        display: block;
+        box-sizing: border-box;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .feature-card {
+        min-width: 100%;
+    }
+
+    .about {
+        padding: 1.5rem 5%;
+    }
+
+    .features {
+        padding: 1.5rem 5%;
+    }
+}

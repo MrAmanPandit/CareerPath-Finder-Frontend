@@ -1,35 +1,3 @@
-// import React from 'react'
-// import { Link, NavLink } from 'react-router-dom';
-
-// const header = () => {
-//   return (
-//     <header>
-//       <div className="logo">CareerPath Finder</div>
-//       <nav>
-//         <ul>
-//           <li>
-//             <NavLink to="/streams" className={({ isActive }) => isActive ? 'active-link' : 'inactive-link'}>
-//             Streams
-//             </NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/about" className={({ isActive }) => isActive ? 'active-link' : 'inactive-link'}>
-//             About Us
-//             </NavLink>
-//           </li>
-//           <li>
-//           <NavLink to="/contact" className={({ isActive }) => isActive ? 'active-link' : 'inactive-link'}>
-//             Contact Us
-//             </NavLink>
-//           </li>
-//         </ul>
-//       </nav>
-//       <Link className="login-btn" to="/login">Login</Link>
-//     </header>
-//   )
-// }
-
-// export default header
 import React, { useState } from 'react';
 import './header.css';
 import { Link, NavLink } from 'react-router-dom';
@@ -37,9 +5,10 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import axios from 'axios';
 import '../index.css';
+import { motion } from 'framer-motion';
 
-
-
+const MotionNavLink = motion.create(NavLink);
+const MotionLink = motion.create(Link);
 
 const Header = () => {
   // State to handle mobile menu toggle
@@ -138,7 +107,13 @@ const Header = () => {
   return (
 
 
-    <header className="navbar" ref={headerRef}>
+    <motion.header
+      className="navbar"
+      ref={headerRef}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="navContainer">
 
         {/* Logo */}
@@ -148,30 +123,42 @@ const Header = () => {
 
         {/* Desktop Navigation (Hidden on Mobile) */}
         <nav className="desktopNav">
-          <NavLink to="/" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Home</NavLink>
-          <NavLink to="/streams" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Streams</NavLink>
-          <NavLink to="/career" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Career</NavLink>
-          <NavLink to="/about" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>About Us</NavLink>
-          <NavLink to="/contact" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Contact Us</NavLink>
+          <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Home</MotionNavLink>
+          <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/streams" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Streams</MotionNavLink>
+          <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/career" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Career</MotionNavLink>
+          <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/about" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>About Us</MotionNavLink>
+          <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/contact" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Contact Us</MotionNavLink>
+          
         </nav>
 
 
         {/* Desktop Login Button (Hidden on Mobile) */}
         <div className="desktopLogin">
-          <button className="darkModeToggle" onClick={toggleDarkMode}>
+          {isLoggedIn && user?.role === 'admin' && (
+            <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn" to="/admin/dashboard">Admin Panel</MotionLink>
+          )}
+          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="darkModeToggle" onClick={toggleDarkMode}>
             🌓 Change Mode
-          </button>
+          </motion.button>
           {isLoggedIn ? (
-            <Link className="loginBtn" to="/profile">👤 {user?.firstName}</Link>
+            <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn" to="/profile">👤 {user?.firstName}</MotionLink>
           ) : (
-            <Link className="loginBtn" to="/login">Login</Link>
+            <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn" to="/login">Login</MotionLink>
           )}
         </div>
 
         {/* Mobile Hamburger Toggle (Hidden on Desktop) */}
-        <button className="mobileToggle" onClick={toggleMenu}>
-          {isMenuOpen ? '✖' : '☰'}
-        </button>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className={`mobileToggle ${isMenuOpen ? 'open' : ''}`}
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          <span className="hamburger-bar bar1"></span>
+          <span className="hamburger-bar bar2"></span>
+          <span className="hamburger-bar bar3"></span>
+        </motion.button>
       </div>
 
       {/* Mobile Navigation Dropdown (Visible only when toggled on Mobile) */}
@@ -181,6 +168,9 @@ const Header = () => {
         <NavLink to="/career" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Career</NavLink>
         <NavLink to="/about" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>About Us</NavLink>
         <NavLink to="/contact" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Contact Us</NavLink>
+        {isLoggedIn && user?.role === 'admin' && (
+          <NavLink to="/admin/dashboard" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Admin Panel</NavLink>
+        )}
         <button className="darkModeToggle darkModeBtn " onClick={toggleDarkMode}>🌓 Change Mode </button>
         {isLoggedIn ? (
           <Link to="/profile" className="mobileLoginBtn" onClick={closeMenu}>{user?.firstName ? `👤 ${user?.firstName}` : "Profile"}</Link>
@@ -188,7 +178,7 @@ const Header = () => {
           <Link to="/login" className="mobileLoginBtn" onClick={closeMenu}>Login</Link>
         )}
       </div>
-    </header>
+    </motion.header>
   );
 };
 

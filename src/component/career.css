@@ -5,15 +5,17 @@
   --navbar-bg: #f8f9fa;
   --card-bg: #ffffff;
   --border-color: #dddddd;
-  
+
   /* Smooth transition for when we switch */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 2. Define exactly what the "Dark Mode" colors should be */
 body.dark-mode {
-  --bg-color: #121212; /* Dark grey, almost black */
-  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --bg-color: #121212;
+  /* Dark grey, almost black */
+  --text-color: #f1f1f1;
+  /* Off-white, easier on eyes than pure white */
   --navbar-bg: #1a1a1a;
   --card-bg: #1e1e1e;
   --border-color: #333333;
@@ -55,42 +57,32 @@ body.dark-mode {
 .searchContainer {
   display: flex;
   width: 100%;
-  max-width: 600px;
   margin-bottom: 50px;
-  gap: 12px;
-}
-
-.careerSearchInput {
-  flex: 1;
-  padding: 14px 20px;
-  font-size: 16px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  outline: none;
-  font-family: inherit;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.careerSearchInput:focus {
-  border-color: #04ea4d;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  justify-content: center;
 }
 
 .searchBtn {
-  background-color: #4f46e5;
-  color: white;
-  border: none;
-  padding: 0 24px;
+  background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+  margin: 10px;
+  padding: 15px 45px;
   font-size: 16px;
   font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 20px;
+  display: block;
+  outline: none;
+  border: none;
 }
 
 .searchBtn:hover {
-  background-color: #4338ca;
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 0 20px var(--text-color);
 }
 
 /* Responsive Grid for Career Cards */
@@ -117,7 +109,7 @@ body.dark-mode {
 
 .careerCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 20px -5px rgba(8, 8, 8, 0.9);
   border-color: #e2e8f0;
 }
 
@@ -138,13 +130,15 @@ body.dark-mode {
 }
 
 .careerGrowth {
-  background-color: var(--card-bg); /* Soft mint green */
-  color: #059669; /* Emerald green text */
+  background-color: var(--card-bg);
+  /* Soft mint green */
+  color: #059669;
+  /* Emerald green text */
   font-size: 12px;
   font-weight: 600;
   padding: 6px 12px;
   border-radius: 20px;
- border: 1px dotted var(--border-color)
+  border: 1px dotted var(--border-color)
 }
 
 .careerName {
@@ -167,7 +161,8 @@ body.dark-mode {
   color: #64748b;
   line-height: 1.6;
   margin: 0 0 24px 0;
-  flex-grow: 1; /* Pushes the button to the bottom if text is short */
+  flex-grow: 1;
+  /* Pushes the button to the bottom if text is short */
 }
 
 /* Card Button */
@@ -189,11 +184,44 @@ body.dark-mode {
   border-color: #c7d2fe;
 }
 
-@media (max-width:800px){
-  .careersWrapper{
+/* ── Tablet (≤ 800px) ── */
+@media (max-width: 800px) {
+  .careersWrapper {
     padding: 2rem;
   }
-  .careersTitle{
+
+  .careersTitle {
     font-size: 1.8rem;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .careersWrapper {
+    padding: 1.5rem 1rem;
+  }
+
+  .careersTitle {
+    font-size: 1.5rem;
+  }
+
+  .careersSubtitle {
+    font-size: 14px;
+  }
+
+  .searchBtn {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 5px 0;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .careerCard {
+    padding: 20px 16px;
+  }
+
+  .careerName {
+    font-size: 18px;
   }
 }

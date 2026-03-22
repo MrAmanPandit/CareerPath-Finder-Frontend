@@ -1,5 +1,6 @@
 import React from 'react';
 import './Courses.css';
+import AnimatedPage from '../component/animation';
 
 const BiologyCourses = () => {
   const courseCategories = [
@@ -83,6 +84,7 @@ const BiologyCourses = () => {
   ];
 
   return (
+    <AnimatedPage>
     <div className="coursesWrapper">
       <div className="coursesHeader">
         <h1 className="coursesTitle">Biology Stream Courses</h1>
@@ -112,6 +114,7 @@ const BiologyCourses = () => {
         ))}
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 

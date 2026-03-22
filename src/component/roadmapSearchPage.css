@@ -1,0 +1,349 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+  
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212; /* Dark grey, almost black */
+  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
+.roadmap-page {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-color);
+}
+
+/* --- Search Hero Section --- */
+.roadmap-hero {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+}
+
+.roadmap-hero h1 {
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+}
+
+.roadmap-hero p {
+  font-size: 18px;
+  color: #bfdbfe;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  line-height: 1.6;
+}
+
+.search-form {
+  display: flex;
+  max-width: 700px;
+  margin: 0 auto;
+  background: whitesmoke;
+  padding: 8px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 16px 24px;
+  font-size: 18px;
+  border-radius: 50px;
+  outline: none;
+  color: #334155;
+}
+input:valid{
+  color: #141414;
+}
+
+.search-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* --- Timeline Section --- */
+.roadmap-results {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.results-header h2 {
+  font-size: 32px;
+  color: var(--text-color);
+}
+
+.results-header span {
+  color: #2563eb;
+}
+
+/* The Vertical Line */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15px; /* Centers the line */
+  width: 4px;
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+/* Individual Steps */
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* The Dots on the line */
+.timeline-dot {
+  position: absolute;
+  left: -40px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  border: 4px solid #eff6ff;
+  box-shadow: 0 0 0 4px white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* The Content Cards */
+.timeline-content {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+
+/* Small arrow pointing from card to the timeline */
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: -10px;
+  border-style: solid;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+.step-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 8px 0;
+}
+
+.step-duration {
+  display: inline-block;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.step-description {
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+/* Suggested Courses inside the step */
+.course-recommendations {
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #2563eb;
+}
+
+.course-recommendations h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.course-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.course-item {
+  color: #2563eb;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.course-item:hover {
+  text-decoration: underline;
+}
+
+/* Loading Spinner */
+.loading-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #64748b;
+  font-size: 18px;
+}
+/* --- Empty State / Suggestions Section --- */
+.suggestions-section {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.suggestions-header {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.suggestions-subtext {
+  color: #64748b;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.popular-jobs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+
+.job-pill-btn {
+  background-color: var(--card-bg);
+  border: 2px dotted var(--border-color);
+  color: var(--text-color);
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.job-pill-btn:hover {
+  border:2px solid #2563eb;
+  color: var(--text-color);
+  background-color: #5e9ced;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 10px rgba(37, 99, 235, 0.5);
+}
+
+/* --- How It Works Steps --- */
+.how-it-works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  text-align: left;
+  border-top: 1px solid var(--border-color);
+  padding-top: 50px;
+}
+
+.step-card {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+}
+
+.step-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #eff6ff;
+  color: #2563eb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.step-card h3 {
+  font-size: 18px;
+  color: var(--text-color);
+  margin: 0 0 10px 0;
+}
+
+.step-card p {
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+  font-size: 15px;
+}
+@media (max-width: 620px) {
+  .search-form {
+    min-width: 340px;
+    padding: 8px;
+  }
+  .search-input {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .search-btn {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+}

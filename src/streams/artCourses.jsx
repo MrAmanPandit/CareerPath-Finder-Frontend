@@ -1,5 +1,6 @@
 import React from 'react';
 import './Courses.css'; // Reuses the exact same CSS file!
+import AnimatedPage from '../component/animation';
 
 const ArtsCourses = () => {
   const courseCategories = [
@@ -78,6 +79,7 @@ const ArtsCourses = () => {
   ];
 
   return (
+    <AnimatedPage>
     <div className="coursesWrapper">
       <div className="coursesHeader">
         <h1 className="coursesTitle">Arts & Humanities Courses</h1>
@@ -107,6 +109,7 @@ const ArtsCourses = () => {
         ))}
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 

@@ -1,0 +1,401 @@
+/* ManageCourses.css */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212;
+  /* Dark grey, almost black */
+  --text-color: #f1f1f1;
+  /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
+
+.manage-courses-wrapper {
+  background-color: var(--bg-color);
+  min-height: 60vh;
+  padding: 20px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.manage-courses-container {
+  background-color: var(--card-bg);
+  width: 100%;
+  max-width: 1100px;
+  /* Nice and wide for the table data */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  padding: 40px;
+  border-top: 6px solid #2563eb;
+}
+
+/* --- Header & Banners --- */
+.form-header {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.form-header h2 {
+  font-size: 28px;
+  color: var(--text-color);
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.form-header p {
+  color: var(--text-color);
+  margin: 0;
+  font-size: 15px;
+}
+
+.status-banner {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
+}
+
+.banner-success {
+  background-color: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.banner-error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* --- Table Styling --- */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--bg-color);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.courses-table {
+  width: 100%;
+  min-width: 750px;     /* table always wide enough to show all columns */
+  border-collapse: collapse;
+  background-color: var(--bg-color);
+  text-align: left;
+}
+
+/* Premium dark gradient header */
+.courses-table thead tr {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+}
+
+.courses-table th {
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 20px 22px;
+  border-bottom: none;
+  white-space: nowrap;
+}
+
+.courses-table th:first-child {
+  border-radius: 12px 0 0 0;
+}
+.courses-table th:last-child {
+  border-radius: 0 12px 0 0;
+}
+
+/* Zebra striping for rows */
+.courses-table tbody tr:nth-child(odd) td {
+  background-color: var(--bg-color);
+}
+.courses-table tbody tr:nth-child(even) td {
+  background-color: var(--card-bg);
+}
+
+.courses-table td {
+  padding: 0 18px;
+  height: 64px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-size: 14px;
+  vertical-align: middle;
+  transition: background-color 0.15s ease;
+  white-space: nowrap;  /* prevents text wrapping that inflates row height */
+}
+
+/* Smooth row hover highlight */
+.courses-table tbody tr:hover td {
+  background-color: #eef2ff !important;
+}
+
+body.dark-mode .courses-table tbody tr:hover td {
+  background-color: #1e2d47 !important;
+}
+
+.courses-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.courses-table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 12px;
+}
+.courses-table tbody tr:last-child td:last-child {
+  border-radius: 0 0 12px 0;
+}
+
+/* Actions column must never clip buttons */
+.courses-table td:last-child {
+  overflow: visible;
+  max-width: none;
+  white-space: nowrap;
+}
+
+/* --- Table Content Specifics --- */
+.course-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.course-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+}
+
+body.dark-mode .course-icon {
+  background: linear-gradient(135deg, #1e2d47, #283f6b);
+}
+
+.text-dark {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.data-feild {
+  color: var(--text-color);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.level-badge {
+  background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+  color: #4338ca;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+/* --- Action Buttons --- */
+.action-cells {
+  display: flex;
+  min-width: 120px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 8px;
+  flex-wrap: nowrap;    /* buttons always stay in one row */
+}
+
+.btn-action {
+  display: flex;
+  flex-direction: row;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+.btn-delete:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+}
+
+.btn-update {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: 1px solid #1d4ed8;
+}
+
+.btn-update:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+}
+
+.btn-delete:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* --- States --- */
+.loading-state,
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.table-summary {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+  border-radius: 0 0 12px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 12px;
+}
+
+.table-footer p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.3px;
+}
+
+.table-footer span {
+  display: inline-block;
+  margin-left: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-add {
+  background: linear-gradient(135deg, #565bf0, #1645a3);
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(52, 68, 207, 0.35);
+}
+
+.btn-add:hover {
+  background: linear-gradient(135deg, #565bf0, #1645a3);
+  box-shadow: 0 4px 14px rgba(52, 68, 207, 0.35);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1000px) {
+  .manage-courses-wrapper {
+    padding: 20px 10px;
+  }
+  .manage-courses-container {
+    padding: 20px;
+    margin: 0;
+  }
+  .form-header h2 {
+    font-size: 24px;
+  }
+  .courses-table th {
+    padding: 0 10px;
+    min-width: 110px;
+    font-size: 11px;
+  }
+  /* Keep height consistent — only reduce font/padding, preserve height */
+  .courses-table td {
+    height: 64px;
+    padding: 0 10px;
+    min-width: 110px;
+    font-size: 12px;
+  }
+  .table-summary {
+    padding: 12px 14px;
+    font-size: 12px;
+  }
+  /* Keep buttons side by side */
+  .action-cells {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .manage-courses-wrapper {
+    padding: 12px 6px;
+  }
+
+  .manage-courses-container {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .form-header h2 {
+    font-size: 20px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .courses-table {
+    min-width: 550px;
+  } 
+  .btn-action {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .table-summary {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+}

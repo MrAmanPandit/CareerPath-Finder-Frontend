@@ -4,38 +4,44 @@
   --navbar-bg: #f8f9fa;
   --card-bg: #ffffff;
   --border-color: #dddddd;
-  
+
   /* Smooth transition for when we switch */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 2. Define exactly what the "Dark Mode" colors should be */
 body.dark-mode {
-  --bg-color: #121212; /* Dark grey, almost black */
-  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --bg-color: #121212;
+  /* Dark grey, almost black */
+  --text-color: #f1f1f1;
+  /* Off-white, easier on eyes than pure white */
   --navbar-bg: #1a1a1a;
   --card-bg: #1e1e1e;
   --border-color: #333333;
 }
+
 /* EditDetails.css */
 .edit-page-container {
-  min-height: 100vh;
+  min-height: 80vh;
   background-color: var(--bg-color);
   display: flex;
   justify-content: center;
   text-align: center;
-  padding: 40px 20px;
+  padding: 20px 20px;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 .edit-card {
   background-color: var(--card-bg);
   width: 100%;
-  
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  min-height: 80vh;
   max-width: 800px;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 40px;
+  padding: 20px 40px;
   border: 1px solid var(--border-color);
 }
 
@@ -43,6 +49,10 @@ body.dark-mode {
   border-bottom: 1px solid var(--text-color);
   padding-bottom: 20px;
   margin-bottom: 30px;
+}
+
+.form-grid .form-group {
+  text-align: left;
 }
 
 .edit-header h2 {
@@ -63,25 +73,60 @@ body.dark-mode {
   gap: 24px;
 }
 
+input:valid {
+  color: var(--text-color);
+}
 /* Make it a single column on small screens */
 @media (max-width: 600px) {
   .form-grid {
     grid-template-columns: 1fr;
   }
+
+  .edit-page-container {
+    padding: 10px 12px;
+  }
+
+  .form-group input {
+    width: 100%;
+  }
+
+  .form-grid {
+    gap: 8px;
+  }
+
+  .edit-card {
+    padding: 20px 16px;
+  }
+
+  .edit-header h2 {
+    font-size: 22px;
+  }
 }
-.updatedForm{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+
+/* Very small screens */
+@media (max-width: 380px) {
+  .edit-card {
+    padding: 16px 12px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+  }
 }
+
+.updatedForm {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  flex-wrap: wrap;
+
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-}
-
-.full-width {
-  grid-column: 1 / -1;
 }
 
 .form-group label {
@@ -93,6 +138,7 @@ body.dark-mode {
 
 .form-group input {
   padding: 12px;
+  background-color: var(--bg-color);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 15px;
@@ -110,27 +156,29 @@ body.dark-mode {
   color: #94a3b8;
   cursor: not-allowed;
 }
- 
-input::placeholder{
-    font-size: 10px;
+
+input::placeholder {
+  font-size: 12px;
+  color: #c1a8a8;
 }
 
 .submit-btn {
-  background-color: #2563eb;
-  color: white;
-  border: none;
+
+  border: 3px dotted var(--border-color);
   border-radius: 6px;
+  margin-top: 30px;
   padding: 12px 24px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
-  float: right;
-  margin-top: 10px;
+
 }
 
 .submit-btn:hover {
   background-color: #1d4ed8;
+  color: #f2f3f6;
+  border: 2px solid var(--border-color);
 }
 
 .status-message {

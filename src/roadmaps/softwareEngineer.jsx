@@ -1,5 +1,6 @@
 import React from 'react';
 import './roadmap.css';
+import AnimatedPage from '../component/animation';
 
 const SoftwareEngineer = () => {
   const roadmapSteps = [
@@ -41,6 +42,7 @@ const SoftwareEngineer = () => {
   ];
 
   return (
+    <AnimatedPage>
     <div className="roadmapWrapper">
       
       <div className="roadmapHeader">
@@ -77,6 +79,7 @@ const SoftwareEngineer = () => {
       </div>
       
     </div>
+    </AnimatedPage>
   );
 };
 

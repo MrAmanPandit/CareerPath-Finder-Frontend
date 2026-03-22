@@ -1,0 +1,229 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212;
+  /* Dark grey, almost black */
+  --text-color: #f1f1f1;
+  /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
+
+.add-course-wrapper {
+  min-height: 80vh;
+  background-color: var(--bg-color);
+  /* Matches the light gray admin theme */
+  padding: 20px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.add-course-container {
+  background-color: var(--card-bg);
+  width: 100%;
+  max-width: 1000px;
+  /* Perfectly sizes the form */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  padding: 40px;
+  border-top: 6px solid #2563eb;
+  /* Professional blue top accent */
+}
+
+/* --- Header --- */
+.form-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.form-header h2 {
+  font-size: 28px;
+  color: var(--text-color);
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.form-header p {
+  color: #64748b;
+  margin: 0;
+  font-size: 15px;
+}
+
+/* --- Status Messages --- */
+.status-banner {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+}
+
+.banner-success {
+  background-color: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.banner-error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* --- Form Sections --- */
+.course-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section {
+  margin-bottom: 40px;
+  background-color: var(--card-bg);
+}
+
+.form-section h3 {
+  font-size: 18px;
+  color: var(--text-color);
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+/* --- Input Grid System --- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Splits into 2 columns on larger screens */
+@media (min-width: 650px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 1000px) {
+  .add-course-wrapper {
+    padding: 20px 10px;
+  }
+
+  .add-course-container {
+    padding: 20px;
+  }
+
+  .form-header h2 {
+    font-size: 24px;
+  }
+}
+
+/* --- Individual Inputs --- */
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7a94b7;
+  margin-bottom: 8px;
+}
+
+.input-group input,
+.input-group textarea {
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #0f172a;
+  background-color: var(--card-bg);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+/* Highlight the box blue when the admin is typing */
+.input-group input:focus,
+.input-group textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* --- Submit Button --- */
+.submit-course-btn {
+  width: 100%;
+  background-color: #0f172a;
+  /* Dark slate button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 20px;
+}
+
+.submit-course-btn:hover:not(:disabled) {
+  background-color: #1e293b;
+}
+
+/* Gray out the button while it is submitting */
+.submit-course-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .add-course-wrapper {
+    padding: 12px 8px;
+  }
+
+  .add-course-container {
+    padding: 20px 16px;
+    border-radius: 8px;
+  }
+
+  .form-header h2 {
+    font-size: 20px;
+  }
+
+  .form-section {
+    margin-bottom: 24px;
+  }
+
+  .submit-course-btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+}

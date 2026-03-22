@@ -1,30 +1,17 @@
-// import React from 'react'
-// import { Link } from 'react-router-dom'
-// import './footer.css'
-
-// const footer = () => {
-//   return (
-//     <footer>
-//         <ul class="footer-nav">
-//             <li><Link to="/">Home</Link></li>
-//             <li><Link to="/streams">Streams</Link></li>
-//             <li><Link to="/careers">Careers</Link></li>
-//             <li><Link to="/about">About</Link></li>
-//             <li><Link to="/contact">Contact Us</Link></li>
-//         </ul>
-//         <p class="copyright">&copy; 2026 CareerPath Finder. All rights reserved.</p>
-//     </footer>
-//   )
-// }
-
-// export default footer
 import React from 'react';
 import './footer.css';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <motion.footer 
+      className="footer"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="footerContainer">
         
         {/* Navigation Links */}
@@ -42,7 +29,7 @@ const Footer = () => {
         </div>
 
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

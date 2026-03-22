@@ -4,19 +4,22 @@
   --navbar-bg: #f8f9fa;
   --card-bg: #ffffff;
   --border-color: #dddddd;
-  
+
   /* Smooth transition for when we switch */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 2. Define exactly what the "Dark Mode" colors should be */
 body.dark-mode {
-  --bg-color: #121212; /* Dark grey, almost black */
-  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --bg-color: #121212;
+  /* Dark grey, almost black */
+  --text-color: #f1f1f1;
+  /* Off-white, easier on eyes than pure white */
   --navbar-bg: #1a1a1a;
   --card-bg: #1e1e1e;
   --border-color: #333333;
 }
+
 /* Centers the content on the screen */
 .signupWrapper {
   display: flex;
@@ -36,7 +39,7 @@ body.dark-mode {
   box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   padding: 40px;
   width: 100%;
-  max-width: 550px; 
+  max-width: 550px;
   box-sizing: border-box;
 }
 
@@ -62,7 +65,8 @@ body.dark-mode {
 .signupForm {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Spacing between rows */
+  gap: 16px;
+  /* Spacing between rows */
 }
 
 /* Places two input groups side-by-side */
@@ -164,10 +168,40 @@ body.dark-mode {
   text-decoration: underline;
 }
 
-/* Responsive adjustment for small mobile screens */
-@media (max-width: 480px) {
+/* ── Mobile and tablet (≤ 600px) ── */
+@media (max-width: 600px) {
+  .signupWrapper {
+    padding: 30px 16px;
+    align-items: flex-start;
+  }
+
+  .signupCard {
+    padding: 28px 20px;
+    border-radius: 12px;
+  }
+
+  .signupTitle {
+    font-size: 22px;
+  }
+
   .inputRow {
     flex-direction: column;
     gap: 16px;
+  }
+
+  .signupButton {
+    padding: 12px;
+    font-size: 15px;
+  }
+}
+
+/* ── Very Small phones (≤ 380px) ── */
+@media (max-width: 380px) {
+  .signupCard {
+    padding: 20px 14px;
+  }
+
+  .signupTitle {
+    font-size: 20px;
   }
 }

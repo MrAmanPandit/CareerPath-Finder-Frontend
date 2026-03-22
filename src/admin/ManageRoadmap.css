@@ -1,0 +1,344 @@
+/* ManageRoadmaps.css */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212;
+  /* Dark grey, almost black */
+  --text-color: #f1f1f1;
+  /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
+
+.manage-roadmaps-wrapper {
+  background-color: var(--bg-color);
+  min-height: 80vh;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.manage-roadmaps-container {
+  background-color: var(--card-bg);
+  width: 100%;
+  max-width: 1100px;
+  /* Nice and wide for the table data */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  padding: 40px;
+  border-top: 6px solid #2563eb;
+}
+
+/* --- Header & Banners --- */
+.form-header {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.form-header h2 {
+  font-size: 28px;
+  color: var(--text-color);
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.form-header p {
+  color: #64748b;
+  margin: 0;
+  font-size: 15px;
+}
+
+.status-banner {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
+}
+
+.banner-success {
+  background-color: var(--bg-color);
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.banner-error {
+  background-color: var(--bg-color);
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* --- Table Styling --- */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--bg-color);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.roadmaps-table {
+  width: 100%;
+  min-width: 650px;     /* always wide enough to show all columns */
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Premium dark gradient header */
+.roadmaps-table thead tr {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+}
+
+.roadmaps-table th {
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 20px 22px;
+  border-bottom: none;
+  white-space: nowrap;
+}
+
+.roadmaps-table th:first-child {
+  border-radius: 12px 0 0 0;
+}
+.roadmaps-table th:last-child {
+  border-radius: 0 12px 0 0;
+}
+
+/* Zebra striping */
+.roadmaps-table tbody tr:nth-child(odd) td {
+  background-color: var(--bg-color);
+}
+.roadmaps-table tbody tr:nth-child(even) td {
+  background-color: var(--card-bg);
+}
+
+.roadmaps-table td {
+  padding: 0 18px;
+  height: 64px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-size: 14px;
+  vertical-align: middle;
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+}
+
+/* Smooth row hover highlight */
+.roadmaps-table tbody tr:hover td {
+  background-color: #eef2ff !important;
+}
+
+body.dark-mode .roadmaps-table tbody tr:hover td {
+  background-color: #1e2d47 !important;
+}
+
+.roadmaps-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.roadmaps-table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 12px;
+}
+.roadmaps-table tbody tr:last-child td:last-child {
+  border-radius: 0 0 12px 0;
+}
+
+/* Actions column must never clip buttons */
+.roadmaps-table td:last-child {
+  overflow: visible;
+  max-width: none;
+  white-space: nowrap;
+}
+
+/* --- Table Content Specifics --- */
+.roadmap-name-cell {
+  display: flex;
+  min-width: 180px;
+  align-items: center;
+  gap: 12px;
+}
+
+.roadmap-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.15);
+}
+
+body.dark-mode .roadmap-icon {
+  background: linear-gradient(135deg, #14532d, #166534);
+}
+
+.steps-badge {
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  border: 1px solid #86efac;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* --- Action Buttons --- */
+.action-cells {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.btn-action {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+.btn-delete:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.btn-update {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: 1px solid #1d4ed8;
+}
+
+.btn-update:hover {
+  background: #1e40af;
+}
+
+/* --- States --- */
+.loading-state,
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.table-summary {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+  color: #dce1e7;
+  background-color: #2563eb;
+  border-radius: 0 0 5px 5px;
+}
+
+@media (max-width: 1000px) {
+  .manage-roadmaps-wrapper {
+    padding: 20px 10px;
+  }
+
+  .manage-roadmaps-container {
+    padding: 20px;
+  }
+
+  .form-header h2 {
+    font-size: 24px;
+  }
+
+  .roadmaps-table th {
+    padding: 0 10px;
+    min-width: 110px;
+    font-size: 11px;
+  }
+  /* Preserve row height — only reduce font/width */
+  .roadmaps-table td {
+    height: 64px;
+    padding: 0 10px;
+    min-width: 110px;
+    font-size: 12px;
+  }
+  .table-summary {
+    font-size: 12px;
+    padding: 13px 10px;
+    text-align: center;
+    height: 50px;
+  }
+  /* Keep buttons always in a row */
+  .action-cells {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .manage-roadmaps-wrapper {
+    padding: 12px 6px;
+  }
+
+  .manage-roadmaps-container {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .form-header h2 {
+    font-size: 20px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .roadmaps-table {
+    min-width: 480px;
+  }
+
+  .btn-action {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .table-summary {
+    flex-direction: column;
+    height: auto;
+    gap: 4px;
+    padding: 8px 10px;
+  }
+}

@@ -1,8 +1,10 @@
 import React from 'react';
-import './contactUs.css'; 
+import './contactUs.css';   
+import AnimatedPage from './animation';
 
 const Contact = () => {
   return (
+    <AnimatedPage>
     <div className="contactWrapper">
       <div className="contactCard">
         <h2 className="contactTitle">Get in Touch</h2>
@@ -56,6 +58,7 @@ const Contact = () => {
         </form>
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 

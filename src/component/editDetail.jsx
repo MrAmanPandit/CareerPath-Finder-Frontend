@@ -1,75 +1,115 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// THIS IS THE CRUCIAL LINK TO YOUR CSS FILE:
+import AnimatedPage from './animation';
 import './editDetail.css'; 
+import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
 
 const EditDetails = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: '',
     mobileNumber: '',
     grade: '',
     stream: '',
     dream: ''
   });
 
-  const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState({ type: '', text: '' });
+   const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get('/api/v1/users/current-user', {
-          withCredentials: true 
-        });
-        
-        const userData = response.data.data;
-        setFormData({
-          firstName: userData.firstName || '',
-          lastName: userData.lastName || '',
-          mobileNumber: userData.mobileNumber || '',
-          grade: userData.grade || '',
-          stream: userData.stream || '',
-          dream: userData.dream || ''
-        });
-        setLoading(false);
-      } catch (error) {
-        setMessage({ type: 'error', text: 'Failed to load profile data.' });
-        setLoading(false);
-      }
-    };
+    const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: '',
+    mobileNumber: '',
+    grade: '',
+    stream: '',
+    dream: '',
+  });
 
-    fetchUserData();
-  }, []);
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            try {
+                // 'withCredentials' is required if you are using cookies for JWT
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
+                    headers: {
+                        // Include this if you are using the Authorization Header instead of Cookies
+                        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                    }
+                });
 
-  const handleChange = (e) => {
+                const fetchedUser = response.data.message;
+                setUser(fetchedUser); // Assuming your API wraps response in a 'data' object
+                
+                // Prefill the form data so unchanged fields don't get saved as blank strings
+                setUserData({
+                    firstName: fetchedUser.firstName || '',
+                    lastName: fetchedUser.lastName || '',
+                    mobileNumber: fetchedUser.mobileNumber || '',
+                    grade: fetchedUser.grade || '',
+                    stream: fetchedUser.stream || '',
+                    dream: fetchedUser.dream || '',
+                });
+
+            } catch (err) {
+               setError(err.response?.data?.message || "Failed to load profile");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
+    setUserData(prevUser => ({
+      ...prevUser,
+      [name]: value
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage({ type: '', text: '' }); 
+  const handleEditDetail = async (e) => {
+    e.preventDefault(); // Prevents the page from reloading
 
     try {
-      await axios.patch('/api/v1/users/update-account', formData, {
-        withCredentials: true
-      });
-      setMessage({ type: 'success', text: 'Profile details updated successfully!' });
+      // 1. Send a POST request to your backend URL
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/edit-user`,{
+           firstName: userData.firstName,
+           lastName: userData.lastName,
+           grade: userData.grade,
+           stream: userData.stream,
+           dream: userData.dream,
+           mobileNumber: userData.mobileNumber
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+          },
+          withCredentials: true
+        }               
+      );
+
+      // 2. Handle the successful response!
+      console.log("Success!", response.data);
+      await showSuccessAlert("Profile details updated successfully!");
+     
+      window.location.href = '/profile'; // Redirect to home page after successful signup
     } catch (error) {
-      setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to update details.' });
+      // 3. Catch any 400 or 409 errors sent by your backend
+      const errorMsg = error.response?.data?.message || error.message;
+      console.error('Failed to update details :', errorMsg);
+      showErrorAlert(`Failed to update details: ${errorMsg}`);
     }
   };
+
 
   if (loading) {
     return <div className="edit-page-container">Loading your details...</div>;
   }
 
   return (
+    <AnimatedPage>
     <div className="edit-page-container">
       <div className="edit-card">
         
@@ -78,43 +118,73 @@ const EditDetails = () => {
           <p>Update your profile information and career goals.</p>
         </div>
 
-        {message.text && (
-          <div className={`status-message ${message.type === 'success' ? 'status-success' : 'status-error'}`}>
-            {message.text}
-          </div>
-        )}
-
-        <form className="updateForm" onSubmit={handleSubmit}>
+        <form className="updateForm" onSubmit={handleEditDetail}>
           
           <div className="form-grid">
             <div className="form-group">
               <label htmlFor="firstName">First Name</label>
-              <input type="text" name="firstName" id="firstName" value={formData.firstName} onChange={handleChange} placeholder='Enter your updated Firstname....'  />
+              <input 
+              type="text" 
+              name="firstName" 
+              id="firstName" 
+              value={userData.firstName} 
+              onChange={handleInputChange} 
+              placeholder= {`Your Current First Name: ${user.firstName}`} required />
             </div>
             
             <div className="form-group">
               <label htmlFor="lastName">Last Name</label>
-              <input type="text" name="lastName" id="lastName" value={formData.lastName} onChange={handleChange} placeholder='Enter your updated Lastname....'  />
+              <input 
+              type="text" 
+              name="lastName" 
+              id="lastName" 
+              value={userData.lastName} 
+              onChange={handleInputChange} 
+              placeholder={`Your Current Last Name: ${user.lastName}`} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="mobileNumber">Mobile Number</label>
-              <input type="tel" name="mobileNumber" id="mobileNumber" value={formData.mobileNumber} onChange={handleChange} placeholder='Enter your updated Mobile Number....'  />
+              <input 
+              type="tel" 
+              name="mobileNumber" 
+              id="mobileNumber" 
+              value={userData.mobileNumber} 
+              onChange={handleInputChange} 
+              placeholder={`Your Current Mobile Number: ${user.mobileNumber}`} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="grade">Current Grade / Year</label>
-              <input type="text" name="grade" id="grade" value={formData.grade} onChange={handleChange} placeholder='Enter your updated Grade....'  />
+              <input 
+              type="text" 
+              name="grade" 
+              id="grade" 
+              value={userData.grade} 
+              onChange={handleInputChange} 
+              placeholder={`Your Current Grade / Year: ${user.grade}`} required />
             </div>
 
             <div className="form-group">
               <label htmlFor="stream">Academic Stream</label>
-              <input type="text" name="stream" id="stream" value={formData.stream} onChange={handleChange} placeholder='Enter your updated Firstname....'  />
+              <input 
+              type="text" 
+              name="stream" 
+              id="stream" 
+              value={userData.stream} 
+              onChange={handleInputChange} 
+              placeholder={`Your Current Stream: ${user.stream}`} required/>
             </div>
 
             <div className="form-group full-width">
               <label htmlFor="dream">Career Dream</label>
-              <input type="text" name="dream" id="dream" value={formData.dream} onChange={handleChange} placeholder='Enter your updated updated Dream Job....' />
+              <input 
+              type="text" 
+              name="dream" 
+              id="dream" 
+              value={userData.dream} 
+              onChange={handleInputChange} 
+              placeholder= {`Your Current Dream: ${user.dream}`} required/>
             </div>
           </div>
 
@@ -123,6 +193,7 @@ const EditDetails = () => {
         </form>
       </div>
     </div>
+    </AnimatedPage>
   );
 };
 

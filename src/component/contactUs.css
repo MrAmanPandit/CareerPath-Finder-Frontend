@@ -124,3 +124,40 @@ body.dark-mode {
 .submitButton:active {
   transform: scale(0.98);
 }
+
+/* ── Mobile (≤ 600px) ── */
+@media (max-width: 600px) {
+  .contactWrapper {
+    padding: 20px 14px;
+    align-items: flex-start;
+    padding-top: 30px;
+  }
+  .contactCard {
+    padding: 28px 20px;
+    border-radius: 12px;
+  }
+  .contactTitle {
+    font-size: 24px;
+  }
+  .contactText {
+    font-size: 14px;
+  }
+  .inputField {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .submitButton {
+    padding: 12px;
+    font-size: 15px;
+  }
+}
+
+/* ── Very small phones (≤ 380px) ── */
+@media (max-width: 380px) {
+  .contactCard {
+    padding: 20px 14px;
+  }
+  .contactTitle {
+    font-size: 20px;
+  }
+}

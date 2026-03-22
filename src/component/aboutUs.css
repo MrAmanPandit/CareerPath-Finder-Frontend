@@ -174,16 +174,43 @@ body {
   margin-top: 0px;
 }
 
-@media (max-width:800px){
-    .aboutTitle{
-        font-size: 2rem;
-    }
-    
-    .developers{
-        padding-top: 3rem;
-    }
-    .developers h1{
-        font-size: 1.8rem;
-        padding-bottom: 1rem;
-    }
+/* ── Tablet (≤ 800px) ── */
+@media (max-width: 800px) {
+  .aboutTitle {
+    font-size: 2rem;
+  }
+  .developers {
+    padding-top: 3rem;
+  }
+  .developers h1 {
+    font-size: 1.8rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .aboutWrapper {
+    padding: 1.5rem 4%;
+  }
+  .aboutCard {
+    padding: 20px 16px;
+    border-radius: 10px;
+  }
+  .aboutTitle {
+    font-size: 1.6rem;
+  }
+  .aboutText {
+    font-size: 15px;
+  }
+  .featureItem {
+    min-width: 100%;
+  }
+  .memberscard {
+    width: 90%;
+    max-width: 300px;
+  }
+  .memberName {
+    font-size: 17px;
+  }
 }

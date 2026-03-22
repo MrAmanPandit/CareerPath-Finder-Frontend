@@ -61,7 +61,7 @@ body.dark-mode {
   justify-content: center;
   align-items: center;
   margin-bottom: 16px;
-  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.15);
+  box-shadow: 8px 5px 10px rgba(79, 70, 229, 0.15);
 }
 
 .profileName {
@@ -121,16 +121,20 @@ body.dark-mode {
   text-align: right;
 }
 
+.emailHighlight{
+  color: rgb(238, 143, 192);
+} 
+
 .dreamHighlight{
-  color: rgb(91, 80, 253);
+  color: rgb(101, 90, 244);
 }
 
 /* Special styling for the Stream and Dream fields */
 .streamHighlight {
-  color: #4b3613;
+  color: #aea088;
 }
 
-.dreamHighlight {
+.mobileHighlight {
   color: #059669; /* A nice emerald green for the goal */
 }
 
@@ -178,19 +182,56 @@ body.dark-mode {
   border-color: #ef4444;
 }
 
-@media (max-width: 650px) {
-
-  .detailGroup{
-    min-width: 70vw;
+/* ── Tablet (≤ 840px) ── */
+@media (min-width: 650px) and (max-width: 840px) {
+  .detailGroup {
+    min-width: 60%;
   }
-
-  .detailValue{
-    font-size: 10px;
+  .profileCard {
+    max-width: 95vw;
   }
 }
 
-@media (min-width:650px) and (max-width:840px){
-  .detailGroup{
-    min-width: 60vw;
+/* ── Mobile (≤ 650px) ── */
+@media (max-width: 650px) {
+  .profileWrapper {
+    padding: 15px 12px;
+    align-items: flex-start;
+    padding-top: 30px;
+  }
+  .profileCard {
+    max-width: 100%;
+    padding: 20px 14px;
+  }
+  .detailGroup {
+    min-width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .detailValue {
+    font-size: 13px;
+    text-align: left;
+  }
+  .profileActions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .editBtn,
+  .logoutBtn {
+    flex: unset;
+    width: 100%;
+  }
+}
+
+/* ── Very Small phones (≤ 380px) ── */
+@media (max-width: 380px) {
+  .profileAvatar {
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+  }
+  .profileName {
+    font-size: 20px;
   }
 }

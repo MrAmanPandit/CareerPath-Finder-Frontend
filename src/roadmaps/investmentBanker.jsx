@@ -1,5 +1,6 @@
 import React from 'react';
 import './roadmap.css'; // Reusing the exact same CSS file!
+import AnimatedPage from '../component/animation';
 
 const InvestmentBankerRoadmap = () => {
   const roadmapSteps = [
@@ -41,6 +42,7 @@ const InvestmentBankerRoadmap = () => {
   ];
 
   return (
+    <AnimatedPage>
     <div className="roadmapWrapper">
       
       <div className="roadmapHeader">
@@ -76,6 +78,7 @@ const InvestmentBankerRoadmap = () => {
       </div>
       
     </div>
+    </AnimatedPage>
   );
 };
 
