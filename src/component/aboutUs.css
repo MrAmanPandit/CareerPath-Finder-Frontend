@@ -1,31 +1,4 @@
-/* Centers the content and matches the light slate background */
-/* 1. Define your standard "Light Mode" colors */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
-  
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 
-/* 2. Define exactly what the "Dark Mode" colors should be */
-body.dark-mode {
-  --bg-color: #121212; /* Dark grey, almost black */
-  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
-}
-
-/* 3. Apply these variables to your entire website's body */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: Arial, sans-serif; /* Example font */
-}
 .aboutWrapper {
     display: flex;
     justify-content: center;
@@ -34,7 +7,26 @@ body {
     background-color: var(--bg-color);
     font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
     padding: 2rem 5%;
+    position: relative;
+    overflow: hidden;
+}
 
+/* Roadmap Search radial background animation */
+.aboutWrapper::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 0%, transparent 60%);
+  animation: rotate 40s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.dark-mode .aboutWrapper::before {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
 }
 
 /* The main white card holding the content */
@@ -50,6 +42,7 @@ body {
     width: 100%;
     text-align: center;
     box-sizing: border-box;
+    z-index: 1;
 }
 
 /* Page Heading */

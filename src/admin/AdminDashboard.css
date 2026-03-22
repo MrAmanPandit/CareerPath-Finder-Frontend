@@ -1,22 +1,4 @@
-:root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
-  
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 
-/* 2. Define exactly what the "Dark Mode" colors should be */
-body.dark-mode {
-  --bg-color: #121212; /* Dark grey, almost black */
-  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
-}
 
 .admin-dashboard-wrapper {
   display: flex;
@@ -53,7 +35,7 @@ body.dark-mode {
   font-size: 22px;
   font-weight: 800;
   letter-spacing: 0.5px;
-  color: #38bdf8; /* Light blue accent */
+  color: var(--primary-color); /* Light blue accent */
 }
 
 .sidebar-header p {
@@ -81,14 +63,14 @@ body.dark-mode {
 .nav-link:hover {
   background-color: #1e293b;
   color: white;
-  border-left-color: #38bdf8;
+  border-left-color: var(--primary-hover);
   transition: 0.3s;
 }
 
 .nav-link.active {
   background-color: #1e293b;
   color: white;
-  border-left-color: #2563eb;
+  border-left-color: var(--primary-color);
   font-weight: 600;
 }
 
@@ -183,7 +165,7 @@ body.dark-mode {
 /* bar1 → top diagonal of X */
 .hamburger-menu.open .hbar1 {
   transform: translateY(9px) rotate(45deg);
-  background: #38bdf8;
+  background: var(--primary-color);
 }
 
 /* bar2 → vanishes */
@@ -195,7 +177,7 @@ body.dark-mode {
 /* bar3 → bottom diagonal of X */
 .hamburger-menu.open .hbar3 {
   transform: translateY(-9px) rotate(-45deg);
-  background: #38bdf8;
+  background: var(--primary-color);
 }
 
 .close-sidebar-btn {

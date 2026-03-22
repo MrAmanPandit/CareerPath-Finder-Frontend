@@ -1,25 +1,4 @@
-:root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #e5e7eb;
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --hero-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
 
-body.dark-mode {
-  --bg-color: #0f172a;
-  --text-color: #f8fafc;
-  --navbar-bg: #1e293b;
-  --card-bg: #1e293b;
-  --border-color: #334155;
-  --primary-color: #3b82f6;
-  --primary-hover: #60a5fa;
-  --hero-gradient: linear-gradient(135deg, #020617 0%, #0f172a 100%);
-}
 
 .roadmap-page {
   min-height: 100vh;
