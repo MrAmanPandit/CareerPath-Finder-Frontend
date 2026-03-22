@@ -4,21 +4,22 @@
   --text-color: #333333;
   --navbar-bg: #f8f9fa;
   --card-bg: #ffffff;
-  --border-color: #dddddd;
-
-  /* Smooth transition for when we switch */
+  --border-color: #e5e7eb;
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --hero-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 2. Define exactly what the "Dark Mode" colors should be */
 body.dark-mode {
-  --bg-color: #121212;
-  /* Dark grey, almost black */
-  --text-color: #f1f1f1;
-  /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --navbar-bg: #1e293b;
+  --card-bg: #1e293b;
+  --border-color: #334155;
+  --primary-color: #3b82f6;
+  --primary-hover: #60a5fa;
+  --hero-gradient: linear-gradient(135deg, #020617 0%, #0f172a 100%);
 }
 
 .careersWrapper {
@@ -28,27 +29,29 @@ body.dark-mode {
   min-height: 80vh;
   background-color: var(--bg-color);
   font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-  padding: 60px 20px;
+  padding: 80px 20px;
+  overflow-x: hidden;
 }
 
 /* Header Text */
 .careersHeader {
   text-align: center;
-  margin-bottom: 40px;
-  max-width: 700px;
+  margin-bottom: 50px;
+  max-width: 750px;
 }
 
 .careersTitle {
-  font-size: 36px;
-  font-weight: 700;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800;
   color: var(--text-color);
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
 }
 
 .careersSubtitle {
-  font-size: 16px;
-  color: var(--text-color);
+  font-size: clamp(16px, 2vw, 18px);
+  color: #64748b;
   line-height: 1.6;
   margin: 0;
 }
@@ -57,38 +60,37 @@ body.dark-mode {
 .searchContainer {
   display: flex;
   width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   justify-content: center;
 }
 
 .searchBtn {
-  background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+  background: var(--primary-color);
   margin: 10px;
-  padding: 15px 45px;
+  padding: 16px 40px;
   font-size: 16px;
   font-weight: 600;
   text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
   color: white;
-  border-radius: 20px;
+  border-radius: 50px;
   display: block;
   outline: none;
   border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
 }
 
 .searchBtn:hover {
-  background-position: right center;
-  color: #fff;
-  text-decoration: none;
-  box-shadow: 0 0 20px var(--text-color);
+  background: var(--hero-gradient);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
 }
 
 /* Responsive Grid for Career Cards */
 .careersGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 30px;
   width: 100%;
   max-width: 1200px;
@@ -99,18 +101,42 @@ body.dark-mode {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   color: var(--text-color);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
-  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.careerCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--hero-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
 }
 
 .careerCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 20px -5px rgba(8, 8, 8, 0.9);
-  border-color: #e2e8f0;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+.careerCard:hover::before {
+  transform: scaleX(1);
+}
+
+body.dark-mode .careerCard:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  background: rgba(30, 41, 59, 0.7);
 }
 
 /* Inside the Card */
@@ -118,110 +144,126 @@ body.dark-mode {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .careerIcon {
-  font-size: 36px;
-  background-color: var(--card-bg);
-  padding: 12px;
-  border-radius: 12px;
+  font-size: 38px;
+  background: rgba(37, 99, 235, 0.05);
+  color: var(--primary-color);
+  padding: 14px;
+  border-radius: 16px;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dark-mode .careerIcon {
+  background: rgba(96, 165, 250, 0.1);
 }
 
 .careerGrowth {
-  background-color: var(--card-bg);
-  /* Soft mint green */
+  background-color: rgba(16, 185, 129, 0.1);
   color: #059669;
-  /* Emerald green text */
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
-  border: 1px dotted var(--border-color)
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  display: inline-flex;
+  align-items: center;
+}
+
+body.dark-mode .careerGrowth {
+  color: #34d399;
 }
 
 .careerName {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--text-color);
   margin: 0 0 8px 0;
+  line-height: 1.3;
 }
 
 .careerStream {
-  font-size: 13px;
-  color: var(--text-color);
+  font-size: 14px;
+  color: var(--primary-color);
   font-weight: 600;
   margin-bottom: 16px;
   display: inline-block;
+  background: rgba(37, 99, 235, 0.05);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+body.dark-mode .careerStream {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
 }
 
 .careerDesc {
-  font-size: 14px;
+  font-size: 15px;
   color: #64748b;
   line-height: 1.6;
-  margin: 0 0 24px 0;
+  margin: 0 0 28px 0;
   flex-grow: 1;
-  /* Pushes the button to the bottom if text is short */
 }
 
 /* Card Button */
 .readMoreBtn {
   background-color: transparent;
-  color: #4f46e5;
-  border: 1px solid var(--border-color);
-  padding: 10px;
-  font-size: 14px;
+  color: var(--primary-color);
+  border: 2px solid var(--border-color);
+  padding: 12px;
+  font-size: 15px;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   width: 100%;
 }
 
+body.dark-mode .readMoreBtn {
+  color: #60a5fa;
+}
+
 .readMoreBtn:hover {
-  background-color: #eef2ff;
-  border-color: #c7d2fe;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
 }
 
-/* ── Tablet (≤ 800px) ── */
-@media (max-width: 800px) {
-  .careersWrapper {
-    padding: 2rem;
-  }
-
-  .careersTitle {
-    font-size: 1.8rem;
-  }
+body.dark-mode .readMoreBtn:hover {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
 }
 
-/* ── Mobile (≤ 480px) ── */
-@media (max-width: 480px) {
+/* ── Mobile (≤ 640px) ── */
+@media (max-width: 640px) {
   .careersWrapper {
-    padding: 1.5rem 1rem;
+    padding: 50px 16px;
   }
 
-  .careersTitle {
-    font-size: 1.5rem;
-  }
-
-  .careersSubtitle {
-    font-size: 14px;
+  .careersHeader {
+    margin-bottom: 40px;
   }
 
   .searchBtn {
     width: 100%;
-    padding: 12px 20px;
-    margin: 5px 0;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: 16px;
+    padding: 16px 20px;
+  }
+
+  .careersGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .careerCard {
-    padding: 20px 16px;
-  }
-
-  .careerName {
-    font-size: 18px;
+    padding: 24px;
+    border-radius: 16px;
   }
 }
