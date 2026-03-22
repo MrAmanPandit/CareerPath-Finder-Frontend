@@ -1,4 +1,24 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+  --logo-color: #4f46e5;
+  
+  /* Smooth transition for when we switch */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+  --bg-color: #121212; /* Dark grey, almost black */
+  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+  --logo-color: #4f46e5;
+}
 .active {
             color: blue;
         }
@@ -31,7 +51,7 @@
 .logo {
     font-size: 26px;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--logo-color);
     /* Matches the blue/purple from your screenshot */
     cursor: pointer;
 }
@@ -55,7 +75,7 @@
 
 /* Color change on hover */
 .navLink:hover, .navLink.active {
-  color: var(--primary-color);
+  color: #4f46e5;
 }
 
 /* The animated underline */
@@ -66,7 +86,7 @@
   height: 3px; /* Thickness of the line */
   bottom: 0; /* Positions it at the very bottom of the link */
   left: 0; /* Starts the animation from the left side */
-  background-color: var(--primary-color); /* The line color */
+  background-color: #4f46e5; /* The line color */
   transition: width 0.3s ease-in-out; /* Controls the speed of the sliding animation */
 }
 
@@ -77,7 +97,7 @@
 }
 
 .navLink:hover {
-    color: var(--primary-hover);
+    color: rgb(69, 69, 220);
     /* Highlights blue on hover/active */
 }
 
@@ -85,7 +105,7 @@
     margin-left: 20px;
     padding: 8px 16px;
     min-height: 35px; ;
-    background-color: var(--primary-color);
+    background-color: #4f46e5;
     color: white;
     border: none;
     font-size: 10px;
@@ -96,9 +116,9 @@
 }
 
 .darkModeToggle:hover {
-    background-color: var(--primary-hover);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
-    transition: background-color 0.2s ease;
+    background-color: rgb(40, 40, 46);
+    box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
+     transition: background-color 0.2s ease;
 }
 
 .desktopLogin{
@@ -108,21 +128,20 @@
 }
 .loginBtn {
     padding: 10px 25px;
-    background-color: var(--primary-color);
+    background-color: #000000;
     color: #ffffff;
     border: none;
     font-size: 10px;
     font-weight: 600;
     border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.2s;
 
 }
 
 .loginBtn:hover {
-    background-color: var(--primary-hover);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
-    transform: translateY(-2px);
+    background-color: rgb(69, 69, 220);
+    box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
 }
 
 
@@ -163,7 +182,7 @@
 /* Animate bar1 → rotates to form the top of the X */
 .mobileToggle.open .bar1 {
     transform: translateY(9px) rotate(45deg);
-    background: var(--primary-color);
+    background: #4f46e5;
 }
 
 /* Animate bar2 → fades out (middle bar) */
@@ -175,7 +194,7 @@
 /* Animate bar3 → rotates to form the bottom of the X */
 .mobileToggle.open .bar3 {
     transform: translateY(-9px) rotate(-45deg);
-    background: var(--primary-color);
+    background: #4f46e5;
 }
 
 /* Hide mobile menu on desktop by default */
@@ -202,7 +221,7 @@
    
     .darkModeBtn{
         margin: 10px auto;
-        background-color: var(--primary-color);
+        background-color: #4f46e5;
         min-height: 40px; 
         min-width: 170px;
         /* Using your brand purple for the mobile button */
@@ -259,7 +278,7 @@
     /* Mobile Login Button */
     .mobileLoginBtn {
         margin: 0 20px;
-        background-color: var(--primary-color);
+        background-color: #4f46e5;
         /* Using your brand purple for the mobile button */
         color: white;
         border: none;

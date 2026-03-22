@@ -1,4 +1,24 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --navbar-bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #dddddd;
 
+    /* Smooth transition for when we switch */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 2. Define exactly what the "Dark Mode" colors should be */
+body.dark-mode {
+    --bg-color: #121212;
+    /* Dark grey, almost black */
+    --text-color: #f1f1f1;
+    /* Off-white, easier on eyes than pure white */
+    --navbar-bg: #1a1a1a;
+    --card-bg: #1e1e1e;
+    --border-color: #333333;
+}
 
 * {
     margin: 0;
@@ -33,11 +53,10 @@ a {
 
 /* ----- Hero Section ----- */
 .hero {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
     color: #ffffff;
     text-align: center;
     padding: 6rem 5%;
-    animation: fadeIn 0.8s ease-out forwards;
 }
 
 .hero h1 {
@@ -59,20 +78,21 @@ a {
 
 .btn-primary {
     padding: 9px 17px;
-    background-color: var(--primary-color);
-    color: white;
+    background-color:#f1f1f1;
+    color: black;
     border: none;
     border-radius: 6px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.4s;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-hover);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
-    transform: translateY(-2px);
+    background-color: rgb(54, 54, 54);
+    box-shadow: 1px 1px 10px rgba(69, 69, 220, 0.6);
+    color: #f8fafc;
+    transition: 0.3s;
 }
 
 /* ----- About Section ----- */
@@ -117,19 +137,12 @@ a {
 .feature-card {
     background: var(--card-bg);
     padding: 2.5rem 1.5rem;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
-    box-shadow: var(--box-shadow);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     flex: 1;
     min-width: 250px;
     max-width: 280px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--box-shadow-hover);
-    border-color: rgba(79, 70, 229, 0.3);
 }
 
 .icon {

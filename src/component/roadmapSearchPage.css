@@ -1,4 +1,25 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #e5e7eb;
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --hero-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+body.dark-mode {
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --navbar-bg: #1e293b;
+  --card-bg: #1e293b;
+  --border-color: #334155;
+  --primary-color: #3b82f6;
+  --primary-hover: #60a5fa;
+  --hero-gradient: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+}
 
 .roadmap-page {
   min-height: 100vh;
@@ -10,13 +31,12 @@
 
 /* --- Search Hero Section --- */
 .roadmap-hero {
-  background: var(--primary-gradient);
+  background: var(--hero-gradient);
   padding: 100px 20px;
   text-align: center;
   color: white;
   position: relative;
   overflow: hidden;
-  animation: fadeIn 0.6s ease-out forwards;
 }
 
 .roadmap-hero::before {
@@ -171,7 +191,6 @@ body.dark-mode .search-input {
   color: var(--primary-color);
   background: -webkit-linear-gradient(135deg, #3b82f6, #8b5cf6);
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -251,7 +270,7 @@ body.dark-mode .search-input {
     box-shadow: 0 0 0 4px var(--bg-color), 0 0 0 6px var(--primary-color);
     color: white;
     font-size: 14px;
-    background: var(--primary-gradient);
+    background: var(--hero-gradient);
   }
 }
 
@@ -412,9 +431,9 @@ body.dark-mode .course-item:hover {
 .job-pill-btn:hover {
   border-color: var(--primary-color);
   color: white;
-  background: var(--primary-gradient);
+  background: var(--hero-gradient);
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
 }
 
 /* --- How It Works Steps --- */

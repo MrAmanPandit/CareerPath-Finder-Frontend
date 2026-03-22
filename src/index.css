@@ -1,22 +1,10 @@
 /* 1. Define your standard "Light Mode" colors */
 :root {
-  /* Brand Colors */
-  --primary-color: #4f46e5;
-  --primary-hover: #4338ca;
-  --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-  
-  /* Semantic Colors */
   --bg-color: #ffffff;
-  --bg-secondary: #f8fafc;
-  --text-color: #1e293b;
-  --text-muted: #64748b;
-  --navbar-bg: #ffffff;
+  --text-color: #333333;
+  --navbar-bg: #f8f9fa;
   --card-bg: #ffffff;
-  --border-color: #e2e8f0;
-  
-  /* Shadows */
-  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  --box-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --border-color: #dddddd;
   
   /* Smooth transition for when we switch */
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -24,54 +12,16 @@
 
 /* 2. Define exactly what the "Dark Mode" colors should be */
 body.dark-mode {
-  --bg-color: #0f172a; /* Dark slate */
-  --bg-secondary: #1e293b;
-  --text-color: #f8fafc;
-  --text-muted: #94a3b8;
-  --navbar-bg: #0f172a;
-  --card-bg: #1e293b;
-  --border-color: #334155;
-  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-  --box-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  --bg-color: #121212; /* Dark grey, almost black */
+  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
+  --navbar-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
 }
 
 /* 3. Apply these variables to your entire website's body */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif; /* Example font */
 }
-
-/* --- Global Classic Animations --- */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUpFade {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Utility Classes for easy application */
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-slide-up {
-  opacity: 0; /* starts hidden */
-  animation: slideUpFade 0.6s ease-out forwards;
-}
-
-/* Staggering delays for lists or grids */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
