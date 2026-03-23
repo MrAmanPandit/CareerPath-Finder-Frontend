@@ -120,7 +120,9 @@ const AdminDashboard = () => {
 
         {/* 3. The Outlet - This is where your nested pages will render! */}
         <div className="admin-content-area">
-          <Outlet /> 
+          <React.Suspense fallback={<div style={{padding: '30px'}}><SkeletonLoader type="table" /></div>}>
+            <Outlet /> 
+          </React.Suspense>
         </div>
 
       </main>

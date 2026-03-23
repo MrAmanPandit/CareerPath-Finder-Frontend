@@ -182,8 +182,6 @@ const routers = createBrowserRouter([
 ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Suspense fallback={<SkeletonLoader type="text" />}>
-      <RouterProvider router={routers} />
-    </Suspense>
+    <RouterProvider router={routers} />
   </StrictMode>
 )

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './App.css';
 import { Outlet, useLocation } from 'react-router-dom';
 import Headers from './component/header';
 import Footer from './component/footer';
 import PageTransition from './component/PageTransition';
+import SkeletonLoader from './component/SkeletonLoader';
 
 function App() {
   const location = useLocation();
@@ -11,7 +12,9 @@ function App() {
     <>
       <Headers />
       <PageTransition key={location.pathname}>
-        <Outlet />
+        <Suspense fallback={<div style={{padding: '50px'}}><SkeletonLoader type="text" /></div>}>
+          <Outlet />
+        </Suspense>
       </PageTransition>
       <Footer />
     </>
