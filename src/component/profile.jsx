@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AnimatedPage from './animation';
+import SkeletonLoader from './SkeletonLoader';
 import { showSuccessAlert } from '../utils/customAlert';
 
 const Profile = () => {
@@ -38,7 +39,7 @@ const Profile = () => {
 
   // 4. Show a loading screen while waiting for the backend
   if (loading) {
-    return <div>Loading your profile...</div>;
+    return <SkeletonLoader type="profile" />;
   }
 
 

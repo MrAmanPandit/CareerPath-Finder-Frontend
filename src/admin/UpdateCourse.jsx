@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import SkeletonLoader from '../component/SkeletonLoader';
 import "./AddCourse.css";
 
 const UpdateCourse = () => {
@@ -105,7 +106,7 @@ const UpdateCourse = () => {
     };
 
     if (isLoading) {
-        return <div style={{ textAlign: "center", padding: "50px" }}>Loading course details...</div>;
+        return <div style={{ textAlign: "center", padding: "50px" }}><SkeletonLoader type="form" /></div>;
     }
 
     return (

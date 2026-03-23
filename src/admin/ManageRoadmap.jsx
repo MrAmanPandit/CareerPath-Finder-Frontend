@@ -3,6 +3,7 @@ import axios from "axios";
 import "./ManageRoadmap.css";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import SkeletonLoader from '../component/SkeletonLoader';
 import { showConfirmDialog, showSuccessAlert, showErrorAlert } from "../utils/customAlert";
 
 const ManageRoadmaps = () => {
@@ -76,7 +77,7 @@ const ManageRoadmaps = () => {
 
                 <div className="table-wrapper">
                     {isLoading ? (
-                        <div className="loading-state">Loading roadmap database...</div>
+                        <div className="loading-state"><SkeletonLoader type="table" /></div>
                     ) : (
                         <table className="roadmaps-table">
                             <thead>

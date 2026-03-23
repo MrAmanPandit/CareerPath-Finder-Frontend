@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AdminDashboard.css';
+import SkeletonLoader from '../component/SkeletonLoader';
 import { color } from 'framer-motion';
 import { showSuccessAlert } from '../utils/customAlert';
 
@@ -56,7 +57,7 @@ const AdminDashboard = () => {
     }
   };
 
-  if (loading) return <div style={{textAlign: 'center', marginTop: '50px'}}>Loading securely...</div>;
+  if (loading) return <div style={{textAlign: 'center', marginTop: '50px'}}><SkeletonLoader type="text" /></div>;
   if (!isAdmin) return null;
 
   return (

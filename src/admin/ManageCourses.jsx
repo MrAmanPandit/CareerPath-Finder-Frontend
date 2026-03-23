@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ManageCourses.css";
-import { Link } from "react-router-dom";
+import SkeletonLoader from "../component/SkeletonLoader";
 import { showConfirmDialog, showSuccessAlert, showErrorAlert } from "../utils/customAlert";
 
 const ManageCourses = () => {
@@ -71,7 +72,7 @@ const ManageCourses = () => {
 
                 <div className="table-wrapper">
                     {isLoading ? (
-                        <div className="loading-state">Loading course database...</div>
+                        <div className="loading-state"><SkeletonLoader type="table" /></div>
                     ) : (
                         <table className="courses-table">
                             <thead>

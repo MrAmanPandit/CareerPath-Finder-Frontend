@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './DashboardHome.css';
+import SkeletonLoader from '../component/SkeletonLoader';
 
 const DashboardHome = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const DashboardHome = () => {
   }, []);
 
   if (loading) {
-    return <div className="dashboard-loading">Loading analytics engine...</div>;
+    return <div className="dashboard-loading"><SkeletonLoader type="dashboard" /></div>;
   }
 
   return (

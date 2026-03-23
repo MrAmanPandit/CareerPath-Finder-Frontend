@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './roadmapCollection.css';
+import SkeletonLoader from './SkeletonLoader';
 
 const RoadmapCollection = () => {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ const RoadmapCollection = () => {
     }
   };
 
-  if (loading) return <div className="admin-loading">Verifying credentials...</div>;
+  if (loading) return <div className="admin-loading"><SkeletonLoader type="form" /></div>;
   if (!isAdmin) return null;
 
   return (

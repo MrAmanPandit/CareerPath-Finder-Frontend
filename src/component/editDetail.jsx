@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AnimatedPage from './animation';
 import './editDetail.css'; 
+import SkeletonLoader from './SkeletonLoader'; 
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
 
 const EditDetails = () => {
@@ -105,7 +106,7 @@ const EditDetails = () => {
 
 
   if (loading) {
-    return <div className="edit-page-container">Loading your details...</div>;
+    return <div className="edit-page-container"><SkeletonLoader type="form" /></div>;
   }
 
   return (

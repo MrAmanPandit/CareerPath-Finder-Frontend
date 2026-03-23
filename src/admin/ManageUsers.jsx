@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./ManageUsers.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SkeletonLoader from "../component/SkeletonLoader";
 import { showConfirmDialog, showSuccessAlert, showErrorAlert } from "../utils/customAlert";
 
 const ManageUsers = () => {
@@ -103,7 +104,7 @@ const ManageUsers = () => {
 
                 <div className="table-wrapper">
                     {isLoading ? (
-                        <div className="loading-state">Loading user database...</div>
+                        <div className="loading-state"><SkeletonLoader type="table" /></div>
                     ) : (
                         <table className="users-table">
                             <thead>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './roadmapSearchPage.css';
 import AnimatedPage from './animation';
 import axios from 'axios';
+import SkeletonLoader from './SkeletonLoader';
 
 const RoadmapSearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -71,8 +72,8 @@ const RoadmapSearchPage = () => {
       {/* 2. Loading State */}
       
       {isSearching && (
-        <div className="loading-state">
-          <p>Analyzing career trajectories for "{searchQuery}"...</p>
+        <div className="loading-state" style={{marginTop: '30px'}}>
+          <SkeletonLoader type="search" />
         </div>
       )}
       
