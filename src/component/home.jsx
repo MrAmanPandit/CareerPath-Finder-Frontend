@@ -120,6 +120,7 @@ const content = () => {
                   className="feature-card" 
                   variants={itemVariants} 
                   whileHover="hover"
+                  whileTap="hover"
                 >
                     <motion.img 
                       className="icon" 
@@ -135,6 +136,7 @@ const content = () => {
                   className="feature-card" 
                   variants={itemVariants}
                   whileHover="hover"
+                  whileTap="hover"
                 >
                     <motion.img 
                       className="icon" 
@@ -150,6 +152,7 @@ const content = () => {
                   className="feature-card" 
                   variants={itemVariants}
                   whileHover="hover"
+                  whileTap="hover"
                 >
                     <motion.img 
                       className="icon" 
@@ -165,6 +168,7 @@ const content = () => {
                   className="feature-card" 
                   variants={itemVariants}
                   whileHover="hover"
+                  whileTap="hover"
                 >
                     <motion.img 
                       className="icon" 
