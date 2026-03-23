@@ -74,35 +74,35 @@ const About = () => {
             viewport={{ once: true, amount: 0.1 }}
           >
             <motion.div className="memberscard" variants={itemVariants}>
-              <img src={amanImg} alt="Aman Pandey" />
+              <img src={amanImg} alt="Aman Pandey" width={70} height={70} loading="lazy" />
               <div className='text'>
                 <h3 className='memberName'>Aman Pandey</h3>
-                <h5 className="designation">Frontend Developer</h5>
+                <h5 className="designation">Backend Developer</h5>
               </div>
             </motion.div>
             <motion.div className="memberscard" variants={itemVariants}>
-              <img src={mohitImg} alt="Mohit Pal" />
+              <img src={mohitImg} alt="Mohit Pal" width={70} height={70} loading="lazy" />
               <div className='text'>
                 <h3 className='memberName'>Mohit Pal</h3>
                 <h5 className="designation">Backend Developer</h5>
               </div>
             </motion.div>
             <motion.div className="memberscard" variants={itemVariants}>
-              <img src={yuvImg} alt="Yuvraj Upadhyay" />
+              <img src={yuvImg} alt="Yuvraj Upadhyay" width={70} height={70} loading="lazy" />
               <div className='text'>
                 <h3 className='memberName'>Yuvraj Upadhyay</h3>
-                <h5 className="designation">Investor</h5>
+                <h5 className="designation">Frontend Developer</h5>
               </div>
             </motion.div>
             <motion.div className="memberscard" variants={itemVariants}>
-              <img src={harshikaImg} alt="Harshika Singh" />
+              <img src={harshikaImg} alt="Harshika Singh" width={70} height={70} loading="lazy" />
               <div className='text'>
                 <h3 className='memberName'>Harshika Singh</h3>
                 <h5 className="designation">Supportive Guy</h5>
               </div>
             </motion.div>
             <motion.div className="memberscard" variants={itemVariants}>
-              <img  alt="Antra" />
+              <img alt="Antra" width={70} height={70} loading="lazy" />
               <div className='text'>
                 <h3 className='memberName'>Antra</h3>
                 <h5 className="designation">Supportive Guy</h5>
