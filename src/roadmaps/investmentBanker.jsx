@@ -2,8 +2,9 @@ import React from 'react';
 import './roadmap.css';
 import AnimatedPage from '../component/animation';
 import useSEO from '../utils/useSEO';
+import SEOSchema from '../component/SEOSchema';
 
-const InvestmentBankerRoadmap = () => {
+const InvestmentBanker = () => {
   useSEO({
     title: 'Investment Banker Career Roadmap | How to Become an Investment Banker',
     description: 'Step-by-step roadmap to become an Investment Banker — from Commerce/PCM 10+2 to financial modeling, CFA, internships, and landing an Analyst role at a top bank.',
@@ -48,27 +49,41 @@ const InvestmentBankerRoadmap = () => {
     }
   ];
 
+  const courseSchema = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Investment Banker Career Roadmap",
+    "description": "Follow the complete step-by-step roadmap to become an Investment Banker.",
+    "provider": {
+      "@type": "Organization",
+      "name": "CareerPath Finder",
+      "sameAs": "https://www.careerpathsfinder.com"
+    }
+  };
+
   return (
     <AnimatedPage>
-    <div className="roadmapWrapper">
+    <SEOSchema schema={courseSchema} />
+    <article className="roadmapWrapper">
       
-      <div className="roadmapHeader">
+      <header className="roadmapHeader">
         <h1 className="roadmapTitle">Roadmap: Investment Banker</h1>
-        <p className="roadmapSubtitle">Your step-by-step guide to breaking into high finance, from your first economics class to landing an Analyst role at a top firm.</p>
-      </div>
+        <p className="roadmapSubtitle">Your comprehensive guide from high school commerce to closing multi-million dollar deals on Wall Street.</p>
+      </header>
 
-      <div className="timelineContainer">
+      <section className="timelineContainer">
         {roadmapSteps.map((step) => (
           <div className="timelineStep" key={step.id}>
             
             {/* The Timeline Line and Dot */}
             <div className="timelineIndicator">
               <div className="timelineDot">{step.id}</div>
+              {/* Only show the connecting line if it's not the last step */}
               {step.id !== roadmapSteps.length && <div className="timelineLine"></div>}
             </div>
 
             {/* The Content Card */}
-            <div className="timelineCard">
+            <aside className="timelineCard">
               <span className="stepPhase">{step.phase}</span>
               <h3 className="stepTitle">{step.title}</h3>
               <p className="stepDesc">{step.description}</p>
@@ -78,13 +93,13 @@ const InvestmentBankerRoadmap = () => {
                   <span className="skillTag" key={index}>{skill}</span>
                 ))}
               </div>
-            </div>
+            </aside>
 
           </div>
         ))}
-      </div>
+      </section>
       
-    </div>
+    </article>
     </AnimatedPage>
   );
 };

@@ -3,11 +3,27 @@ import './roadmapSearchPage.css';
 import AnimatedPage from './animation';
 import axios from 'axios';
 import SkeletonLoader from './SkeletonLoader';
+import useSEO from '../utils/useSEO';
+import SEOSchema from './SEOSchema';
 
 const RoadmapSearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [roadmap, setRoadmap] = useState(null);
+
+  useSEO({
+    title: 'AI Career Roadmap Generator | Search Any Career',
+    description: 'Use our AI-powered roadmap generator to discover the exact degrees, courses, and steps required to achieve your dream career in technology, medicine, design, and more.',
+    canonical: '/career/roadmap/search',
+    keywords: 'AI career roadmap, roadmap generator, career path search, create career plan'
+  });
+
+  const searchSchema = {
+    "@context": "https://schema.org",
+    "@type": "SearchResultsPage",
+    "name": "Career Roadmap Generator",
+    "description": "Generate step-by-step career and educational roadmaps tailored to specific professions."
+  };
 
   // Separated the search logic so it can be triggered by the form OR the quick-buttons
   const triggerSearch = async (query) => {
@@ -48,6 +64,7 @@ const RoadmapSearchPage = () => {
 
   return (
     <AnimatedPage>
+    <SEOSchema schema={searchSchema} />
     <div className="roadmap-page">
       
       {/* 1. The Search Hero */}

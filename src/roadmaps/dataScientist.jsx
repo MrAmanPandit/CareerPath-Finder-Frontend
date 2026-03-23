@@ -2,6 +2,7 @@ import React from 'react';
 import './roadmap.css';
 import AnimatedPage from '../component/animation';
 import useSEO from '../utils/useSEO';
+import SEOSchema from '../component/SEOSchema';
 
 const DataScientistRoadmap = () => {
   useSEO({
@@ -48,27 +49,41 @@ const DataScientistRoadmap = () => {
     }
   ];
 
+  const courseSchema = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Data Scientist Career Roadmap",
+    "description": "Follow the complete step-by-step roadmap to become a Data Scientist.",
+    "provider": {
+      "@type": "Organization",
+      "name": "CareerPath Finder",
+      "sameAs": "https://www.careerpathsfinder.com"
+    }
+  };
+
   return (
     <AnimatedPage>
-    <div className="roadmapWrapper">
+    <SEOSchema schema={courseSchema} />
+    <article className="roadmapWrapper">
       
-      <div className="roadmapHeader">
+      <header className="roadmapHeader">
         <h1 className="roadmapTitle">Roadmap: Data Scientist</h1>
-        <p className="roadmapSubtitle">Your step-by-step guide to mastering data, building predictive models, and uncovering hidden business insights.</p>
-      </div>
+        <p className="roadmapSubtitle">Your definitive guide to turning raw data into actionable insights and launching a career in Data Science.</p>
+      </header>
 
-      <div className="timelineContainer">
+      <section className="timelineContainer">
         {roadmapSteps.map((step) => (
           <div className="timelineStep" key={step.id}>
             
             {/* The Timeline Line and Dot */}
             <div className="timelineIndicator">
               <div className="timelineDot">{step.id}</div>
+              {/* Only show the connecting line if it's not the last step */}
               {step.id !== roadmapSteps.length && <div className="timelineLine"></div>}
             </div>
 
             {/* The Content Card */}
-            <div className="timelineCard">
+            <aside className="timelineCard">
               <span className="stepPhase">{step.phase}</span>
               <h3 className="stepTitle">{step.title}</h3>
               <p className="stepDesc">{step.description}</p>
@@ -78,13 +93,13 @@ const DataScientistRoadmap = () => {
                   <span className="skillTag" key={index}>{skill}</span>
                 ))}
               </div>
-            </div>
+            </aside>
 
           </div>
         ))}
-      </div>
+      </section>
       
-    </div>
+    </article>
     </AnimatedPage>
   );
 };

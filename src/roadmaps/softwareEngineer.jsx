@@ -2,6 +2,7 @@ import React from 'react';
 import './roadmap.css';
 import AnimatedPage from '../component/animation';
 import useSEO from '../utils/useSEO';
+import SEOSchema from '../component/SEOSchema';
 
 const SoftwareEngineer = () => {
   useSEO({
@@ -48,16 +49,29 @@ const SoftwareEngineer = () => {
     }
   ];
 
+  const courseSchema = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Software Engineer Career Roadmap",
+    "description": "Follow the complete step-by-step roadmap to become a Software Engineer — from 10+2 PCM to landing your first tech job.",
+    "provider": {
+      "@type": "Organization",
+      "name": "CareerPath Finder",
+      "sameAs": "https://www.careerpathsfinder.com"
+    }
+  };
+
   return (
     <AnimatedPage>
-    <div className="roadmapWrapper">
+    <SEOSchema schema={courseSchema} />
+    <article className="roadmapWrapper">
       
-      <div className="roadmapHeader">
+      <header className="roadmapHeader">
         <h1 className="roadmapTitle">Roadmap: Software Engineer</h1>
         <p className="roadmapSubtitle">Your step-by-step guide from writing your first line of code to landing a top-tier tech job.</p>
-      </div>
+      </header>
 
-      <div className="timelineContainer">
+      <section className="timelineContainer">
         {roadmapSteps.map((step) => (
           <div className="timelineStep" key={step.id}>
             
@@ -69,7 +83,7 @@ const SoftwareEngineer = () => {
             </div>
 
             {/* The Content Card */}
-            <div className="timelineCard">
+            <aside className="timelineCard">
               <span className="stepPhase">{step.phase}</span>
               <h3 className="stepTitle">{step.title}</h3>
               <p className="stepDesc">{step.description}</p>
@@ -79,13 +93,13 @@ const SoftwareEngineer = () => {
                   <span className="skillTag" key={index}>{skill}</span>
                 ))}
               </div>
-            </div>
+            </aside>
 
           </div>
         ))}
-      </div>
+      </section>
       
-    </div>
+    </article>
     </AnimatedPage>
   );
 };

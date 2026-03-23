@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom' 
 import useSEO from '../utils/useSEO';
 import { motion } from 'framer-motion';
+import SEOSchema from './SEOSchema';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -38,8 +39,33 @@ const content = () => {
     keywords: 'career path finder, career guidance, career roadmap, career for students, find career, best career options India',
     canonical: '/'
   });
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does CareerPath Finder help students?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CareerPath Finder helps students identify the best career options based on their 10+2 stream, offering step-by-step educational roadmaps from high school through professional employment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the career roadmaps free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, anyone can search and view detailed career trajectories for roles like Software Engineer, Data Scientist, UI/UX Designer, and more using our AI generator or curated collections."
+        }
+      }
+    ]
+  };
+
   return (
     <main>
+        <SEOSchema schema={faqSchema} />
         <section className="hero">
             <h1>Discover & Explore Your Career Path Based on Your Stream</h1>
             <p>Select your stream and explore personalized career options designed to match your skills, interests, and goals.</p>
