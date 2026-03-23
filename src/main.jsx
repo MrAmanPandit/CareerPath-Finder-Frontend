@@ -8,8 +8,8 @@ import App from './App.jsx'
 import SkeletonLoader from './component/SkeletonLoader.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-const Home = lazy(() => import('./component/home.jsx'))
 const Stream = lazy(() => import('./component/stream.jsx'))
+import Home from './component/home.jsx';
 const AboutUs = lazy(() => import('./component/aboutUs.jsx'))
 const Contact = lazy(() => import('./component/contactUs.jsx'))
 const Login = lazy(() => import('./component/login.jsx'))

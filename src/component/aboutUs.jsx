@@ -102,7 +102,7 @@ const About = () => {
               </div>
             </motion.div>
             <motion.div className="memberscard" variants={itemVariants}>
-              <img alt="Antra" width={70} height={70} loading="lazy" />
+              <div style={{width: 70, height: 70, margin: '0 auto', background: '#ccc', borderRadius: '50%'}}></div>
               <div className='text'>
                 <h3 className='memberName'>Antra</h3>
                 <h5 className="designation">Supportive Guy</h5>
