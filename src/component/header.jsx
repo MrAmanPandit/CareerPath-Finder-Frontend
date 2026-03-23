@@ -13,13 +13,12 @@ const MotionLink = motion.create(Link);
 const Header = () => {
   // State to handle mobile menu toggle
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("isLoggedIn") === "true");
   const headerRef = useRef(null);
 
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-
 
   // This React code remains the same in Header.jsx
   const toggleDarkMode = () => {
@@ -45,16 +44,13 @@ const Header = () => {
       }
     };
 
-    fetchUserProfile();
-  }, []);
-
-  // 2. Check LocalStorage when the header loads
-  useEffect(() => {
-    const loggedInStatus = localStorage.getItem("isLoggedIn");
-    if (loggedInStatus === "true") {
-      setIsLoggedIn(true);
+    if (isLoggedIn) {
+      fetchUserProfile();
+    } else {
+      setLoading(false);
     }
-  }, []);
+  }, [isLoggedIn]);
+
   // 1. Create a reference for the header component
 
   const toggleMenu = () => {
