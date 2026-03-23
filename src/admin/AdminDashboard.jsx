@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AdminDashboard.css';
@@ -120,9 +120,9 @@ const AdminDashboard = () => {
 
         {/* 3. The Outlet - This is where your nested pages will render! */}
         <div className="admin-content-area">
-          <React.Suspense fallback={<div style={{padding: '30px'}}><SkeletonLoader type="table" /></div>}>
+          <Suspense fallback={<div style={{padding: '30px'}}><SkeletonLoader type="table" /></div>}>
             <Outlet /> 
-          </React.Suspense>
+          </Suspense>
         </div>
 
       </main>
