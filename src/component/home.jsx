@@ -4,6 +4,11 @@ import useSEO from '../utils/useSEO';
 import { motion } from 'framer-motion';
 import SEOSchema from './SEOSchema';
 
+import assessmentIcon from '../assets/home-icons/classic_assessment_icon.png';
+import insightsIcon from '../assets/home-icons/classic_insights_icon.png';
+import educationIcon from '../assets/home-icons/classic_education_icon.png';
+import roadmapIcon from '../assets/home-icons/classic_roadmap_icon.png';
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -20,6 +25,19 @@ const itemVariants = {
     opacity: 1, 
     y: 0, 
     transition: { duration: 0.5, ease: "easeOut" } 
+  },
+  hover: { 
+    y: -10, 
+    boxShadow: "0px 15px 30px rgba(37, 99, 235, 0.15)",
+    transition: { duration: 0.3 }
+  }
+};
+
+const iconVariants = {
+  hover: { 
+    scale: 1.15, 
+    rotate: 5, 
+    transition: { type: "spring", stiffness: 300 } 
   }
 };
 
@@ -98,25 +116,65 @@ const content = () => {
                whileInView="visible"
                viewport={{ once: true, amount: 0.2 }}
             >
-                <motion.div className="feature-card" variants={itemVariants}>
-                    <div className="icon">🎯</div>
-                    <h3>Personalized Career Assessments</h3>
-                    <p>Discover careers that suit your strengths and passions.</p>
+                <motion.div 
+                  className="feature-card" 
+                  variants={itemVariants} 
+                  whileHover="hover"
+                >
+                    <motion.img 
+                      className="icon" 
+                      src={assessmentIcon} 
+                      alt="Career Assessment Icon" 
+                      variants={iconVariants}
+                      loading="lazy" 
+                    />
+                    <h3 style={{textAlign: "center"}}>Personalized Career Assessments</h3>
+                    <p style={{textAlign: "center"}}>Discover careers that suit your strengths and passions.</p>
                 </motion.div>
-                <motion.div className="feature-card" variants={itemVariants}>
-                    <div className="icon">📊</div>
-                    <h3>Comprehensive Career Insights</h3>
-                    <p>Get detailed information about job roles, required skills, and future growth.</p>
+                <motion.div 
+                  className="feature-card" 
+                  variants={itemVariants}
+                  whileHover="hover"
+                >
+                    <motion.img 
+                      className="icon" 
+                      src={insightsIcon} 
+                      alt="Career Insights Icon" 
+                      variants={iconVariants}
+                      loading="lazy" 
+                    />
+                    <h3 style={{textAlign: "center"}}>Comprehensive Career Insights</h3>
+                    <p style={{textAlign: "center"}}>Get detailed information about job roles, required skills, and future growth.</p>
                 </motion.div>
-                <motion.div className="feature-card" variants={itemVariants}>
-                    <div className="icon">🎓</div>
-                    <h3>Education & Course Guidance</h3>
-                    <p>Find the best courses, degrees, and certifications for your chosen path.</p>
+                <motion.div 
+                  className="feature-card" 
+                  variants={itemVariants}
+                  whileHover="hover"
+                >
+                    <motion.img 
+                      className="icon" 
+                      src={educationIcon} 
+                      alt="Course Guidance Icon" 
+                      variants={iconVariants}
+                      loading="lazy" 
+                    />
+                    <h3 style={{textAlign: "center"}}>Education & Course Guidance</h3>
+                    <p style={{textAlign: "center"}}>Find the best courses, degrees, and certifications for your chosen path.</p>
                 </motion.div>
-                <motion.div className="feature-card" variants={itemVariants}>
-                    <div className="icon">🗺️</div>
-                    <h3>Roadmaps & Action Plans</h3>
-                    <p>Step-by-step guidance to help you reach your dream career.</p>
+                <motion.div 
+                  className="feature-card" 
+                  variants={itemVariants}
+                  whileHover="hover"
+                >
+                    <motion.img 
+                      className="icon" 
+                      src={roadmapIcon} 
+                      alt="Roadmaps Icon" 
+                      variants={iconVariants}
+                      loading="lazy" 
+                    />
+                    <h3 style={{textAlign: "center"}}>Roadmaps & Action Plans</h3>
+                    <p style={{textAlign: "center"}}>Step-by-step guidance to help you reach your dream career.</p>
                 </motion.div>
             </motion.div>
         </motion.section>
