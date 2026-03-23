@@ -1,43 +1,43 @@
-import { StrictMode } from 'react'
+import { StrictMode, lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.css'
 import './App.css'
 import App from './App.jsx'
-import Home from './component/home.jsx'
-import Stream from './component/stream.jsx'
-import AboutUs from './component/aboutUs.jsx'
-import Contact from './component/contactUs.jsx'
-import Login from './component/login.jsx'
-import Signup from './component/signup.jsx'
-import BiologyCourses from './streams/biologyCourses.jsx'
-import MathCourses from './streams/mathCourses.jsx'
-import CommerceCourses from './streams/commerceCourses.jsx'
-import ArtCourses from './streams/artCourses.jsx'
-import Profile from './component/profile.jsx'
-import Career from './component/career.jsx'
-import SoftwareEngineer from './roadmaps/softwareEngineer.jsx'
-import InvestmentBanker from './roadmaps/investmentBanker.jsx'
-import ClinicalPsychologistRoadmap from './roadmaps/clinicalPsychologist.jsx'
-import CommercialPilotRoadmap from './roadmaps/commercialPilot.jsx'
-import UiUxRoadmap from './roadmaps/uiDesigner.jsx'
-import DataScientistRoadmap from './roadmaps/dataScientist.jsx'
+import SkeletonLoader from './component/SkeletonLoader.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import EditDetails from './component/editDetail.jsx'
-import RoadmapSearchPage from './component/roadmapSearchPage.jsx'
-import RoadmapCollection from './component/roadmapCollection.jsx'
-import AdminDashboard from './admin/AdminDashboard.jsx'
-import DashboardHome from './admin/DashboardHome.jsx'
-import AddCourse from './admin/AddCourse.jsx'
-import AddRoadmap from './admin/AddRoadmap.jsx'
-import ManageUsers from './admin/ManageUsers.jsx'
-import ManageCourses from './admin/ManageCourses.jsx'
-import ManageRoadmaps from './admin/ManageRoadmap.jsx'
-import UpdateRoadmap from './admin/UpdateRoadmap.jsx'
-import UpdateCourse from './admin/UpdateCourse.jsx'
 
-
+const Home = lazy(() => import('./component/home.jsx'))
+const Stream = lazy(() => import('./component/stream.jsx'))
+const AboutUs = lazy(() => import('./component/aboutUs.jsx'))
+const Contact = lazy(() => import('./component/contactUs.jsx'))
+const Login = lazy(() => import('./component/login.jsx'))
+const Signup = lazy(() => import('./component/signup.jsx'))
+const BiologyCourses = lazy(() => import('./streams/biologyCourses.jsx'))
+const MathCourses = lazy(() => import('./streams/mathCourses.jsx'))
+const CommerceCourses = lazy(() => import('./streams/commerceCourses.jsx'))
+const ArtCourses = lazy(() => import('./streams/artCourses.jsx'))
+const Profile = lazy(() => import('./component/profile.jsx'))
+const Career = lazy(() => import('./component/career.jsx'))
+const SoftwareEngineer = lazy(() => import('./roadmaps/softwareEngineer.jsx'))
+const InvestmentBanker = lazy(() => import('./roadmaps/investmentBanker.jsx'))
+const ClinicalPsychologistRoadmap = lazy(() => import('./roadmaps/clinicalPsychologist.jsx'))
+const CommercialPilotRoadmap = lazy(() => import('./roadmaps/commercialPilot.jsx'))
+const UiUxRoadmap = lazy(() => import('./roadmaps/uiDesigner.jsx'))
+const DataScientistRoadmap = lazy(() => import('./roadmaps/dataScientist.jsx'))
+const EditDetails = lazy(() => import('./component/editDetail.jsx'))
+const RoadmapSearchPage = lazy(() => import('./component/roadmapSearchPage.jsx'))
+const RoadmapCollection = lazy(() => import('./component/roadmapCollection.jsx'))
+const AdminDashboard = lazy(() => import('./admin/AdminDashboard.jsx'))
+const DashboardHome = lazy(() => import('./admin/DashboardHome.jsx'))
+const AddCourse = lazy(() => import('./admin/AddCourse.jsx'))
+const AddRoadmap = lazy(() => import('./admin/AddRoadmap.jsx'))
+const ManageUsers = lazy(() => import('./admin/ManageUsers.jsx'))
+const ManageCourses = lazy(() => import('./admin/ManageCourses.jsx'))
+const ManageRoadmaps = lazy(() => import('./admin/ManageRoadmap.jsx'))
+const UpdateRoadmap = lazy(() => import('./admin/UpdateRoadmap.jsx'))
+const UpdateCourse = lazy(() => import('./admin/UpdateCourse.jsx'))
 
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
@@ -182,6 +182,8 @@ const routers = createBrowserRouter([
 ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={routers} />
+    <Suspense fallback={<SkeletonLoader type="text" />}>
+      <RouterProvider router={routers} />
+    </Suspense>
   </StrictMode>
 )

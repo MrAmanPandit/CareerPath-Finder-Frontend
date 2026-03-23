@@ -40,17 +40,11 @@ const content = () => {
   });
   return (
     <main>
-        <motion.section 
-          className="hero"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={sectionVariants}
-        >
+        <section className="hero">
             <h1>Discover & Explore Your Career Path Based on Your Stream</h1>
             <p>Select your stream and explore personalized career options designed to match your skills, interests, and goals.</p>
             <Link to="/career/roadmap/search" className="btn-primary">Get Started</Link>
-        </motion.section>
+        </section>
 
         <motion.section 
           className="about"
