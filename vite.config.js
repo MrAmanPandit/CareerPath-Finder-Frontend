@@ -3,12 +3,22 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // server:{
-  //   proxy:{
-  //     '/api' :{ 
-  //       target : 'https://career-path-finder-backend-hnipxg8bt-mramanpandits-projects.vercel.app'
-  //   }
-  // },
-  plugins: [react()]
-}
-)
+  plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'react-vendor';
+            }
+            if (id.includes('framer-motion')) {
+              return 'framer-motion';
+            }
+            return 'vendor';
+          }
+        }
+      }
+    }
+  }
+})
