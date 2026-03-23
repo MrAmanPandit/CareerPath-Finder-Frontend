@@ -1,8 +1,15 @@
 import React from 'react';
-import './roadmap.css'; // Reusing the exact same CSS file!
+import './roadmap.css';
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 const ClinicalPsychologistRoadmap = () => {
+  useSEO({
+    title: 'Clinical Psychologist Career Roadmap | How to Become a Clinical Psychologist',
+    description: 'Complete roadmap to become a Clinical Psychologist in India — from Psychology degree to M.Phil, RCI license, CBT/DBT training, and private practice.',
+    keywords: 'clinical psychologist roadmap, how to become clinical psychologist India, psychology career, RCI license, M.Phil clinical psychology',
+    canonical: '/career/roadmap/clinical-psychologist'
+  });
   const roadmapSteps = [
     {
       id: 1,

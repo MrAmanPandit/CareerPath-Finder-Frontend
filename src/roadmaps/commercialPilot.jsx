@@ -1,8 +1,15 @@
 import React from 'react';
-import './roadmap.css'; // Reusing the exact same CSS file!
+import './roadmap.css';
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 const CommercialPilotRoadmap = () => {
+  useSEO({
+    title: 'Commercial Pilot Career Roadmap | How to Become a Pilot in India',
+    description: 'Full step-by-step roadmap to become a Commercial Pilot in India — from 10+2 PCM, DGCA medical exam, PPL, 200 flight hours, CPL, Type Rating, to First Officer role.',
+    keywords: 'commercial pilot roadmap India, how to become pilot, CPL India, DGCA license, pilot career PCM, aviation career India',
+    canonical: '/career/roadmap/commercial-pilot'
+  });
   const roadmapSteps = [
     {
       id: 1,

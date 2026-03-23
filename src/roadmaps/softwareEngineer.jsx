@@ -1,8 +1,15 @@
 import React from 'react';
 import './roadmap.css';
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 const SoftwareEngineer = () => {
+  useSEO({
+    title: 'Software Engineer Career Roadmap | How to Become a Software Engineer',
+    description: 'Follow the complete step-by-step roadmap to become a Software Engineer — from 10+2 PCM to coding skills, specialization, projects, and landing your first tech job.',
+    keywords: 'software engineer roadmap, how to become software engineer, software engineer career path, MERN stack, full stack developer India',
+    canonical: '/career/roadmap/software-engineer'
+  });
   const roadmapSteps = [
     {
       id: 1,

@@ -3,6 +3,7 @@ import './career.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import useSEO from '../utils/useSEO';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -18,6 +19,12 @@ const itemVariants = {
 };
 
 const Careers = () => {
+  useSEO({
+    title: 'Explore Careers | Career Roadmaps for Every Stream',
+    description: 'Explore top career options like Software Engineer, Data Scientist, Investment Banker, Clinical Psychologist, Commercial Pilot, and UI/UX Designer. Get step-by-step roadmaps.',
+    keywords: 'explore careers, career options, software engineer roadmap, data scientist career, investment banker, clinical psychologist, commercial pilot, UI UX designer India',
+    canonical: '/career'
+  });
   // Sample data for the careers grid
 
   // 1. State for the data from your database

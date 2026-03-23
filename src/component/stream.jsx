@@ -2,8 +2,15 @@ import React from 'react'
 import './stream.css';
 import { Link } from 'react-router-dom';
 import AnimatedPage from './animation';
+import useSEO from '../utils/useSEO';
 
 const stream = () => {
+  useSEO({
+    title: 'Choose Your Stream | Biology, Maths, Commerce & Arts',
+    description: 'Select your academic stream — Biology (PCB), Mathematics (PCM), Commerce, or Arts — and explore tailored career paths and top courses available for you.',
+    keywords: 'choose stream, biology stream careers, maths PCM careers, commerce careers, arts stream careers, stream career guidance',
+    canonical: '/streams'
+  });
   return (
     <AnimatedPage>
       <div className="body">

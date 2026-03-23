@@ -1,8 +1,15 @@
 import React from 'react';
 import './contactUs.css';   
 import AnimatedPage from './animation';
+import useSEO from '../utils/useSEO';
 
 const Contact = () => {
+  useSEO({
+    title: 'Contact Us | Get in Touch',
+    description: 'Have questions, suggestions, or feedback about CareerPath Finder? Reach out to our support team and we\'ll get back to you shortly.',
+    keywords: 'contact CareerPath Finder, career guidance support, feedback, help',
+    canonical: '/contact'
+  });
   return (
     <AnimatedPage>
     <div className="contactWrapper">

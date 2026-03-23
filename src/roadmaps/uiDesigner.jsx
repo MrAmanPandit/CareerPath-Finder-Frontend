@@ -1,8 +1,15 @@
 import React from 'react';
-import './roadmap.css'; // Reusing the exact same CSS file!
+import './roadmap.css';
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 const UiUxRoadmap = () => {
+  useSEO({
+    title: 'UI/UX Designer Career Roadmap | How to Become a UI UX Designer',
+    description: 'Complete roadmap to become a UI/UX Designer — from design fundamentals and Figma to user research, prototyping, portfolio case studies, and landing design roles.',
+    keywords: 'UI UX designer roadmap India, how to become UI UX designer, Figma career, product designer career, design portfolio India',
+    canonical: '/career/roadmap/ui-ux-designer'
+  });
   const roadmapSteps = [
     {
       id: 1,

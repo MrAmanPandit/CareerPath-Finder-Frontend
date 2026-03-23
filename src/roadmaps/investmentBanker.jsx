@@ -1,8 +1,15 @@
 import React from 'react';
-import './roadmap.css'; // Reusing the exact same CSS file!
+import './roadmap.css';
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 const InvestmentBankerRoadmap = () => {
+  useSEO({
+    title: 'Investment Banker Career Roadmap | How to Become an Investment Banker',
+    description: 'Step-by-step roadmap to become an Investment Banker — from Commerce/PCM 10+2 to financial modeling, CFA, internships, and landing an Analyst role at a top bank.',
+    keywords: 'investment banker roadmap, how to become investment banker, finance career India, CFA, financial modeling, commerce careers',
+    canonical: '/career/roadmap/investment-banker'
+  });
   const roadmapSteps = [
     {
       id: 1,

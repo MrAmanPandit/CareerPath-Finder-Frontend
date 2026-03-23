@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom' 
+import useSEO from '../utils/useSEO';
 import { motion } from 'framer-motion';
 
 const containerVariants = {
@@ -31,6 +32,12 @@ const sectionVariants = {
 };
 
 const content = () => {
+  useSEO({
+    title: 'Discover & Explore Your Career Path',
+    description: 'CareerPath Finder helps students and professionals explore personalized career options, step-by-step roadmaps, and course guidance based on their stream — Biology, Maths, Commerce, or Arts.',
+    keywords: 'career path finder, career guidance, career roadmap, career for students, find career, best career options India',
+    canonical: '/'
+  });
   return (
     <main>
         <motion.section 

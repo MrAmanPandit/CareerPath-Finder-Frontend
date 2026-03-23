@@ -1,6 +1,7 @@
 import React from 'react';
 import './aboutUs.css';
 import { motion } from 'framer-motion';
+import useSEO from '../utils/useSEO';
 import amanImg from '../assets/aman.png';
 import mohitImg from '../assets/mohit.png';
 import yuvImg from '../assets/yuv.png';
@@ -20,6 +21,12 @@ const itemVariants = {
 };
 
 const About = () => {
+  useSEO({
+    title: 'About Us | Our Team & Mission',
+    description: 'Learn about CareerPath Finder — our mission to help students and professionals discover the right career, meet our team, and find out how we guide you toward your dream career.',
+    keywords: 'about CareerPath Finder, career guidance team, student career help, career advice India',
+    canonical: '/about'
+  });
   return (
     <div className="aboutWrapper">
       <motion.div
@@ -91,6 +98,13 @@ const About = () => {
               <img src={harshikaImg} alt="Harshika Singh" />
               <div className='text'>
                 <h3 className='memberName'>Harshika Singh</h3>
+                <h5 className="designation">Supportive Guy</h5>
+              </div>
+            </motion.div>
+            <motion.div className="memberscard" variants={itemVariants}>
+              <img  alt="Antra" />
+              <div className='text'>
+                <h3 className='memberName'>Antra</h3>
                 <h5 className="designation">Supportive Guy</h5>
               </div>
             </motion.div>

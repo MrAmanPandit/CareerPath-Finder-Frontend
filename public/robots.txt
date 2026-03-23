@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /career
+Allow: /career/roadmap/software-engineer
+Allow: /career/roadmap/investment-banker
+Allow: /career/roadmap/clinical-psychologist
+Allow: /career/roadmap/commercial-pilot
+Allow: /career/roadmap/ui-ux-designer
+Allow: /career/roadmap/data-scientist
+Allow: /career/roadmap/search
+Allow: /streams
+Allow: /contact
+Allow: /login
+Allow: /signup
+
+# Disallow admin and private pages
+Disallow: /admin/
+Disallow: /profile
+Disallow: /edit-details
+Disallow: /streams/biology
+Disallow: /streams/maths
+Disallow: /streams/commerce
+Disallow: /streams/arts
+
+Sitemap: https://www.careerpathsfinder.com/sitemap.xml

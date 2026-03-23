@@ -1,8 +1,15 @@
 import React from 'react';
-import './roadmap.css'; // Reusing the exact same CSS file!
+import './roadmap.css';
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 const DataScientistRoadmap = () => {
+  useSEO({
+    title: 'Data Scientist Career Roadmap | How to Become a Data Scientist',
+    description: 'Complete roadmap to become a Data Scientist — from Python and SQL fundamentals to machine learning, Kaggle projects, and securing your first data role.',
+    keywords: 'data scientist roadmap, how to become data scientist, machine learning career, Python for data science, data analyst to data scientist India',
+    canonical: '/career/roadmap/data-scientist'
+  });
   const roadmapSteps = [
     {
       id: 1,

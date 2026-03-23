@@ -1,5 +1,4 @@
 
-
 .roadmap-page {
   min-height: 100vh;
   background-color: var(--bg-color);
@@ -25,7 +24,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 40%);
   animation: rotate 40s linear infinite;
   pointer-events: none;
 }

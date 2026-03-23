@@ -9,7 +9,7 @@
   /* Primary variables based on roadmap page */
   --primary-color: #2563eb;
   --primary-hover: #1d4ed8;
-  --hero-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  --hero-gradient: linear-gradient(135deg, #02143c 0%, #284aa5 100%);
   
   /* Smooth transition for when we switch */
   transition: background-color 0.3s ease, color 0.3s ease;
