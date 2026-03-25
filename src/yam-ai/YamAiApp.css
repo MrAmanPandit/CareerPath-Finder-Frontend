@@ -1,37 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-
-:root {
-    --yam-primary: #4ecdc4;
-    --yam-secondary: #ff6b6b;
-    --yam-bg-gradient: radial-gradient(circle at top right, #1a1a2e, #16213e, #0f3460);
-    --yam-header-bg: rgba(255, 255, 255, 0.03);
-    --yam-text: #e6e6e6;
-    --yam-text-dim: #888;
-    --yam-border: rgba(255, 255, 255, 0.1);
-    --yam-bubble-ai: rgba(255, 255, 255, 0.05);
-    --yam-bubble-user: #4ecdc4;
-    --yam-input-bg: rgba(255, 255, 255, 0.05);
-    --yam-shadow: rgba(0, 0, 0, 0.3);
-}
-
-.light-mode {
-    --yam-bg-gradient: radial-gradient(circle at top right, #f8fafc, #f1f5f9, #e2e8f0);
-    --yam-header-bg: rgba(0, 0, 0, 0.03);
-    --yam-text: #0f172a;
-    --yam-text-dim: #64748b;
-    --yam-border: rgba(0, 0, 0, 0.1);
-    --yam-bubble-ai: #ffffff;
-    --yam-bubble-user: #4ecdc4;
-    --yam-input-bg: #ffffff;
-    --yam-shadow: rgba(0, 0, 0, 0.1);
-}
+/* YAM AI Specific Styles - Using Global Tokens from index.css */
 
 .yam-ai-wrapper {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: var(--yam-bg-gradient);
-    color: var(--yam-text);
+    background: var(--bg-gradient);
+    color: var(--text);
     font-family: 'Outfit', sans-serif;
     overflow: hidden;
     position: relative;
@@ -50,9 +24,9 @@
 /* Header Styles */
 .yam-header {
     padding: 0.6rem 2rem;
-    background: var(--yam-header-bg);
+    background: var(--header-bg);
     backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--yam-border);
+    border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,7 +43,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
-    background: linear-gradient(135deg, var(--yam-text) 0%, var(--yam-primary) 100%);
+    background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -79,7 +53,7 @@
 .yam-title-group p {
     font-size: 0.8rem;
     margin: 0;
-    color: var(--yam-text-dim);
+    color: var(--text-dim);
     font-weight: 400;
 }
 
@@ -90,9 +64,9 @@
 }
 
 .theme-toggle, .section-btn, .back-btn {
-    background: var(--yam-bubble-ai);
-    border: 1px solid var(--yam-border);
-    color: var(--yam-text);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
     padding: 0.6rem;
     border-radius: 12px;
     cursor: pointer;
@@ -103,24 +77,24 @@
 }
 
 .theme-toggle:hover, .section-btn:hover, .back-btn:hover {
-    background: var(--yam-primary);
+    background: var(--primary);
     color: white;
     transform: translateY(-2px);
 }
 
 .section-btn.active {
-    background: var(--yam-primary);
+    background: var(--primary);
     color: #1a1a2e;
-    border-color: var(--yam-primary);
+    border-color: var(--primary);
 }
 
 /* Section Navigation */
 .yam-sections-nav {
     display: flex;
     gap: 0.4rem;
-    background: var(--yam-header-bg);
+    background: var(--header-bg);
     padding: 0.4rem 2rem;
-    border-bottom: 1px solid var(--yam-border);
+    border-bottom: 1px solid var(--border);
     overflow-x: auto;
     scrollbar-width: none;
 }
@@ -134,16 +108,16 @@
     font-weight: 500;
     cursor: pointer;
     white-space: nowrap;
-    border: 1px solid var(--yam-border);
+    border: 1px solid var(--border);
     background: transparent;
-    color: var(--yam-text-dim);
+    color: var(--text-dim);
     transition: all 0.3s ease;
 }
 
 .nav-pill.active {
-    background: var(--yam-primary);
+    background: var(--primary);
     color: white;
-    border-color: var(--yam-primary);
+    border-color: var(--primary);
     box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
 }
 
@@ -184,15 +158,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--yam-bubble-ai);
-    border: 1px solid var(--yam-border);
-    color: var(--yam-primary);
-    box-shadow: 0 4px 12px var(--yam-shadow);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    box-shadow: 0 4px 12px var(--shadow);
     flex-shrink: 0;
 }
 
 .user .avatar {
-    background: linear-gradient(135deg, var(--yam-primary), #3b82f6);
+    background: linear-gradient(135deg, var(--primary), #3b82f6);
     color: white;
 }
 
@@ -206,7 +180,7 @@
     border-radius: 20px;
     font-size: 0.95rem;
     line-height: 1.6;
-    box-shadow: 0 4px 20px var(--yam-shadow);
+    box-shadow: 0 4px 20px var(--shadow);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -214,21 +188,21 @@
 
 .bubble:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--yam-shadow);
+    box-shadow: 0 8px 25px var(--shadow);
 }
 
 .user .bubble {
-    background: var(--yam-bubble-user);
+    background: var(--primary);
     color: #0f172a;
     border-bottom-right-radius: 4px;
     font-weight: 500;
 }
 
 .assistant .bubble {
-    background: var(--yam-bubble-ai);
+    background: var(--card-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--yam-border);
+    border: 1px solid var(--border);
     border-bottom-left-radius: 4px;
     position: relative;
 }
@@ -237,13 +211,13 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--yam-primary), transparent);
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
     opacity: 0.3;
 }
 
 .timestamp {
     font-size: 0.7rem;
-    color: var(--yam-text-dim);
+    color: var(--text-dim);
     margin-top: 6px;
     opacity: 0.8;
 }
@@ -251,7 +225,7 @@
 .user .timestamp { align-self: flex-end; }
 
 .send-btn.pausing {
-    background: var(--yam-secondary);
+    background: var(--secondary);
     opacity: 1;
     box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
 }
@@ -263,7 +237,7 @@
 .typing-indicator span {
     width: 8px;
     height: 8px;
-    background: var(--yam-primary);
+    background: var(--primary);
     border-radius: 50%;
     display: inline-block;
     opacity: 0.3;
@@ -275,36 +249,36 @@
 
 @keyframes pulse {
     0% { transform: scale(0.8); opacity: 0.3; }
-    50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 4px var(--yam-primary)); }
+    50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 4px var(--primary)); }
     100% { transform: scale(0.8); opacity: 0.3; }
 }
 
 /* Input Area */
 .yam-input-area {
     padding: 1rem 2rem;
-    background: linear-gradient(transparent, var(--yam-header-bg));
+    background: linear-gradient(transparent, var(--header-bg));
     z-index: 10;
 }
 
 .input-wrapper {
     max-width: 800px;
     margin: 0 auto;
-    background: var(--yam-input-bg);
+    background: var(--input-bg);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--yam-border);
+    border: 1px solid var(--border);
     border-radius: 20px;
     padding: 0.75rem 1.25rem;
     display: flex;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 8px 32px var(--yam-shadow);
+    box-shadow: 0 8px 32px var(--shadow);
 }
 
 textarea {
     flex: 1;
     background: transparent;
     border: none;
-    color: var(--yam-text);
+    color: var(--text);
     font-family: inherit;
     font-size: 1rem;
     padding: 0.5rem 0;
@@ -314,7 +288,7 @@ textarea {
 textarea:focus { outline: none; }
 
 .send-btn {
-    background: var(--yam-primary);
+    background: var(--primary);
     border: none;
     color: white;
     width: 40px;
@@ -345,9 +319,9 @@ textarea:focus { outline: none; }
 }
 
 .suggestion-pill {
-    background: var(--yam-bubble-ai);
-    border: 1px solid var(--yam-border);
-    color: var(--yam-text);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
     padding: 0.5rem 1.1rem;
     border-radius: 30px;
     font-size: 0.85rem;
@@ -367,7 +341,7 @@ textarea:focus { outline: none; }
 .suggestion-pill:nth-child(4) { animation-delay: 0.25s; }
 
 .suggestion-pill:hover {
-    background: linear-gradient(135deg, var(--yam-primary), #3b82f6);
+    background: linear-gradient(135deg, var(--primary), #3b82f6);
     color: white;
     border-color: transparent;
     transform: translateY(-3px);
