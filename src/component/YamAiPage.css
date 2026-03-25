@@ -1,0 +1,54 @@
+.yam-ai-page-wrapper {
+    width: 100%;
+    height: 100vh;
+    background: #0f172a;
+}
+
+.loading-yam-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 20px;
+}
+
+.loader-pulse {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #4ecdc4;
+    border-radius: 50%;
+    position: relative;
+    animation: loader-spin 2s linear infinite;
+}
+
+.loader-pulse::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: 3px solid transparent;
+    border-top-color: white;
+    border-radius: 50%;
+}
+
+@keyframes loader-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: #4ecdc4;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    animation: text-fade 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes text-fade {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}

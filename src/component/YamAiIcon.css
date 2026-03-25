@@ -1,0 +1,83 @@
+.yam-ai-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    z-index: 9999;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.yam-ai-fab:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 15px 35px rgba(139, 92, 246, 0.5);
+}
+
+.yam-ai-icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.yam-logo-svg {
+    width: 30px;
+    height: 30px;
+}
+
+.yam-ai-text {
+    font-size: 8px;
+    font-weight: 800;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.yam-ai-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(139, 92, 246, 0.4);
+    border-radius: 50%;
+    z-index: -1;
+    animation: yam-pulse 2s infinite;
+}
+
+@keyframes yam-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .yam-ai-fab {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+    }
+    
+    .yam-logo-svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .yam-ai-text {
+        font-size: 7px;
+    }
+}

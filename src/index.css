@@ -1,40 +1,97 @@
-/* 1. Define standard roadmap-themed "Light Mode" colors */
 :root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #e5e7eb;
+  --bg-color: #0f172a;
+  --text-color: #f1f5f9;
+  --navbar-bg: rgba(15, 23, 42, 0.9);
+  --card-bg: rgba(30, 41, 59, 0.4);
+  --border-color: rgba(255, 255, 255, 0.08);
   
-  /* Primary variables based on roadmap page */
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --hero-gradient: linear-gradient(135deg, #02143c 0%, #284aa5 100%);
+  /* Primary variables */
+  --primary-color: #4ecdc4;
+  --primary-hover: #45b7af;
+  --hero-gradient: radial-gradient(circle at top right, #1a1a2e, #16213e, #0f172a);
   
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Shared AI hub colors */
+  --ai-teal: #4ecdc4;
+  --ai-salmon: #ff6b6b;
+  --ai-slate-900: #0f172a;
+  --ai-slate-800: #1e293b;
+
+  /* Card Tuning */
+  --card-min-height: 380px;
+  --card-radius: 24px;
+  --glass-blur: 16px;
+  --hover-scale: 1.03;
+  --hover-glow: 0 10px 40px rgba(78, 205, 196, 0.15);
+  --section-padding: 4.5rem 5%;
+
+  transition: none;
 }
 
-/* 2. Define standard "Dark Mode" colors */
-body.dark-mode {
-  --bg-color: #0f172a; /* Dark grey, almost black */
-  --text-color: #f8fafc; /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1e293b;
-  --card-bg: #1e293b;
-  --border-color: #334155;
-  
-  --primary-color: #3b82f6;
-  --primary-hover: #60a5fa;
-  --hero-gradient: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+/* 3. Global Utility Classes */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* 3. Apply these variables to your entire website's body */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-card:hover {
+  transform: translateY(-10px) scale(var(--hover-scale));
+  border-color: rgba(78, 205, 196, 0.3);
+  box-shadow: 
+      var(--hover-glow),
+      inset 0 0 20px rgba(78, 205, 196, 0.1);
+}
+
+.glass-card:hover::after {
+  opacity: 0.4;
+  background-size: 15px 15px;
+  transition: all 0.5s ease;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #4ecdc4, #ff6b6b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
 body {
-  background-color: var(--bg-color);
+  background: radial-gradient(circle at top right, #1a1a2e, #16213e, #0f172a);
+  background-attachment: fixed;
   color: var(--text-color);
-  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Outfit', 'Inter', sans-serif;
   padding: 0;
   margin: 0;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Global Background Animation */

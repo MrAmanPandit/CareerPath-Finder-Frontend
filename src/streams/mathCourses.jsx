@@ -2,11 +2,13 @@ import React from 'react';
 import './Courses.css'; // Reuses the exact same CSS file!
 import AnimatedPage from '../component/animation';
 
+import { Cpu, Building2, Monitor, Ship, ShieldCheck, Sigma, Bot } from 'lucide-react';
+
 const MathCourses = () => {
   const courseCategories = [
     {
       title: "Engineering & Technology",
-      icon: "💻",
+      icon: <Cpu size={28} />,
       courses: [
         { name: "B.Tech CSE", detail: "Computer Science & Engineering", duration: "4 Years" },
         { name: "B.Tech Mechanical", detail: "Machines & Manufacturing", duration: "4 Years" },
@@ -17,7 +19,7 @@ const MathCourses = () => {
     },
     {
       title: "Architecture & Planning",
-      icon: "🏛️",
+      icon: <Building2 size={28} />,
       courses: [
         { name: "B.Arch", detail: "Bachelor of Architecture", duration: "5 Years" },
         { name: "B.Planning", detail: "Urban & Regional Planning", duration: "4 Years" },
@@ -27,7 +29,7 @@ const MathCourses = () => {
     },
     {
       title: "Computer Applications & IT",
-      icon: "🖥️",
+      icon: <Monitor size={28} />,
       courses: [
         { name: "BCA", detail: "Bachelor of Computer Applications", duration: "3-4 Years" },
         { name: "B.Sc. IT", detail: "Information Technology", duration: "3-4 Years" },
@@ -37,7 +39,7 @@ const MathCourses = () => {
     },
     {
       title: "Merchant Navy & Aviation",
-      icon: "🚢",
+      icon: <Ship size={28} />,
       courses: [
         { name: "B.Tech Marine", detail: "Marine Engineering", duration: "4 Years" },
         { name: "B.Sc. Nautical", detail: "Nautical Science", duration: "3 Years" },
@@ -48,7 +50,7 @@ const MathCourses = () => {
     },
     {
       title: "Defense Services",
-      icon: "🛡️",
+      icon: <ShieldCheck size={28} />,
       courses: [
         { name: "NDA (Army)", detail: "National Defence Academy", duration: "3 + 1 Years" },
         { name: "NDA (Navy)", detail: "Naval Academy", duration: "3 + 1 Years" },
@@ -58,7 +60,7 @@ const MathCourses = () => {
     },
     {
       title: "Pure Sciences & Math",
-      icon: "🧮",
+      icon: <Sigma size={28} />,
       courses: [
         { name: "B.Sc. Mathematics", detail: "Advanced Math & Theorems", duration: "3-4 Years" },
         { name: "B.Sc. Physics", detail: "Quantum Mechanics & Matter", duration: "3-4 Years" },
@@ -69,7 +71,7 @@ const MathCourses = () => {
     },
     {
       title: "Emerging Technologies",
-      icon: "🤖",
+      icon: <Bot size={28} />,
       courses: [
         { name: "B.Tech AI & ML", detail: "Artificial Intelligence", duration: "4 Years" },
         { name: "B.Tech Robotics", detail: "Robotics & Automation", duration: "4 Years" },
@@ -84,7 +86,7 @@ const MathCourses = () => {
    <AnimatedPage>
     <div className="coursesWrapper">
       <div className="coursesHeader">
-        <h1 className="coursesTitle">Mathematics Stream Courses</h1>
+        <h1 className="coursesTitle">Mathematics Stream <span className="text-gradient">Courses</span></h1>
         <p className="coursesSubtitle">Explore an expanded list of top engineering, science, and tech degrees available after 12th PCM.</p>
       </div>
 

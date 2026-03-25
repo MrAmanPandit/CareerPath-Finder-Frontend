@@ -13,11 +13,10 @@ const Contact = () => {
   return (
     <AnimatedPage>
     <div className="contactWrapper">
-      <div className="contactCard">
-        <h2 className="contactTitle">Get in Touch</h2>
+      <div className="contactCard glass-card">
+        <h2 className="contactTitle">Get in <span className="text-gradient">Touch</span></h2>
         <p className="contactText">
-          Have questions or suggestions? We'd love to hear from you! Whether you're looking for support, want to share feedback, or just want to say hello, feel free to reach out. 
-          Send us a message and our team will get back to you shortly.
+          Have questions or suggestions? We'd love to hear from you! Send us a message and our team will get back to you shortly.
         </p>
         
         <form className="contactForm">

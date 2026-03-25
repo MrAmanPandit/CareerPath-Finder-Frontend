@@ -2,11 +2,13 @@ import React from 'react';
 import './Courses.css'; // Reuses the exact same CSS file!
 import AnimatedPage from '../component/animation';
 
+import { Globe, Languages, Camera, Gavel, Palette, ConciergeBell, Music } from 'lucide-react';
+
 const ArtsCourses = () => {
   const courseCategories = [
     {
       title: "Humanities & Social Sciences",
-      icon: "🌍",
+      icon: <Globe size={28} />,
       courses: [
         { name: "B.A. Psychology", detail: "Human Behavior & Mind", duration: "3-4 Years" },
         { name: "B.A. Political Science", detail: "Government & Politics", duration: "3-4 Years" },
@@ -17,7 +19,7 @@ const ArtsCourses = () => {
     },
     {
       title: "Literature & Languages",
-      icon: "📚",
+      icon: <Languages size={28} />,
       courses: [
         { name: "B.A. English (Hons)", detail: "English Literature & Grammar", duration: "3-4 Years" },
         { name: "B.A. Regional Languages", detail: "Hindi, Sanskrit, Tamil, etc.", duration: "3-4 Years" },
@@ -27,7 +29,7 @@ const ArtsCourses = () => {
     },
     {
       title: "Media, Journalism & Comm.",
-      icon: "🎙️",
+      icon: <Camera size={28} />,
       courses: [
         { name: "BJMC", detail: "Journalism & Mass Comm.", duration: "3-4 Years" },
         { name: "BMM", detail: "Bachelor of Mass Media", duration: "3-4 Years" },
@@ -38,7 +40,7 @@ const ArtsCourses = () => {
     },
     {
       title: "Law & Legal Studies",
-      icon: "⚖️",
+      icon: <Gavel size={28} />,
       courses: [
         { name: "B.A. + LL.B.", detail: "Integrated Arts & Law", duration: "5 Years" },
         { name: "BBA + LL.B.", detail: "Integrated Management & Law", duration: "5 Years" },
@@ -47,7 +49,7 @@ const ArtsCourses = () => {
     },
     {
       title: "Design & Fine Arts",
-      icon: "🎨",
+      icon: <Palette size={28} />,
       courses: [
         { name: "B.Des", detail: "Fashion, Graphic, or UI/UX Design", duration: "4 Years" },
         { name: "BFA", detail: "Bachelor of Fine Arts (Painting, Sculpture)", duration: "3-4 Years" },
@@ -57,7 +59,7 @@ const ArtsCourses = () => {
     },
     {
       title: "Hospitality & Tourism",
-      icon: "🏨",
+      icon: <ConciergeBell size={28} />,
       courses: [
         { name: "BHM", detail: "Bachelor of Hotel Management", duration: "3-4 Years" },
         { name: "BTTM", detail: "Travel & Tourism Management", duration: "3-4 Years" },
@@ -68,7 +70,7 @@ const ArtsCourses = () => {
     },
     {
       title: "Management & Performing Arts",
-      icon: "🎭",
+      icon: <Music size={28} />,
       courses: [
         { name: "BBA", detail: "Bachelor of Business Administration", duration: "3-4 Years" },
         { name: "BPA", detail: "Bachelor of Performing Arts (Dance, Music, Theater)", duration: "3-4 Years" },
@@ -82,7 +84,7 @@ const ArtsCourses = () => {
     <AnimatedPage>
     <div className="coursesWrapper">
       <div className="coursesHeader">
-        <h1 className="coursesTitle">Arts & Humanities Courses</h1>
+        <h1 className="coursesTitle">Arts & Humanities <span className="text-gradient">Courses</span></h1>
         <p className="coursesSubtitle">Explore an expansive list of creative, administrative, and humanities degrees available after 12th Arts.</p>
       </div>
 

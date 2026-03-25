@@ -1,55 +1,90 @@
 import React from 'react'
 import './stream.css';
 import { Link } from 'react-router-dom';
-import AnimatedPage from './animation';
+import { motion } from 'framer-motion';
 import useSEO from '../utils/useSEO';
 
-const stream = () => {
+import { Dna, Calculator, TrendingUp, Palette } from 'lucide-react';
+
+// Create a motion-enhanced version of the Link component
+const MotionLink = motion(Link);
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
+
+const Stream = () => {
   useSEO({
     title: 'Choose Your Stream | Biology, Maths, Commerce & Arts',
-    description: 'Select your academic stream — Biology (PCB), Mathematics (PCM), Commerce, or Arts — and explore tailored career paths and top courses available for you.',
+    description: 'Select your academic stream — Biology (PCB), Mathematics (PCM), Commerce, or Arts — explore tailored career paths and top courses available for you.',
     keywords: 'choose stream, biology stream careers, maths PCM careers, commerce careers, arts stream careers, stream career guidance',
     canonical: '/streams'
   });
+
+  const streams = [
+    { name: 'Biology', path: '/streams/biology', icon: Dna, color: '#4ecdc4' },
+    { name: 'Maths', path: '/streams/maths', icon: Calculator, color: '#3b82f6' },
+    { name: 'Commerce', path: '/streams/commerce', icon: TrendingUp, color: '#f59e0b' },
+    { name: 'Arts', path: '/streams/arts', icon: Palette, color: '#8b5cf6' }
+  ];
+
   return (
-    <AnimatedPage>
-      <div className="body">
-        <div className="streamSection"   >
-          <h1 className="streamTitle">Choose Your Stream</h1>
+    <div className="body">
+      <div className="streamSection">
+        <motion.h1 
+          className="streamTitle"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Choose Your <span className="text-gradient">Stream</span>
+        </motion.h1>
 
-          <div className="cardsContainer">
-            <div className="streamCard">
-              <Link to="/streams/biology" >
-                <div className="streamIcon" alt="Biology">🔬</div>
-                <h2 className="streamName">Biology</h2>
-              </Link>
-            </div>
-
-            <div className="streamCard streamCardHover">
-              <Link to="/streams/maths" >
-                <div className="streamIcon" alt="Maths">📊</div>
-                <h2 className="streamName">Maths</h2>
-              </Link>
-            </div>
-
-            <div className="streamCard streamCardHover">
-              <Link to="/streams/commerce" >
-                <div className="streamIcon" alt="Commerce">📈</div>
-                <h2 className="streamName">Commerce</h2>
-              </Link>
-            </div>
-
-            <div className="streamCard streamCardHover">
-              <Link to="/streams/arts" >
-                <div className="streamIcon" alt="Arts">🎨</div>
-                <h2 className="streamName">Arts</h2>
-              </Link>
-            </div>
-          </div>
-        </div>
+        <motion.div 
+          className="cardsContainer"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {streams.map((stream) => (
+            <motion.div 
+              key={stream.name} 
+              variants={cardVariants}
+              className="streamCardWrapper"
+            >
+              <MotionLink 
+                to={stream.path} 
+                className="streamCard glass-card"
+                whileHover={{ y: -12, scale: 1.02 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div className="streamIcon" style={{ backgroundColor: `${stream.color}20`, color: stream.color, borderColor: `${stream.color}40` }}>
+                  <stream.icon size={48} />
+                </div>
+                <h2 className="streamName">{stream.name}</h2>
+              </MotionLink>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    </AnimatedPage>
+    </div>
   );
 }
 
-export default stream
+export default Stream;

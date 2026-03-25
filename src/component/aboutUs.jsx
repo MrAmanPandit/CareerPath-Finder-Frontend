@@ -1,6 +1,7 @@
 import React from 'react';
 import './aboutUs.css';
 import { motion } from 'framer-motion';
+import { Target, TrendingUp, Users } from 'lucide-react';
 import useSEO from '../utils/useSEO';
 import amanImg from '../assets/aman.png';
 import mohitImg from '../assets/mohit.png';
@@ -20,6 +21,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
 };
 
+
 const About = () => {
   useSEO({
     title: 'About Us | Our Team & Mission',
@@ -30,13 +32,13 @@ const About = () => {
   return (
     <div className="aboutWrapper">
       <motion.div
-        className="aboutCard"
+        className="aboutCard glass-card"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <h1 className="aboutTitle">About Us</h1>
+        <h1 className="aboutTitle">About <span className="text-gradient">Us</span></h1>
 
         <p className="aboutText">
           CareerPath Finder is your personalized guide to discovering the right career.
@@ -53,19 +55,19 @@ const About = () => {
           viewport={{ once: true, amount: 0.2 }}
         >
           <motion.div className="featureItem" variants={itemVariants}>
-            <span className="featureIcon">🎯</span>
+            <div className="featureIcon"><Target size={40} color="#4ecdc4" /></div>
             <h3 className="featureTitle">Discover Your Passion</h3>
             <p className="featureDesc">Find career paths perfectly suited to your unique strengths.</p>
           </motion.div>
           <motion.div className="featureItem" variants={itemVariants}>
-            <span className="featureIcon">📈</span>
+            <div className="featureIcon"><TrendingUp size={40} color="#ff6b6b" /></div>
             <h3 className="featureTitle">Plan Your Future</h3>
             <p className="featureDesc">Get step-by-step guidance to reach your ultimate dream career.</p>
           </motion.div>
         </motion.div>
 
         <div className="developers">
-          <h1>Our Team</h1>
+          <h1 className="teamTitle"><Users size={28} style={{verticalAlign: 'middle', marginRight: '10px'}} /> Our <span className="text-gradient">Team</span></h1>
           <motion.div
             className="members_row"
             variants={containerVariants}
@@ -73,36 +75,36 @@ const About = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
-            <motion.div className="memberscard" variants={itemVariants}>
-              <img src={amanImg} alt="Aman Pandey" width={70} height={70} loading="lazy" />
+            <motion.div className="memberscard glass-card" variants={itemVariants}>
+              <img src={amanImg} alt="Aman Pandey" />
               <div className='text'>
                 <h3 className='memberName'>Aman Pandey</h3>
                 <h5 className="designation">Backend Developer</h5>
               </div>
             </motion.div>
-            <motion.div className="memberscard" variants={itemVariants}>
-              <img src={mohitImg} alt="Mohit Pal" width={70} height={70} loading="lazy" />
+            <motion.div className="memberscard glass-card" variants={itemVariants}>
+              <img src={mohitImg} alt="Mohit Pal" />
               <div className='text'>
                 <h3 className='memberName'>Mohit Pal</h3>
                 <h5 className="designation">Backend Developer</h5>
               </div>
             </motion.div>
-            <motion.div className="memberscard" variants={itemVariants}>
-              <img src={yuvImg} alt="Yuvraj Upadhyay" width={70} height={70} loading="lazy" />
+            <motion.div className="memberscard glass-card" variants={itemVariants}>
+              <img src={yuvImg} alt="Yuvraj Upadhyay" />
               <div className='text'>
                 <h3 className='memberName'>Yuvraj Upadhyay</h3>
                 <h5 className="designation">Frontend Developer</h5>
               </div>
             </motion.div>
-            <motion.div className="memberscard" variants={itemVariants}>
-              <img src={harshikaImg} alt="Harshika Singh" width={70} height={70} loading="lazy" />
+            <motion.div className="memberscard glass-card" variants={itemVariants}>
+              <img src={harshikaImg} alt="Harshika Singh" />
               <div className='text'>
                 <h3 className='memberName'>Harshika Singh</h3>
                 <h5 className="designation">Supportive Guy</h5>
               </div>
             </motion.div>
-            <motion.div className="memberscard" variants={itemVariants}>
-              <div style={{width: 70, height: 70, margin: '0 auto', background: '#ccc', borderRadius: '50%'}}></div>
+            <motion.div className="memberscard glass-card" variants={itemVariants}>
+              <div className="placeholder-avatar"><Users size={32} /></div>
               <div className='text'>
                 <h3 className='memberName'>Antra</h3>
                 <h5 className="designation">Supportive Guy</h5>

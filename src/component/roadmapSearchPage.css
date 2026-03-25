@@ -1,7 +1,7 @@
 
 .roadmap-page {
   min-height: 100vh;
-  background-color: var(--bg-color);
+  background-color: transparent;
   font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: var(--text-color);
   overflow-x: hidden;
@@ -9,10 +9,9 @@
 
 /* --- Search Hero Section --- */
 .roadmap-hero {
-  background: var(--hero-gradient);
-  padding: 100px 20px;
+  background: transparent;
+  padding: 8rem 2rem;
   text-align: center;
-  color: white;
   position: relative;
   overflow: hidden;
 }
@@ -24,8 +23,8 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 40%);
-  animation: rotate 40s linear infinite;
+  background: radial-gradient(circle, rgba(78, 205, 196, 0.05) 0%, transparent 60%);
+  animation: rotate 60s linear infinite;
   pointer-events: none;
 }
 
@@ -35,17 +34,17 @@
 }
 
 .roadmap-hero h1 {
-  font-size: clamp(32px, 5vw, 56px);
+  font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 800;
-  margin: 0 0 16px 0;
-  letter-spacing: -1px;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.05em;
 }
 
 .roadmap-hero p {
-  font-size: clamp(16px, 2.5vw, 20px);
-  color: #cbd5e1;
-  max-width: 650px;
-  margin: 0 auto 40px auto;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #94a3b8;
+  max-width: 700px;
+  margin: 0 auto 3rem;
   line-height: 1.6;
 }
 
@@ -53,16 +52,16 @@
 .search-form {
   display: flex;
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.98);
-  padding: 8px;
-  border-radius: 50px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(12px);
+  padding: 0.75rem;
+  border-radius: 100px;
+  border: 1px solid rgba(78, 205, 196, 0.3);
   position: relative;
   z-index: 10;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 body.dark-mode .search-form {
@@ -79,9 +78,9 @@ body.dark-mode .search-form {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 16px 24px;
-  font-size: 18px;
-  color: #0f172a;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  color: #f1f5f9;
   outline: none;
   min-width: 0; /* Prevents input overflow on small screens */
 }
@@ -95,22 +94,23 @@ body.dark-mode .search-input {
 }
 
 .search-btn {
-  background-color: var(--primary-color);
+  background: linear-gradient(135deg, #3b82f6, #4ecdc4);
   color: white;
   border: none;
-  padding: 16px 36px;
-  font-size: 16px;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
   font-weight: 600;
-  border-radius: 50px;
+  border-radius: 100px;
   cursor: pointer;
   transition: all 0.3s ease;
-  white-space: nowrap; /* Prevents text from wrapping awkwardly */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .search-btn:hover {
-  background-color: var(--primary-hover);
-  transform: scale(1.02);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
 }
 
 /* --- Responsive adjustments for the Search Hero --- */
@@ -169,6 +169,7 @@ body.dark-mode .search-input {
   color: var(--primary-color);
   background: -webkit-linear-gradient(135deg, #3b82f6, #8b5cf6);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

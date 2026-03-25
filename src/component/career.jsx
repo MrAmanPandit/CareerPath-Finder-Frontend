@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import useSEO from '../utils/useSEO';
+import { Code, TrendingUp, Brain, Plane, Palette, BarChart, ArrowRight } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -49,7 +50,7 @@ const Careers = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="careersTitle">Explore Careers</h1>
+        <h1 className="careersTitle">Explore <span className="text-gradient">Careers</span></h1>
         <p className="careersSubtitle">Discover top professions, understand what they do, and find out which stream will get you there.</p>
       </motion.div>
 
@@ -60,7 +61,7 @@ const Careers = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-       <Link to="/career/roadmap/search"><button className="searchBtn">Search for a career (e.g., Doctor, Designer)....with AI</button></Link>
+       <Link to="/career/roadmap/search"><button className="searchBtn">Search for a career <span className="ai-badge">with AI Intelligence</span></button></Link>
       </motion.div>
 
       {/* Careers Grid */}
@@ -71,9 +72,9 @@ const Careers = () => {
         animate="visible"
       >
        
-          <motion.div className="careerCard" variants={itemVariants} whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+          <motion.div className="careerCard glass-card" variants={itemVariants} whileHover={{ y: -5 }}>
             <div className="careerCardHeader">
-              <span className="careerIcon">💻</span>
+              <span className="careerIcon"><Code size={30} /></span>
               <span className="careerGrowth">Very High Paying</span>
             </div>
             
@@ -82,12 +83,12 @@ const Careers = () => {
             
             <p className="careerDesc">Design, build, and maintain software applications and systems.</p>
             
-            <Link to="/career/roadmap/software-engineer" className="readMoreBtn">View Roadmap ➔</Link>
+            <Link to="/career/roadmap/software-engineer" className="readMoreBtn">View Roadmap <ArrowRight size={16} /></Link>
           </motion.div>
           
-          <motion.div className="careerCard" variants={itemVariants} whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+          <motion.div className="careerCard glass-card" variants={itemVariants} whileHover={{ y: -5 }}>
             <div className="careerCardHeader">
-              <span className="careerIcon">📈</span>
+              <span className="careerIcon"><TrendingUp size={30} /></span>
               <span className="careerGrowth">High Demand</span>
             </div>
             
@@ -96,12 +97,12 @@ const Careers = () => {
             
             <p className="careerDesc">Help corporate clients raise capital and provide financial advisory.</p>
             
-            <Link to="/career/roadmap/investment-banker" className="readMoreBtn">View Roadmap ➔</Link>
+            <Link to="/career/roadmap/investment-banker" className="readMoreBtn">View Roadmap <ArrowRight size={16} /></Link>
           </motion.div>
 
-          <motion.div className="careerCard" variants={itemVariants} whileHover={{ y: -5, transition: { duration: 0.2 } }}> 
+          <motion.div className="careerCard glass-card" variants={itemVariants} whileHover={{ y: -5 }}> 
             <div className="careerCardHeader">
-              <span className="careerIcon">🧠</span>
+              <span className="careerIcon"><Brain size={30} /></span>
               <span className="careerGrowth">Fast Growing</span>
             </div>
 
@@ -110,40 +111,40 @@ const Careers = () => {
 
             <p className="careerDesc">Assess, diagnose, and treat mental, emotional, and behavioral disorders.</p>
 
-            <Link to="/career/roadmap/clinical-psychologist" className="readMoreBtn">View Roadmap ➔</Link>
+            <Link to="/career/roadmap/clinical-psychologist" className="readMoreBtn">View Roadmap <ArrowRight size={16} /></Link>
           </motion.div>
 
-            <motion.div className="careerCard" variants={itemVariants} whileHover={{ y: -5, transition: { duration: 0.2 } }}>   
+            <motion.div className="careerCard glass-card" variants={itemVariants} whileHover={{ y: -5 }}>   
                <div className="careerCardHeader">
-                    <span className="careerIcon">✈️</span>
+                    <span className="careerIcon"><Plane size={30} /></span>
                     <span className="careerGrowth">Global Demand</span>
                 </div>
                 <h3 className="careerName">Commercial Pilot</h3>
                 <span className="careerStream">Path: Math (PCM)</span>
                 <p className="careerDesc">Navigate and fly airplanes for airlines, transporting passengers and cargo.</p>
-                <Link to="/career/roadmap/commercial-pilot" className="readMoreBtn">View Roadmap ➔</Link>
+                <Link to="/career/roadmap/commercial-pilot" className="readMoreBtn">View Roadmap <ArrowRight size={16} /></Link>
             </motion.div>
 
-            <motion.div className="careerCard" variants={itemVariants} whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+            <motion.div className="careerCard glass-card" variants={itemVariants} whileHover={{ y: -5 }}>
                 <div className="careerCardHeader">
-                    <span className="careerIcon">🎨</span>
+                    <span className="careerIcon"><Palette size={30} /></span>
                     <span className="careerGrowth">Creative Tech</span>
                 </div>
                 <h3 className="careerName">UI/UX Designer</h3>
                 <span className="careerStream">Path: Any Stream</span>
-                <p className="careerDesc">Create user-friendly interfaces and design digital experiences for apps and websites.</p>
-                <Link to="/career/roadmap/ui-ux-designer" className="readMoreBtn">View Roadmap ➔</Link>
+                <p className="careerDesc">Create user-friendly interfaces and design digital experiences.</p>
+                <Link to="/career/roadmap/ui-ux-designer" className="readMoreBtn">View Roadmap <ArrowRight size={16} /></Link>
             </motion.div> 
 
-            <motion.div className="careerCard" variants={itemVariants} whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+            <motion.div className="careerCard glass-card" variants={itemVariants} whileHover={{ y: -5 }}>
                 <div className="careerCardHeader">
-                    <span className="careerIcon">📊</span>
+                    <span className="careerIcon"><BarChart size={30} /></span>
                     <span className="careerGrowth">Top Rated</span>
                 </div>
                 <h3 className="careerName">Data Scientist</h3>
                 <span className="careerStream">Path: Math / Commerce</span>
-                <p className="careerDesc">Analyze complex raw data to find trends and help businesses make decisions.</p>
-                <Link to="/career/roadmap/data-scientist" className="readMoreBtn">View Roadmap ➔</Link>
+                <p className="careerDesc">Analyze complex raw data to help businesses make data-driven decisions.</p>
+                <Link to="/career/roadmap/data-scientist" className="readMoreBtn">View Roadmap <ArrowRight size={16} /></Link>
             </motion.div>
 
 

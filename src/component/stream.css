@@ -1,19 +1,19 @@
 
 /* Centers the entire section horizontally and vertically */
+/* Centers the entire section horizontally and vertically */
 .body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 73.5vh; /* Keeps it centered between header and footer */
+  min-height: 80vh; /* Increased to give more room */
   background-color: var(--bg-color);
   font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-  padding: 40px 20px;
+  padding: 60px 20px;
   position: relative;
   overflow: hidden;
-  animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* Added Hero Animation requested by user */
+/* Background Animation */
 .body::before {
   content: '';
   position: absolute;
@@ -21,14 +21,14 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 0%, transparent 60%);
-  animation: rotate 40s linear infinite;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, transparent 70%);
+  animation: rotate 60s linear infinite;
   pointer-events: none;
   z-index: 0;
 }
 
 body.dark-mode .body::before {
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
 }
 
 /* Aligns the title and the cards container */
@@ -38,92 +38,149 @@ body.dark-mode .body::before {
   align-items: center;
   width: 100%;
   max-width: 1200px;
+  z-index: 1;
 }
 
 /* Styles the main heading */
 .streamTitle {
-  font-size: 36px;
-  font-weight: 700;
+  font-size: 42px;
+  font-weight: 800;
   color: var(--text-color);
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   text-align: center;
-  z-index: 1;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--text-color) 0%, var(--primary-color) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Forces the cards into a single row with spacing */
+/* Cards container with improved responsiveness */
 .cardsContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 30px;
-  flex-wrap: wrap; /* Allows them to stack on mobile phones */
   width: 100%;
+  max-width: 1100px;
+  padding: 10px;
 }
 
-/* The actual card design (white background, shadow, rounded corners) */
+/* Premium Card Design: Glassmorphism */
 .streamCard {
-  background-color: var(--card-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: var(--box-shadow);
-  padding: 40px 20px;
-  width: 220px; /* Forces all cards to be the exact same size */
+  padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  z-index: 1;
+  text-decoration: none;
   position: relative;
   overflow: hidden;
 }
 
-.streamCard::before {
+.streamCard::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
-  background: var(--primary-gradient);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-  z-index: 2;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.streamCard:hover::before {
-  transform: scaleX(1);
+.streamCard:hover::after {
+  opacity: 1;
 }
 
-/* Hover animation to make cards 'lift' up */
-.streamCard:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--box-shadow-hover);
-  border-color: var(--primary-color);
-}
-
-/* Makes the emojis look like large icons */
-.streamIcon {
-  font-size: 64px; 
-  margin-bottom: 20px;
-  line-height: 1; /* Prevents emojis from creating weird vertical spacing */
+/* Icon Styling and Floating Animation */
+.streamCardWrapper {
+  width: 100%;
+  display: flex;
   justify-content: center;
 }
 
-/* Styles the text inside the cards */
-.streamName {
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--text-color);
-  text-align: center;
+.streamIcon {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: float 4s ease-in-out infinite;
+  border: 1px solid transparent;
 }
 
-@media (max-width:800px) {
-  .streamTitle{
-    font-size: 1.9rem;
-  }
- 
+.streamCard:hover .streamIcon {
+  transform: scale(1.1) rotate(5deg);
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Stream Name Styling */
+.streamName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.streamCard:hover .streamName {
+  color: var(--primary-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 800px) {
+  .body {
+    padding: 40px 15px;
+  }
+  
+  .streamTitle {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+  
+  .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .streamCard {
+    padding: 35px 20px;
+  }
+  
+  .streamIcon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+  }
+  
+  .streamName {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardsContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  .streamCard {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 25px 30px;
+    gap: 25px;
+  }
+  
+  .streamIcon {
+    margin-bottom: 0;
+    width: 50px;
+    height: 50px;
+  }
+}

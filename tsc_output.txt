@@ -1,0 +1,1 @@
+src/yam-ai/main.tsx(3,17): error TS2307: Cannot find module './App.tsx' or its corresponding type declarations.

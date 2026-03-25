@@ -36,21 +36,12 @@ const AddRoadmap = lazy(() => import('./admin/AddRoadmap.jsx'))
 const ManageUsers = lazy(() => import('./admin/ManageUsers.jsx'))
 const ManageCourses = lazy(() => import('./admin/ManageCourses.jsx'))
 const ManageRoadmaps = lazy(() => import('./admin/ManageRoadmap.jsx'))
-const UpdateRoadmap = lazy(() => import('./admin/UpdateRoadmap.jsx'))
+const UpdateRoadmap = lazy(() => import('./admin/ManageRoadmap.jsx'))
 const UpdateCourse = lazy(() => import('./admin/UpdateCourse.jsx'))
+const YamAiApp = lazy(() => import('./yam-ai/YamAiApp.jsx'))
+const EducationAi = lazy(() => import('./yam-ai/EducationAi.jsx'))
+const CareerAi = lazy(() => import('./yam-ai/CareerAi.jsx'))
 
-const ProtectedRoute = ({ children }) => {
-  const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem('accessToken'); // Check for token in localStorage
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login'); // Redirect to login if not authenticated
-    }
-  }, [isAuthenticated, navigate]);
-
-  return isAuthenticated ? children : null; // Render children if authenticated, otherwise render nothing
-};
 const routers = createBrowserRouter([
   {
     path: "/",
@@ -62,38 +53,38 @@ const routers = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <ProtectedRoute><AdminDashboard /></ProtectedRoute>,
+        element: <AdminDashboard />,
         children: [{
           path: "dashboard",
-          element: <ProtectedRoute><DashboardHome /></ProtectedRoute>
+          element: <DashboardHome />
         },
         {
           path: "add-course",
-          element: <ProtectedRoute><AddCourse /></ProtectedRoute>
+          element: <AddCourse />
         },
         {
           path: "add-roadmap",
-          element: <ProtectedRoute><AddRoadmap /></ProtectedRoute>
+          element: <AddRoadmap />
         },
         {
           path: "manage-users",
-          element: <ProtectedRoute><ManageUsers /></ProtectedRoute>
+          element: <ManageUsers />
         },
         {
           path: "manage-courses",
-          element: <ProtectedRoute><ManageCourses /></ProtectedRoute>
+          element: <ManageCourses />
         },
         {
           path: "manage-roadmaps",
-          element: <ProtectedRoute><ManageRoadmaps /></ProtectedRoute>
+          element: <ManageRoadmaps />
         },
         {
           path: "update-course/:id",
-          element: <ProtectedRoute><UpdateCourse /></ProtectedRoute>
+          element: <UpdateCourse />
         },
         {
           path: "update-roadmap/:id",
-          element: <ProtectedRoute><UpdateRoadmap /></ProtectedRoute>
+          element: <UpdateRoadmap />
         }
         ]
       },
@@ -107,7 +98,7 @@ const routers = createBrowserRouter([
       },
       {
         path: "/contact",
-        element: <ProtectedRoute><Contact /></ProtectedRoute>
+        element: <Contact />
       },
       {
         path: "/login",
@@ -119,27 +110,27 @@ const routers = createBrowserRouter([
       },
       {
         path: "/streams/biology",
-        element: <ProtectedRoute><BiologyCourses /></ProtectedRoute>
+        element: <BiologyCourses />
       },
       {
         path: "/streams/maths",
-        element: <ProtectedRoute> <MathCourses /></ProtectedRoute>
+        element: <MathCourses />
       },
       {
         path: "/streams/commerce",
-        element: <ProtectedRoute> <CommerceCourses /></ProtectedRoute>
+        element: <CommerceCourses />
       },
       {
         path: "/streams/arts",
-        element: <ProtectedRoute> <ArtCourses /></ProtectedRoute>
+        element: <ArtCourses />
       },
       {
         path: "/profile",
-        element: <ProtectedRoute><Profile /></ProtectedRoute>
+        element: <Profile />
       },
       {
         path: "/edit-details",
-        element: <ProtectedRoute><EditDetails /></ProtectedRoute>
+        element: <EditDetails />
       },
       {
         path: "/career",
@@ -147,27 +138,27 @@ const routers = createBrowserRouter([
       },
       {
         path: "/career/roadmap/software-engineer",
-        element: <ProtectedRoute><SoftwareEngineer /></ProtectedRoute>
+        element: <SoftwareEngineer />
       },
       {
         path: "/career/roadmap/investment-banker",
-        element: <ProtectedRoute><InvestmentBanker /></ProtectedRoute>
+        element: <InvestmentBanker />
       },
       {
         path: "/career/roadmap/clinical-psychologist",
-        element: <ProtectedRoute><ClinicalPsychologistRoadmap /></ProtectedRoute>
+        element: <ClinicalPsychologistRoadmap />
       },
       {
         path: "/career/roadmap/commercial-pilot",
-        element: <ProtectedRoute><CommercialPilotRoadmap /></ProtectedRoute>
+        element: <CommercialPilotRoadmap />
       },
       {
         path: "/career/roadmap/ui-ux-designer",
-        element: <ProtectedRoute><UiUxRoadmap /></ProtectedRoute>
+        element: <UiUxRoadmap />
       },
       {
         path: "/career/roadmap/data-scientist",
-        element: <ProtectedRoute><DataScientistRoadmap /></ProtectedRoute>
+        element: <DataScientistRoadmap />
       },
       {
         path: "/career/roadmap/search",
@@ -176,6 +167,18 @@ const routers = createBrowserRouter([
       {
         path: "/admin/roadmap/collection",
         element: <RoadmapCollection />
+      },
+      {
+        path: "/yam-ai",
+        element: <YamAiApp />
+      },
+      {
+        path: "/education-ai",
+        element: <EducationAi />
+      },
+      {
+        path: "/career-ai",
+        element: <CareerAi />
       }
     ]
   }

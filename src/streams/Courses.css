@@ -57,60 +57,43 @@ body.dark-mode .coursesWrapper::before {
 /* The Grid that holds all the category cards */
 .coursesGrid {
   display: grid;
-  /* Automatically fits as many columns as possible based on screen size */
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 30px;
+  gap: 40px;
   width: 100%;
   max-width: 1200px;
 }
 
-/* Individual Category Card (White, shadow, rounded corners) */
+/* Individual Category Card (Glassmorphic) */
 .categoryCard {
-  background-color: var(--card-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: var(--box-shadow);
-  padding: 30px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  padding: 40px 30px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
+  min-height: var(--card-min-height);
   z-index: 1;
   position: relative;
   overflow: hidden;
 }
 
-.categoryCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--primary-gradient);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-  z-index: 2;
-}
-
-.categoryCard:hover::before {
-  transform: scaleX(1);
-}
-
 .categoryCard:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--box-shadow-hover);
-  border-color: var(--primary-color);
+  transform: translateY(-10px) scale(var(--hover-scale));
+  border-color: rgba(78, 205, 196, 0.3);
+  box-shadow: var(--hover-glow);
 }
 
 /* Header inside the card */
 .categoryHeader {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e2e8f0;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .categoryIcon {

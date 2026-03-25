@@ -2,11 +2,13 @@ import React from 'react';
 import './Courses.css'; // Reuses the exact same CSS file!
 import AnimatedPage from '../component/animation';
 
+import { BarChart4, Briefcase, TrendingUp, PieChart, Gavel, Landmark, Palette } from 'lucide-react';
+
 const CommerceCourses = () => {
   const courseCategories = [
     {
       title: "Core Commerce & Accounting",
-      icon: "📊",
+      icon: <BarChart4 size={28} />,
       courses: [
         { name: "B.Com", detail: "Bachelor of Commerce (General)", duration: "3-4 Years" },
         { name: "B.Com (Hons)", detail: "Bachelor of Commerce (Honours)", duration: "3-4 Years" },
@@ -17,7 +19,7 @@ const CommerceCourses = () => {
     },
     {
       title: "Professional Qualifications",
-      icon: "💼",
+      icon: <Briefcase size={28} />,
       courses: [
         { name: "CA", detail: "Chartered Accountancy", duration: "4.5-5 Years" },
         { name: "CS", detail: "Company Secretary", duration: "3-4 Years" },
@@ -28,7 +30,7 @@ const CommerceCourses = () => {
     },
     {
       title: "Business & Management",
-      icon: "👔",
+      icon: <TrendingUp size={28} />,
       courses: [
         { name: "BBA", detail: "Bachelor of Business Administration", duration: "3-4 Years" },
         { name: "BMS", detail: "Bachelor of Management Studies", duration: "3-4 Years" },
@@ -39,7 +41,7 @@ const CommerceCourses = () => {
     },
     {
       title: "Economics & Analytics",
-      icon: "📈",
+      icon: <PieChart size={28} />,
       courses: [
         { name: "B.A. Economics", detail: "Honours in Economics", duration: "3-4 Years" },
         { name: "B.Sc. Economics", detail: "Quantitative Economics", duration: "3-4 Years" },
@@ -50,7 +52,7 @@ const CommerceCourses = () => {
     },
     {
       title: "Law (Integrated Degrees)",
-      icon: "⚖️",
+      icon: <Gavel size={28} />,
       courses: [
         { name: "B.Com + LL.B.", detail: "Integrated Commerce & Law", duration: "5 Years" },
         { name: "BBA + LL.B.", detail: "Integrated Management & Law", duration: "5 Years" },
@@ -59,7 +61,7 @@ const CommerceCourses = () => {
     },
     {
       title: "Banking, Insurance & Finance",
-      icon: "🏦",
+      icon: <Landmark size={28} />,
       courses: [
         { name: "BBI", detail: "B.Com in Banking & Insurance", duration: "3-4 Years" },
         { name: "B.Voc Banking", detail: "Vocational Degree in Banking", duration: "3 Years" },
@@ -69,7 +71,7 @@ const CommerceCourses = () => {
     },
     {
       title: "Media, Design & Computers",
-      icon: "🎨",
+      icon: <Palette size={28} />,
       courses: [
         { name: "BMM", detail: "Bachelor of Mass Media", duration: "3-4 Years" },
         { name: "BCA", detail: "Computer Applications (with Math)", duration: "3-4 Years" },
@@ -83,7 +85,7 @@ const CommerceCourses = () => {
     <AnimatedPage>
     <div className="coursesWrapper">
       <div className="coursesHeader">
-        <h1 className="coursesTitle">Commerce Stream Courses</h1>
+        <h1 className="coursesTitle">Commerce Stream <span className="text-gradient">Courses</span></h1>
         <p className="coursesSubtitle">Explore the top degrees, professional certifications, and management paths available after 12th Commerce.</p>
       </div>
 

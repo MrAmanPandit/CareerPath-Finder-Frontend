@@ -14,11 +14,11 @@ const AdminDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Protect the entire dashboard
+  // Dashboard data loading (No longer restricted)
   useEffect(() => {
-    const verifyAdmin = async () => {
+    const fetchAdminInfo = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
-            withCredentials: true,
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -27,17 +27,18 @@ const AdminDashboard = () => {
           setIsAdmin(true);
           setAdminName(response.data.message.firstName);
         } else {
-          navigate('/'); // Kick out normal users
+          setIsAdmin(true); // Allow non-admins to stay
+          setAdminName("Guest Admin");
         }
       } catch (error) {
-        console.error("Admin verification failed:", error.response || error);
-        navigate('/'); // Kick out logged out users
+        setIsAdmin(true); // Allow unauthenticated to stay
+        setAdminName("Guest");
       } finally {
         setLoading(false);
       }
     };
-    verifyAdmin();
-  }, [navigate]);
+    fetchAdminInfo();
+  }, []);
 
   const handleLogout = async () => {
     try {

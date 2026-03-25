@@ -5,6 +5,7 @@ import axios from 'axios';
 import SkeletonLoader from './SkeletonLoader';
 import useSEO from '../utils/useSEO';
 import SEOSchema from './SEOSchema';
+import { Laptop, BarChart, ShieldCheck, Cloud, TrendingUp, Search, Map as MapIcon, Play, ArrowRight } from 'lucide-react';
 
 const RoadmapSearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,10 +67,10 @@ const RoadmapSearchPage = () => {
     <AnimatedPage>
     <SEOSchema schema={searchSchema} />
     <div className="roadmap-page">
-      
+
       {/* 1. The Search Hero */}
       <section className="roadmap-hero">
-        <h1>Discover Your Path</h1>
+        <h1 className="text-gradient">Discover Your Path</h1>
         <p>Enter your dream job below, and we will generate a step-by-step educational roadmap to help you achieve it.</p>
         
         <form className="search-form" onSubmit={handleFormSubmit}>
@@ -81,54 +82,51 @@ const RoadmapSearchPage = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <button type="submit" className="search-btn">
-            {isSearching ? 'Mapping...' : 'Generate Roadmap'}
+            {isSearching ? 'Mapping...' : (
+              <>Generate Roadmap <ArrowRight size={18} /></>
+            )}
           </button>
         </form>
       </section>
 
       {/* 2. Loading State */}
-      
       {isSearching && (
         <div className="loading-state" style={{marginTop: '30px'}}>
           <SkeletonLoader type="search" />
         </div>
       )}
       
-      {/* 3. THE NEW EMPTY STATE (Shows when NOT searching and NO roadmap exists) */}
+      {/* 3. Empty State */}
       {!roadmap && !isSearching && (
         <section className="suggestions-section">
-          
           <h2 className="suggestions-header">Not sure where to start?</h2>
           <p className="suggestions-subtext">Explore some of the most popular career paths chosen by our students.</p>
           
-          {/* Quick Search Buttons */}
           <div className="popular-jobs-grid">
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Software Engineer")}>💻 Software Engineer</button>
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Data Scientist")}>📊 Data Scientist</button>
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Cyber Security")}>🔐 Cyber Security</button>
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Cloud Architect")}>☁️ Cloud Architect</button>
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Product Manager")}>📈 Product Manager</button>
+            <button className="job-pill-btn" onClick={() => handleQuickSearch("Software Engineer")}><Laptop size={18} /> Software Engineer</button>
+            <button className="job-pill-btn" onClick={() => handleQuickSearch("Data Scientist")}><BarChart size={18} /> Data Scientist</button>
+            <button className="job-pill-btn" onClick={() => handleQuickSearch("Cyber Security")}><ShieldCheck size={18} /> Cyber Security</button>
+            <button className="job-pill-btn" onClick={() => handleQuickSearch("Cloud Architect")}><Cloud size={18} /> Cloud Architect</button>
+            <button className="job-pill-btn" onClick={() => handleQuickSearch("Product Manager")}><TrendingUp size={18} /> Product Manager</button>
           </div>
 
-          {/* How It Works Explainer */}
           <div className="how-it-works-grid">
-            <div className="step-card">
-              <div className="step-icon">1</div>
+            <div className="step-card glass-card">
+              <div className="step-icon"><Search size={28} /></div>
               <h3>Search a Career</h3>
-              <p>Type in any professional career or tech role you are dreaming of pursuing in the future.</p>
+              <p>Type in any professional career or tech role you are dreaming of pursuing.</p>
             </div>
-            <div className="step-card">
-              <div className="step-icon">2</div>
+            <div className="step-card glass-card">
+              <div className="step-icon"><MapIcon size={28} /></div>
               <h3>Get the Roadmap</h3>
-              <p>We break down exactly which degrees, diplomas, and skills you need from high school to graduation.</p>
+              <p>We break down exactly which degrees, diplomas, and skills you need.</p>
             </div>
-            <div className="step-card">
-              <div className="step-icon">3</div>
+            <div className="step-card glass-card">
+              <div className="step-icon"><Play size={28} /></div>
               <h3>Start Learning</h3>
-              <p>Click on the recommended courses and bootcamps to instantly start building your career foundation.</p>
+              <p>Click on the recommended courses to instantly start building your foundation.</p>
             </div>
           </div>
-
         </section>
       )}
 

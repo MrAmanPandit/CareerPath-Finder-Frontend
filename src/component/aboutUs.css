@@ -31,140 +31,130 @@ body.dark-mode .aboutWrapper::before {
 
 /* The main white card holding the content */
 .aboutCard {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    padding: 3vw 5vw;
-    margin: 0vw 1vw;
-    width: 100vw;
-    /* Wider than the login card to fit text nicely */
+    padding: 4rem 3rem;
+    max-width: 1200px;
     width: 100%;
     text-align: center;
-    box-sizing: border-box;
-    z-index: 1;
 }
 
 /* Page Heading */
 .aboutTitle {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-top: 0;
-    margin-bottom: 24px;
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
 }
 
 /* Main paragraph text */
 .aboutText {
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--text-color);
-    margin-bottom: 40px;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #94a3b8;
+    margin-bottom: 4rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* A flex container for the small feature highlights below the text */
 .aboutFeatures {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 4rem;
     flex-wrap: wrap;
-    /* Allows stacking on mobile screens */
-    border-top: 1px solid var(--border-color);
-    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 4rem;
+    margin-bottom: 5rem;
 }
 
 /* Individual feature blocks */
 .featureItem {
     flex: 1;
     min-width: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-/* The emoji icons for the features */
 .featureIcon {
-    font-size: 40px;
-    margin-bottom: 16px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .featureTitle {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-color);
-    margin: 0 0 8px 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
 }
 
 .featureDesc {
-    font-size: 14px;
-    color: #64748b;
-    line-height: 1.5;
-    margin: 0;
+    font-size: 1rem;
+    color: #94a3b8;
+    line-height: 1.6;
 }
 
-.developer {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-color) ;
+.teamTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 3rem;
 }
 
 .members_row {
   display: flex;
-  flex-direction: row;
-  justify-content: center; /* Centers the row of cards */
-  align-items: center;
-  gap: 20px; /* Space between cards */
+  justify-content: center;
+  gap: 2rem;
   flex-wrap: wrap;
-  padding: 2vw 4vw;
-  margin: 0;
-  width: 100%;
 }
 
 .memberscard {
-  background-color: var(--bg-color);
-  border: 3px groove  silver;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  padding: 1;
-  width: 220px; /* Forces all cards to be the exact same size */
+  padding: 1.5rem;
+  width: 280px;
   display: flex;
-  height: 150px;
-  width: 250px;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  gap: 1.25rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 .memberscard:hover {
   transform: translateY(-8px);
-  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
-  border-color: var(--border-color);
+  border-color: #4ecdc4;
+  box-shadow: 0 10px 30px rgba(78, 205, 196, 0.1);
 }
-.memberscard img {
+
+.memberscard img, .placeholder-avatar {
   width:  70px;
   height: 70px;
   border-radius: 50%;
-  border: 3px solid silver;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  object-fit: cover;
+  flex-shrink: 0;
 }
-.text{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
+.placeholder-avatar {
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4ecdc4;
 }
+
+.text {
+    text-align: left;
+}
+
 .memberName {
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text-color);
-    padding: 5px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
 }
+
 .designation {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-color);
-  margin-top: 0px;
+  font-size: 0.85rem;
+  color: #4ecdc4;
+  font-weight: 500;
 }
 
 /* ── Tablet (≤ 800px) ── */

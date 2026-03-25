@@ -21,9 +21,6 @@ const Header = () => {
   const [loading, setLoading] = useState(true);
 
   // This React code remains the same in Header.jsx
-  const toggleDarkMode = () => {
-    document.body.classList.toggle('dark-mode');
-  };
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -133,9 +130,6 @@ const Header = () => {
           {isLoggedIn && user?.role === 'admin' && (
             <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn" to="/admin/dashboard">Admin Panel</MotionLink>
           )}
-          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="darkModeToggle" onClick={toggleDarkMode}>
-            🌓 Change Mode
-          </motion.button>
           {isLoggedIn ? (
             <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn" to="/profile">👤 {user?.firstName}</MotionLink>
           ) : (
@@ -167,7 +161,6 @@ const Header = () => {
         {isLoggedIn && user?.role === 'admin' && (
           <NavLink to="/admin/dashboard" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Admin Panel</NavLink>
         )}
-        <button className="darkModeToggle darkModeBtn " onClick={toggleDarkMode}>🌓 Change Mode </button>
         {isLoggedIn ? (
           <Link to="/profile" className="mobileLoginBtn" onClick={closeMenu}>{user?.firstName ? `👤 ${user?.firstName}` : "Profile"}</Link>
         ) : (

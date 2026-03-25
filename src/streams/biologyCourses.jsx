@@ -2,11 +2,13 @@ import React from 'react';
 import './Courses.css';
 import AnimatedPage from '../component/animation';
 
+import { Stethoscope, Leaf, PawPrint, Pill, Microscope, Dna, Rocket } from 'lucide-react';
+
 const BiologyCourses = () => {
   const courseCategories = [
     {
       title: "Core Medical & Dental",
-      icon: "🩺",
+      icon: <Stethoscope size={28} />,
       courses: [
         { name: "MBBS", detail: "Medicine and Surgery", duration: "5.5 Years" },
         { name: "BDS", detail: "Dental Surgery", duration: "5 Years" }
@@ -14,7 +16,7 @@ const BiologyCourses = () => {
     },
     {
       title: "AYUSH (Alternative Medicine)",
-      icon: "🌿",
+      icon: <Leaf size={28} />,
       courses: [
         { name: "BAMS", detail: "Ayurvedic Medicine", duration: "5.5 Years" },
         { name: "BHMS", detail: "Homeopathic Medicine", duration: "5.5 Years" },
@@ -25,7 +27,7 @@ const BiologyCourses = () => {
     },
     {
       title: "Veterinary & Agriculture",
-      icon: "🐾",
+      icon: <PawPrint size={28} />,
       courses: [
         { name: "BVSc & AH", detail: "Veterinary Science", duration: "5.5 Years" },
         { name: "B.Sc. Ag.", detail: "Agriculture", duration: "4 Years" },
@@ -36,7 +38,7 @@ const BiologyCourses = () => {
     },
     {
       title: "Pharmacy & Nursing",
-      icon: "💊",
+      icon: <Pill size={28} />,
       courses: [
         { name: "Pharm.D", detail: "Doctor of Pharmacy", duration: "6 Years" },
         { name: "B.Pharm", detail: "Bachelor of Pharmacy", duration: "4 Years" },
@@ -48,7 +50,7 @@ const BiologyCourses = () => {
     },
     {
       title: "Allied Health & Paramedical",
-      icon: "🔬",
+      icon: <Microscope size={28} />,
       courses: [
         { name: "BPT", detail: "Physiotherapy", duration: "4.5 Years" },
         { name: "BOT", detail: "Occupational Therapy", duration: "4.5 Years" },
@@ -61,7 +63,7 @@ const BiologyCourses = () => {
     },
     {
       title: "Pure Sciences (B.Sc.)",
-      icon: "🧬",
+      icon: <Dna size={28} />,
       courses: [
         { name: "B.Sc. Zoology", detail: "Study of Animals", duration: "3-4 Years" },
         { name: "B.Sc. Botany", detail: "Study of Plants", duration: "3-4 Years" },
@@ -72,7 +74,7 @@ const BiologyCourses = () => {
     },
     {
       title: "Emerging & Interdisciplinary",
-      icon: "🚀",
+      icon: <Rocket size={28} />,
       courses: [
         { name: "B.Tech Biotech", detail: "Technology & Biology", duration: "4 Years" },
         { name: "B.Sc. Forensic", detail: "Crime Scene Investigation", duration: "3-4 Years" },
@@ -87,7 +89,7 @@ const BiologyCourses = () => {
     <AnimatedPage>
     <div className="coursesWrapper">
       <div className="coursesHeader">
-        <h1 className="coursesTitle">Biology Stream Courses</h1>
+        <h1 className="coursesTitle">Biology Stream <span className="text-gradient">Courses</span></h1>
         <p className="coursesSubtitle">Explore an expanded list of top career paths and degrees available after 12th PCB.</p>
       </div>
 

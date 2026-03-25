@@ -5,35 +5,37 @@
 .inactive {
             color: black;
         }
- /* Main Navbar Container */   
+/* Main Navbar Container */   
 .navbar {
-    display: flex;
-    background-color: var(--navbar-bg);
-    border-bottom: 1px solid var(--border-color);
-    position: relative;
-    /* Needed for absolute positioning of mobile menu */
-    z-index: 50;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
     position: sticky;
     top: 0;
-    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 .navContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 40px;
-    width: 100vw;
-    margin: 0 2vw;
+    padding: 1rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 /* Logo Styling */
 .logo {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--primary-color);
-    /* Matches the blue/purple from your screenshot */
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
     cursor: pointer;
+    background: linear-gradient(90deg, #4ecdc4, #ff6b6b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* --- DESKTOP STYLES --- */
