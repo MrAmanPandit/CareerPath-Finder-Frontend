@@ -14,27 +14,66 @@ Your goal is to:
 6. Keep the tone friendly yet expert.
 `;
 
-export const generateResponse = async (userPrompt, chatHistory = []) => {
-    try {
-        // Prepare chat history for Gemini API
-        const contents = [
-            { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
-            { role: "model", parts: [{ text: "Understood. I am YAM, your Academic Mentor. How can I help you today?" }] },
-            ...chatHistory.map(msg => ({
-                role: msg.role === "user" ? "user" : "model",
-                parts: [{ text: msg.text }]
-            })),
-            { role: "user", parts: [{ text: userPrompt }] }
-        ];
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-        const result = await genAI.models.generateContent({
-            model: "gemini-2.0-flash",
-            contents: contents
-        });
-        
-        return result.text;
-    } catch (error) {
-        console.error("Error generating AI response:", error);
-        return "I'm sorry, I encountered an error while processing your request. Please try again later.";
+const MAX_RETRIES = 3;
+const MODELS = ["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-flash-latest"];
+
+/**
+ * Trims chat history to the last N messages to save tokens.
+ */
+const trimHistory = (history, maxMessages = 10) => {
+    return history.slice(-maxMessages);
+};
+
+export const generateResponse = async (userPrompt, chatHistory = []) => {
+    const trimmedHistory = trimHistory(chatHistory);
+    
+    // Prepare chat history for Gemini API
+    const contents = [
+        { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
+        { role: "model", parts: [{ text: "Understood. I am YAM, your Academic Mentor. How can I help you today?" }] },
+        ...trimmedHistory.map(msg => ({
+            role: msg.role === "user" ? "user" : "model",
+            parts: [{ text: msg.text }]
+        })),
+        { role: "user", parts: [{ text: userPrompt }] }
+    ];
+
+    for (const modelName of MODELS) {
+        let retries = 0;
+        while (retries < MAX_RETRIES) {
+            try {
+                const result = await genAI.models.generateContent({
+                    model: modelName,
+                    contents: contents
+                });
+                
+                return result.text;
+            } catch (error) {
+                const errorStatus = error?.status;
+                const isRateLimit = errorStatus === "RESOURCE_EXHAUSTED" || error?.message?.includes("429");
+
+                if (isRateLimit) {
+                    retries++;
+                    if (retries < MAX_RETRIES) {
+                        const waitTime = Math.pow(2, retries) * 1000 + Math.random() * 1000;
+                        console.warn(`Rate limit hit for ${modelName}. Retrying in ${Math.round(waitTime)}ms... (Attempt ${retries}/${MAX_RETRIES})`);
+                        await sleep(waitTime);
+                        continue;
+                    }
+                    console.error(`Rate limit exceeded for ${modelName} after ${MAX_RETRIES} retries.`);
+                    // Fall through to next model if available
+                    break; 
+                } else {
+                    console.error(`Error generating AI response with ${modelName}:`, error);
+                    // For non-quota errors, don't retry this model, move to next or fail
+                    break;
+                }
+            }
+        }
     }
+
+    // If we reach here, all models/retries failed
+    return "QUOTA_EXCEEDED";
 };
