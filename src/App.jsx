@@ -17,11 +17,13 @@ function App() {
   return (
     <div className="app-theme-provider">
       <Headers />
-      <PageTransition key={location.pathname}>
-        <Suspense fallback={<div style={{padding: '50px'}}><SkeletonLoader type="text" /></div>}>
-          <Outlet />
-        </Suspense>
-      </PageTransition>
+      <div className={location.pathname === "/" ? "" : "navbar-spacing"}>
+        <PageTransition key={location.pathname}>
+          <Suspense fallback={<div style={{padding: '50px'}}><SkeletonLoader type="text" /></div>}>
+            <Outlet />
+          </Suspense>
+        </PageTransition>
+      </div>
       <Footer />
       <YamAiIcon />
     </div>

@@ -67,10 +67,19 @@
 }
 
 /* Mobile Adjustments */
+@media (max-width: 768px) {
+  .footer {
+    padding: 3rem 5% 2rem;
+  }
+  .footerContainer {
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 480px) {
   .footerLinks {
-    gap: 20px;
+    gap: 1.5rem;
     flex-direction: row;
-    align-items: center;
+    justify-content: center;
   }
 }

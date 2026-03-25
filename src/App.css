@@ -17,6 +17,11 @@ html, body {
     line-height: 1.6;
 }
 
+/* Utility class for pages that need space below the fixed navbar */
+.navbar-spacing {
+    padding-top: 80px;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -37,7 +42,7 @@ a {
     background: transparent;
     color: #ffffff;
     text-align: center;
-    padding: 4.5rem 5%;
+    padding: 6rem 5% 4rem;
     position: relative;
     overflow: hidden;
 }
@@ -55,29 +60,31 @@ a {
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     line-height: 1.2;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
-    max-width: 800px;
+    max-width: 900px;
     margin-inline: auto;
+    letter-spacing: -0.02em;
 }
 
 .hero p {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: #ffffff;
+    opacity: 0.9;
     margin-bottom: 2.5rem;
-    max-width: 600px;
+    max-width: 700px;
     margin-inline: auto;
 }
 
 .btn-primary {
-    padding: 9px 17px;
+    padding: 12px 32px;
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -92,32 +99,44 @@ a {
 
 /* ----- About Section ----- */
 .about {
-    padding: 3.5rem 5%;
+    padding: 5rem 5%;
     text-align: center;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .section-title {
     font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3.5rem;
     color: var(--text-color);
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #4ecdc4, #ff6b6b);
+    border-radius: 2px;
 }
 
 .about p {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--text-color);
+    line-height: 1.8;
+    opacity: 0.9;
 }
 
 /* ----- Features Section ----- */
 .features {
-    padding: 4.5rem 5%;
+    padding: 5rem 5%;
     background: transparent;
     text-align: center;
-}
-
-.features .section-title {
-    margin-bottom: 4rem;
 }
 
 .feature-grid {
@@ -150,67 +169,98 @@ a {
     line-height: 1.6;
 }
 
-/* ── Tablet (≤ 800px) ── */
-@media (max-width: 800px) {
+/* ── Desktop/Laptop (≤ 1200px) ── */
+@media (max-width: 1200px) {
     .hero h1 {
-        font-size: 2.2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .about {
-        padding: 2rem 5%;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .features {
-        padding: 2rem 5%;
-    }
-
-    .streams {
-        padding: 2rem 5%;
-    }
-
-    .streams h2 {
-        font-size: 1.8rem;
+        font-size: 3rem;
     }
 }
 
-/* ── Mobile (≤ 480px) ── */
-@media (max-width: 480px) {
-    .hero {
+/* ── Tablet (≤ 1024px) ── */
+@media (max-width: 1024px) {
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    .about {
         padding: 4rem 5%;
     }
-
-    .hero p {
-        font-size: 0.95rem;
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
     }
+}
 
+/* ── Small Tablet (≤ 800px) ── */
+@media (max-width: 800px) {
+    .hero {
+        padding: 5rem 5% 3rem;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1.1rem;
+    }
+    .about {
+        padding: 3.5rem 5%;
+    }
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 2.5rem;
+    }
+    .features {
+        padding: 3.5rem 5%;
+    }
+    .feature-grid {
+        gap: 1.5rem;
+    }
+    .feature-card {
+        padding: 2rem 1.5rem;
+        min-height: auto;
+    }
+}
+
+/* ── Mobile (≤ 640px) ── */
+@media (max-width: 640px) {
+    .hero h1 {
+        font-size: 2.2rem;
+        margin-top: 1rem;
+    }
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    .about {
+        padding: 3rem 5%;
+    }
+    .about p {
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Small Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+    .hero {
+        padding: 7rem 5% 2rem;
+    }
+    .hero h1 {
+        font-size: 1.8rem;
+    }
     .btn-primary {
         width: 100%;
         text-align: center;
-        display: block;
-        box-sizing: border-box;
     }
-
     .section-title {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
-
     .feature-card {
-        min-width: 100%;
-    }
-
-    .about {
-        padding: 1.5rem 5%;
-    }
-
-    .features {
-        padding: 1.5rem 5%;
+        padding: 1.5rem 1rem;
     }
 }
