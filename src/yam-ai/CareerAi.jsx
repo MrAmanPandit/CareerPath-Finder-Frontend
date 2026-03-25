@@ -7,17 +7,9 @@ const CareerAi = () => {
     const navigate = useNavigate();
 
     const suggestions = [
-        "How to prepare for a Tech interview?",
         "High-paying remote careers?",
-        "Tips for a resume review",
-        "How to start freelancing?",
-        "Career path for Data Science",
-        "What is networking in careers?",
-        "Salary negotiation tips",
-        "How to build a portfolio?",
-        "Career change at 30?",
-        "Best soft skills for 2026",
-        "Work-life balance strategies"
+        "How to prepare for a Tech interview?",
+        "Salary negotiation tips"
     ];
 
     const customNav = (

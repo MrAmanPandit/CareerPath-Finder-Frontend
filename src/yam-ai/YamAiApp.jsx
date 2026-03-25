@@ -7,11 +7,9 @@ const YamAiApp = () => {
     const navigate = useNavigate();
 
     const suggestions = [
-        "Tell me about YAM AI",
         "How can you help me?",
-        "Start an education session",
-        "Help me with my career",
-        "What's new in Phase 4?"
+        "Compare top career paths",
+        "Explain complex topics simply"
     ];
 
     const customNav = (

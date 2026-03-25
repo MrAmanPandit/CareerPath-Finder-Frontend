@@ -8,16 +8,8 @@ const EducationAi = () => {
     
     const suggestions = [
         "Help me with a study schedule",
-        "Top resources for Calculus",
-        "Best way to learn Python?",
-        "How to stay focused while studying?",
-        "Explain quantum physics simply",
-        "Tips for long-term memory",
-        "How to prepare for board exams?",
-        "Write a summary of World War II",
-        "Effective note-taking methods",
-        "How to write a research paper?",
-        "Group study vs Solo study?"
+        "Top resources for my subjects",
+        "How to prepare for exams?"
     ];
 
     const customNav = (
