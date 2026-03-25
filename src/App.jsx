@@ -14,6 +14,8 @@ function App() {
     document.body.classList.add('dark-mode');
   }, []);
 
+  const isAiPage = ['/yam-ai', '/education-ai', '/career-ai'].includes(location.pathname);
+
   return (
     <div className="app-theme-provider">
       <Headers />
@@ -24,7 +26,7 @@ function App() {
           </Suspense>
         </PageTransition>
       </div>
-      <Footer />
+      {!isAiPage && <Footer />}
       <YamAiIcon />
     </div>
   );
