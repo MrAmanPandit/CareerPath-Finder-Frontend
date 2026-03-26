@@ -58,45 +58,26 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  // 2. Use an effect to listen for clicks anywhere on the page
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      // If the menu is open, AND the click happened outside our headerRef...
-      if (headerRef.current && !headerRef.current.contains(event.target)) {
-        setIsMenuOpen(false); // ...close the menu!
-      }
-    };
-
-    // Attach the event listener when the component mounts
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []); // Empty array ensures this only runs once on mount
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Close menu when clicking or tapping outside of the header
+  // Combined Effect to handle clicks/taps outside the header to close the menu
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // If the menu is OPEN, and the click happened OUTSIDE the header...
+      // If the menu is open, and the interaction happened outside our header...
       if (isMenuOpen && headerRef.current && !headerRef.current.contains(event.target)) {
-        setIsMenuOpen(false); // ...close it!
+        setIsMenuOpen(false);
       }
     };
 
-    // Listen for both mouse clicks (desktop) and screen touches (mobile)
+    // Listen for both desktop clicks and mobile touches
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("touchstart", handleClickOutside);
 
-    // Clean up the event listeners when the component unmounts
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, [isMenuOpen]); // Dependency array ensures it always checks the current open/closed state
+  }, [isMenuOpen]);
   return (
 
 
@@ -106,6 +87,7 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
+      onMouseLeave={() => setIsMenuOpen(false)}
     >
       <div className="navContainer">
 

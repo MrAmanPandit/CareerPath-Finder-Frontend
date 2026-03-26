@@ -1,5 +1,5 @@
 .ai-hub-section {
-    padding: 2.5rem 5%;
+    padding: 1.5rem 5%;
     background: transparent;
     text-align: center;
     position: relative;
@@ -186,7 +186,7 @@
 
 @media (max-width: 640px) {
     .ai-hub-section {
-        padding: 3.5rem 5%;
+        padding: 2rem 5%;
     }
     .ai-grid {
         grid-template-columns: 1fr;

@@ -23,7 +23,7 @@
 
 /* Header Styles */
 .yam-header {
-    padding: 0.6rem 2rem;
+    padding: 0.5rem 2rem;
     background: var(--header-bg);
     backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border);
@@ -76,6 +76,13 @@
     transition: all 0.3s ease;
 }
 
+.back-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary);
+    padding: 0.5rem;
+}
+
 .theme-toggle:hover, .section-btn:hover, .back-btn:hover {
     background: var(--primary);
     color: white;
@@ -125,13 +132,13 @@
 .yam-chat-container {
     flex: 1;
     overflow-y: auto;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
     display: flex;
     flex-direction: column;
 }
 
 .messages-viewport {
-    max-width: 900px;
+    max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     display: flex;
@@ -255,7 +262,7 @@
 
 /* Input Area */
 .yam-input-area {
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem 1rem;
     background: linear-gradient(transparent, var(--header-bg));
     z-index: 10;
 }

@@ -7,7 +7,7 @@ import useSEO from '../utils/useSEO';
 import { Dna, Calculator, TrendingUp, Palette } from 'lucide-react';
 
 // Create a motion-enhanced version of the Link component
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 const containerVariants = {
   hidden: { opacity: 0 },

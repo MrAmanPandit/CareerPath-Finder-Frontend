@@ -32,6 +32,7 @@ const YamAiApp = () => {
             subtitle="Your Academic Mentor"
             suggestions={suggestions}
             customNav={customNav}
+            backRoute="/"
         />
     );
 };

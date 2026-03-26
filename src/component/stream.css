@@ -4,10 +4,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
-  background-color: var(--bg-color);
-  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-  padding: 60px 20px;
+  min-height: 90vh;
+  background: var(--bg-gradient);
+  font-family: 'Outfit', sans-serif;
+  padding: 100px 20px 60px;
   position: relative;
   overflow: hidden;
 }
@@ -42,13 +42,13 @@ body.dark-mode .body::before {
 
 /* Styles the main heading */
 .streamTitle {
-  font-size: 42px;
+  font-size: 48px;
   font-weight: 800;
-  color: var(--text-color);
+  color: var(--text);
   margin-bottom: 60px;
   text-align: center;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--text-color) 0%, var(--primary-color) 100%);
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -57,7 +57,7 @@ body.dark-mode .body::before {
 /* Cards container with improved responsiveness */
 .cardsContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
   width: 100%;
   max-width: 1100px;
@@ -75,15 +75,13 @@ body.dark-mode .body::before {
   text-decoration: none;
   position: relative;
   overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .streamCard::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -126,7 +124,7 @@ body.dark-mode .body::before {
 }
 
 .streamCard:hover .streamName {
-  color: var(--primary-color);
+  color: var(--primary);
 }
 
 /* Responsive Adjustments */
@@ -161,20 +159,38 @@ body.dark-mode .body::before {
 }
 
 @media (max-width: 600px) {
+  .body {
+    padding-top: 50px;
+  }
+
+  .streamTitle {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
   .cardsContainer {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .streamCard {
     flex-direction: row;
     justify-content: flex-start;
-    padding: 25px 30px;
-    gap: 25px;
+    padding: 20px;
+    gap: 20px;
+    min-width: 240px;
+    min-height: 100px;
   }
   
   .streamIcon {
     margin-bottom: 0;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .streamName {
+    font-size: 22px;
   }
 }

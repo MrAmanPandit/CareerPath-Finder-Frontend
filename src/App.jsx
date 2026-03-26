@@ -18,8 +18,8 @@ function App() {
 
   return (
     <div className="app-theme-provider">
-      <Headers />
-      <div className={location.pathname === "/" ? "" : "navbar-spacing"}>
+      {!isAiPage && <Headers />}
+      <div className={location.pathname === "/" || isAiPage ? "" : "navbar-spacing"}>
         <PageTransition key={location.pathname}>
           <Suspense fallback={<div style={{padding: '50px'}}><SkeletonLoader type="text" /></div>}>
             <Outlet />

@@ -24,6 +24,7 @@ const ChatCore = ({
     const [messages, setMessages] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
     const [userName, setUserName] = useState('');
+    const [showSuggestions, setShowSuggestions] = useState(false);
     const skipAnimationRef = useRef(false);
     const messagesEndRef = useRef(null);
 
@@ -147,6 +148,7 @@ const ChatCore = ({
         ));
         setIsTyping(false);
         skipAnimationRef.current = false;
+        setShowSuggestions(true); // Show suggestions after response
     };
 
     const handleKeyPress = (e) => {
@@ -164,13 +166,10 @@ const ChatCore = ({
                 animate={{ y: 0, opacity: 1 }}
             >
                 <div className="yam-header-content">
-                    {isDedicatedPage ? (
-                        <button className="back-btn" onClick={() => navigate(backRoute)} title="Back">
-                            <ArrowLeft size={20} />
-                        </button>
-                    ) : (
-                        <YamLogo size={42} />
-                    )}
+                    <button className="back-btn" onClick={() => navigate(backRoute)} title="Back">
+                        <ArrowLeft size={24} />
+                    </button>
+                    <YamLogo size={52} />
                     <div className="yam-title-group">
                         <h1>{title}</h1>
                         <p>{subtitle}</p>
@@ -254,17 +253,19 @@ const ChatCore = ({
                         {isTyping ? <Square size={18} fill="currentColor" /> : <Send size={18} />}
                     </button>
                 </div>
-                <div className="suggestions">
-                    {suggestions.map((suggestion, idx) => (
-                        <button 
-                            key={idx} 
-                            className="suggestion-pill"
-                            onClick={() => handleSend(suggestion)}
-                        >
-                            {suggestion}
-                        </button>
-                    ))}
-                </div>
+                {showSuggestions && (
+                    <div className="suggestions">
+                        {suggestions.map((suggestion, idx) => (
+                            <button 
+                                key={idx} 
+                                className="suggestion-pill"
+                                onClick={() => handleSend(suggestion)}
+                            >
+                                {suggestion}
+                            </button>
+                        ))}
+                    </div>
+                )}
             </motion.div>
         </div>
     );
