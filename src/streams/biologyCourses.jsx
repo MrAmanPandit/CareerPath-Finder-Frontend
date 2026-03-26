@@ -4,6 +4,8 @@ import AnimatedPage from '../component/animation';
 
 import { Stethoscope, Leaf, PawPrint, Pill, Microscope, Dna, Rocket } from 'lucide-react';
 
+import SaveCourseBtn from '../component/SaveCourseBtn';
+
 const BiologyCourses = () => {
   const courseCategories = [
     {
@@ -108,7 +110,10 @@ const BiologyCourses = () => {
                     <span className="courseName">{course.name}</span>
                     <span className="courseDetail">{course.detail}</span>
                   </div>
-                  <span className="courseDuration">{course.duration}</span>
+                  <div className="courseActions">
+                    <span className="courseDuration">{course.duration}</span>
+                    <SaveCourseBtn courseName={course.name} />
+                  </div>
                 </li>
               ))}
             </ul>

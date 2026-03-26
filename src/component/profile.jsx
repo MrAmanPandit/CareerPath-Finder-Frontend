@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import AnimatedPage from './animation';
 import SkeletonLoader from './SkeletonLoader';
 import { showSuccessAlert } from '../utils/customAlert';
+import StudentDashboard from './StudentDashboard';
 
 const Profile = () => {
 
@@ -116,10 +117,12 @@ const Profile = () => {
 
             <div className="detailGroup">
               <span className="detailLabel">Phone Number • </span>
-              <span className="detailValue mobileHighlight">📞91+ {user?.mobileNumber}</span>
+              <span className="detailValue mobileHighlight">📞+91 - {user?.mobileNumber}</span>
             </div>
 
           </div>
+
+          <StudentDashboard />
 
           {/* Action Buttons */}
           <div className="profileActions">

@@ -4,6 +4,8 @@ import AnimatedPage from '../component/animation';
 
 import { Globe, Languages, Camera, Gavel, Palette, ConciergeBell, Music } from 'lucide-react';
 
+import SaveCourseBtn from '../component/SaveCourseBtn';
+
 const ArtsCourses = () => {
   const courseCategories = [
     {
@@ -103,7 +105,10 @@ const ArtsCourses = () => {
                     <span className="courseName">{course.name}</span>
                     <span className="courseDetail">{course.detail}</span>
                   </div>
-                  <span className="courseDuration">{course.duration}</span>
+                  <div className="courseActions">
+                    <span className="courseDuration">{course.duration}</span>
+                    <SaveCourseBtn courseName={course.name} />
+                  </div>
                 </li>
               ))}
             </ul>

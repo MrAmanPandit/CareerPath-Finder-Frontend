@@ -4,6 +4,8 @@ import AnimatedPage from '../component/animation';
 
 import { BarChart4, Briefcase, TrendingUp, PieChart, Gavel, Landmark, Palette } from 'lucide-react';
 
+import SaveCourseBtn from '../component/SaveCourseBtn';
+
 const CommerceCourses = () => {
   const courseCategories = [
     {
@@ -104,7 +106,10 @@ const CommerceCourses = () => {
                     <span className="courseName">{course.name}</span>
                     <span className="courseDetail">{course.detail}</span>
                   </div>
-                  <span className="courseDuration">{course.duration}</span>
+                  <div className="courseActions">
+                    <span className="courseDuration">{course.duration}</span>
+                    <SaveCourseBtn courseName={course.name} />
+                  </div>
                 </li>
               ))}
             </ul>

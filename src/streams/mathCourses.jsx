@@ -1,6 +1,7 @@
 import React from 'react';
 import './Courses.css'; // Reuses the exact same CSS file!
 import AnimatedPage from '../component/animation';
+import SaveCourseBtn from '../component/SaveCourseBtn';
 
 import { Cpu, Building2, Monitor, Ship, ShieldCheck, Sigma, Bot } from 'lucide-react';
 
@@ -105,7 +106,10 @@ const MathCourses = () => {
                     <span className="courseName">{course.name}</span>
                     <span className="courseDetail">{course.detail}</span>
                   </div>
-                  <span className="courseDuration">{course.duration}</span>
+                  <div className="courseActions">
+                    <span className="courseDuration">{course.duration}</span>
+                    <SaveCourseBtn courseName={course.name} />
+                  </div>
                 </li>
               ))}
             </ul>

@@ -40,18 +40,18 @@
 }
 
 .yam-title-group h1 {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
     margin: 0;
     background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .yam-title-group p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin: 0;
     color: var(--text-dim);
     font-weight: 400;
@@ -93,6 +93,38 @@
     background: var(--primary);
     color: #1a1a2e;
     border-color: var(--primary);
+}
+
+.profile-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: rgba(78, 205, 196, 0.1);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.profile-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-initial {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
 /* Section Navigation */

@@ -1,16 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './roadmapSearchPage.css';
 import AnimatedPage from './animation';
 import axios from 'axios';
 import SkeletonLoader from './SkeletonLoader';
 import useSEO from '../utils/useSEO';
 import SEOSchema from './SEOSchema';
-import { Laptop, BarChart, ShieldCheck, Cloud, TrendingUp, Search, Map as MapIcon, Play, ArrowRight } from 'lucide-react';
+import { Laptop, BarChart, ShieldCheck, Cloud, TrendingUp, Search, Map as MapIcon, Play, ArrowRight, Star } from 'lucide-react';
+import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
 
 const RoadmapSearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [roadmap, setRoadmap] = useState(null);
+  const [userSavedRoadmaps, setUserSavedRoadmaps] = useState([]);
+
+  // Fetch user's saved roadmaps on mount
+  useEffect(() => {
+    const fetchSaved = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+          withCredentials: true
+        });
+        setUserSavedRoadmaps(response.data.message.savedRoadmaps || []);
+      } catch (err) {
+        console.error("Error fetching saved roadmaps:", err);
+      }
+    };
+    fetchSaved();
+  }, []);
+
+  const handleToggleSave = async (id) => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/toggle-roadmap`, 
+        { roadmapId: id },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }, withCredentials: true }
+      );
+      setUserSavedRoadmaps(response.data.message);
+      showSuccessAlert(userSavedRoadmaps.includes(id) ? "Roadmap removed from dashboard" : "Roadmap saved to dashboard!");
+    } catch (err) {
+      showErrorAlert("Login required to save roadmaps");
+    }
+  };
 
   useSEO({
     title: 'AI Career Roadmap Generator | Search Any Career',
@@ -135,6 +166,12 @@ const RoadmapSearchPage = () => {
         <section className="roadmap-results">
           <div className="results-header">
             <h2>Your Roadmap to becoming a <span>{roadmap.jobTitle}</span></h2>
+            <button 
+              className={`save-roadmap-btn ${userSavedRoadmaps.includes(roadmap._id) ? 'saved' : ''}`}
+              onClick={() => handleToggleSave(roadmap._id)}
+            >
+              {userSavedRoadmaps.includes(roadmap._id) ? <><Star size={18} fill="currentColor" /> Saved</> : <><Star size={18} /> Save Roadmap</>}
+            </button>
           </div>
 
           <div className="timeline">

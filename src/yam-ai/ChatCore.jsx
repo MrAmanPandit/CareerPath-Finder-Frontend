@@ -12,7 +12,6 @@ const ChatCore = ({
     title = "YAM AI", 
     subtitle = "Academic Mentor", 
     welcomeMessage = "Hello! I'm YAM, your Academic Mentor. How can I assist you today?",
-    suggestions = [],
     context = "",
     isDedicatedPage = false,
     backRoute = "/yam-ai",
@@ -22,9 +21,9 @@ const ChatCore = ({
     const [theme, setTheme] = useState(localStorage.getItem('yam-theme') || 'dark-mode');
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([]);
+    const [user, setUser] = useState(null);
     const [isTyping, setIsTyping] = useState(false);
     const [userName, setUserName] = useState('');
-    const [showSuggestions, setShowSuggestions] = useState(false);
     const skipAnimationRef = useRef(false);
     const messagesEndRef = useRef(null);
 
@@ -37,9 +36,10 @@ const ChatCore = ({
                     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
                         headers: { Authorization: `Bearer ${token}` }
                     });
-                    const firstName = response.data.message?.firstName;
-                    if (firstName) {
-                        setUserName(firstName);
+                    const userData = response.data.message;
+                    if (userData) {
+                        setUser(userData);
+                        setUserName(userData.firstName || '');
                     }
                 } catch (err) {
                     console.error("Failed to fetch user name:", err);
@@ -148,7 +148,6 @@ const ChatCore = ({
         ));
         setIsTyping(false);
         skipAnimationRef.current = false;
-        setShowSuggestions(true); // Show suggestions after response
     };
 
     const handleKeyPress = (e) => {
@@ -169,20 +168,22 @@ const ChatCore = ({
                     <button className="back-btn" onClick={() => navigate(backRoute)} title="Back">
                         <ArrowLeft size={24} />
                     </button>
-                    <YamLogo size={52} />
+                    <YamLogo size={64} />
                     <div className="yam-title-group">
                         <h1>{title}</h1>
                         <p>{subtitle}</p>
                     </div>
                 </div>
                 <div className="yam-header-actions">
-                    <button className="theme-toggle" onClick={toggleTheme} title="Toggle Theme">
-                        {theme === 'dark-mode' ? <Sun size={20} /> : <Moon size={20} />}
+                    <button className="profile-btn" onClick={() => navigate('/profile')} title="Go to Profile">
+                        {user?.avatar ? (
+                            <img src={user.avatar} alt="Profile" className="profile-img" />
+                        ) : (
+                            <div className="profile-initial">
+                                {userName ? userName[0].toUpperCase() : <User size={20} />}
+                            </div>
+                        )}
                     </button>
-                    <div className="stat-item">
-                        <Sparkles size={16} />
-                        <span>AI Active</span>
-                    </div>
                 </div>
             </motion.header>
 
@@ -253,19 +254,6 @@ const ChatCore = ({
                         {isTyping ? <Square size={18} fill="currentColor" /> : <Send size={18} />}
                     </button>
                 </div>
-                {showSuggestions && (
-                    <div className="suggestions">
-                        {suggestions.map((suggestion, idx) => (
-                            <button 
-                                key={idx} 
-                                className="suggestion-pill"
-                                onClick={() => handleSend(suggestion)}
-                            >
-                                {suggestion}
-                            </button>
-                        ))}
-                    </div>
-                )}
             </motion.div>
         </div>
     );

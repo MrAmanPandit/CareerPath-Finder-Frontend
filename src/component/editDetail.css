@@ -1,201 +1,204 @@
-:root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
+/* Edit Details Page Modernization - Premium Glassmorphism Theme */
 
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* 2. Define exactly what the "Dark Mode" colors should be */
-body.dark-mode {
-  --bg-color: #121212;
-  /* Dark grey, almost black */
-  --text-color: #f1f1f1;
-  /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
-}
-
-/* EditDetails.css */
 .edit-page-container {
-  min-height: 80vh;
-  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
-  text-align: center;
-  padding: 20px 20px;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  font-family: 'Outfit', sans-serif;
+  padding: 4rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background decorative elements */
+.edit-page-container::before {
+  content: '';
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  bottom: -225px;
+  left: -225px;
+  opacity: 0.1;
+  filter: blur(90px);
 }
 
 .edit-card {
-  background-color: var(--card-bg);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  padding: 3rem;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-  min-height: 80vh;
   max-width: 800px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 20px 40px;
-  border: 1px solid var(--border-color);
+  position: relative;
+  z-index: 1;
 }
 
 .edit-header {
-  border-bottom: 1px solid var(--text-color);
-  padding-bottom: 20px;
-  margin-bottom: 30px;
-}
-
-.form-grid .form-group {
-  text-align: left;
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .edit-header h2 {
-  font-size: 28px;
-  color: var(--text-color);
-  margin: 0 0 8px 0;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .edit-header p {
-  color: #64748b;
-  margin: 0;
-  font-size: 14px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
-input:valid {
-  color: var(--text-color);
-}
-/* Make it a single column on small screens */
-@media (max-width: 600px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .edit-page-container {
-    padding: 10px 12px;
-  }
-
-  .form-group input {
-    width: 100%;
-  }
-
-  .form-grid {
-    gap: 8px;
-  }
-
-  .edit-card {
-    padding: 20px 16px;
-  }
-
-  .edit-header h2 {
-    font-size: 22px;
-  }
+.form-group.full-width {
+  grid-column: span 2;
 }
 
-/* Very small screens */
-@media (max-width: 380px) {
-  .edit-card {
-    padding: 16px 12px;
-  }
-
-  .submit-btn {
-    width: 100%;
-    padding: 12px;
-  }
-}
-
-.updatedForm {
+.updateForm {
   display: flex;
-  flex-direction: row;
-  text-align: left;
-  flex-wrap: wrap;
-
+  flex-direction: column;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  gap: 0.6rem;
+  text-align: left;
 }
 
 .form-group label {
-  font-size: 14px;
+  font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-color);
-  margin-bottom: 8px;
+  color: var(--text);
+  margin-left: 0.2rem;
 }
 
 .form-group input {
-  padding: 12px;
-  background-color: var(--bg-color);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  font-size: 15px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.1);
+  transform: translateY(-1px);
 }
 
 .form-group input:disabled {
-  background-color: #f1f5f9;
-  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-dim);
+  border-color: rgba(255, 255, 255, 0.05);
   cursor: not-allowed;
-}
-
-input::placeholder {
-  font-size: 12px;
-  color: #c1a8a8;
+  opacity: 0.6;
 }
 
 .submit-btn {
-
-  border: 3px dotted var(--border-color);
-  border-radius: 6px;
-  margin-top: 30px;
-  padding: 12px 24px;
-  font-size: 15px;
-  font-weight: 600;
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1.1rem;
+  border: none;
+  border-radius: 16px;
   cursor: pointer;
-  transition: background-color 0.2s;
-
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 20px -5px rgba(78, 205, 196, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .submit-btn:hover {
-  background-color: #1d4ed8;
-  color: #f2f3f6;
-  border: 2px solid var(--border-color);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px -5px rgba(78, 205, 196, 0.5);
+  filter: brightness(1.1);
+}
+
+.submit-btn:active {
+  transform: translateY(-1px);
 }
 
 .status-message {
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  font-size: 14px;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  text-align: center;
 }
 
 .status-success {
-  background-color: #f0fdf4;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.2);
 }
 
 .status-error {
-  background-color: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .edit-page-container {
+    padding: 2rem 1rem;
+    align-items: flex-start;
+  }
+
+  .edit-card {
+    padding: 2.5rem 1.5rem;
+    border-radius: 24px;
+  }
+
+  .edit-header {
+    margin-bottom: 2rem;
+  }
+
+  .edit-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+
+  .form-group input {
+    padding: 0.9rem 1.1rem;
+  }
+
+  .submit-btn {
+    padding: 1rem;
+  }
 }

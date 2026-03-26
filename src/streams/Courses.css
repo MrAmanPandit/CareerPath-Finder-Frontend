@@ -140,6 +140,39 @@ body.dark-mode .coursesWrapper::before {
   color: #616c7c;
 }
 
+.courseActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.save-course-action {
+  background: transparent;
+  border: none;
+  color: #616c7c;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-course-action:hover {
+  color: var(--primary);
+  background: rgba(78, 205, 196, 0.1);
+}
+
+.save-course-action.saved {
+  color: var(--primary);
+}
+
+.save-course-action.loading {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Little pill badge for the duration text */
 .courseDuration {
   font-size: 12px;

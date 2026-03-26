@@ -14,6 +14,11 @@ function App() {
     document.body.classList.add('dark-mode');
   }, []);
 
+  // Scroll to top on every route change
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname]);
+
   const isAiPage = ['/yam-ai', '/education-ai', '/career-ai'].includes(location.pathname);
 
   return (

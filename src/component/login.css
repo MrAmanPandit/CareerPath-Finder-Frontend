@@ -1,169 +1,189 @@
-:root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
-  
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+/* Login Page Modernization - Premium Glassmorphism Theme */
 
-/* 2. Define exactly what the "Dark Mode" colors should be */
-body.dark-mode {
-  --bg-color: #121212; /* Dark grey, almost black */
-  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
-}
-/* Centers the login card on the screen */
 .loginWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 72.5vh; /* Adjusts to fit between your header and footer */
-  background-color: var(--bg-color); /* Matches the stream page background */
-  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-  padding: 10px 20px;
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  font-family: 'Outfit', sans-serif;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: hidden;
 }
 
-/* The white card container */
+/* Background decorative elements */
+.loginWrapper::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  top: -150px;
+  right: -150px;
+  opacity: 0.15;
+  filter: blur(50px);
+}
+
+.loginWrapper::after {
+  content: '';
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+  bottom: -125px;
+  left: -125px;
+  opacity: 0.1;
+  filter: blur(40px);
+}
+
 .loginCard {
-  background-color: var(--card-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  padding: 40px;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  padding: 3rem;
   width: 100%;
-  max-width: 420px; /* Keeps the form from getting too wide */
-  box-sizing: border-box;
+  max-width: 440px;
+  position: relative;
+  z-index: 1;
 }
 
-/* Title styling */
 .loginTitle {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-color);
-  margin-top: 0;
-  margin-bottom: 30px;
+  font-size: 2.2rem;
+  font-weight: 800;
   text-align: center;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Form layout */
+.loginText {
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+}
+
 .loginForm {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
-/* Input group (Label + Input) */
 .inputGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.6rem;
 }
 
-/* Labels */
 .inputLabel {
-  font-size: 14px;
+  font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-color);
+  color: var(--text);
+  margin-left: 0.2rem;
 }
 
-/* Input text fields */
 .inputField {
-  padding: 12px 16px;
-  font-size: 15px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  font-family: inherit;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Input focus effect (glows indigo) */
 .inputField:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.1);
+  transform: translateY(-1px);
 }
 
-/* The main submit button */
+.inputField::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
 .loginButton {
-  background-color: #4f46e5; /* The indigo brand color */
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 14px;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1.1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 14px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  font-family: inherit;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 20px -5px rgba(78, 205, 196, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .loginButton:hover {
-  background-color: #4338ca; /* Slightly darker on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px -5px rgba(78, 205, 196, 0.5);
+  filter: brightness(1.1);
 }
 
 .loginButton:active {
-  transform: scale(0.98); /* Small click animation */
+  transform: translateY(-1px);
 }
 
-/* Footer text inside the card */
 .signupText {
+  margin-top: 2rem;
   text-align: center;
-  margin-top: 24px;
-  margin-bottom: 0;
-  font-size: 14px;
-  color: var(--text-color);
+  font-size: 0.9rem;
+  color: var(--text-dim);
 }
 
-/* The clickable 'Sign Up' link */
 .signupLink {
-  color: #4f46e5;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.2s ease;
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-left: 0.4rem;
 }
 
 .signupLink:hover {
-  color: #4338ca;
-  text-decoration: underline;
+  color: #3b82f6;
+  text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
 }
 
-/* ── Tablet/Mobile (≤ 600px) ── */
+/* Responsive Adjustments */
 @media (max-width: 600px) {
   .loginWrapper {
-    padding: 20px 16px;
+    padding: 1rem;
     align-items: flex-start;
-    padding-top: 40px;
+    padding-top: 15vh;
   }
+
   .loginCard {
-    padding: 28px 20px;
-    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
   }
+
   .loginTitle {
-    font-size: 22px;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
   }
+
   .inputField {
-    padding: 10px 12px;
-    font-size: 14px;
+    padding: 0.9rem 1rem;
   }
+
   .loginButton {
-    padding: 12px;
-    font-size: 15px;
+    padding: 1rem;
   }
 }
 
-/* ── Very Small phones (≤ 380px) ── */
-@media (max-width: 380px) {
-  .loginCard {
-    padding: 20px 14px;
-  }
-  .loginTitle {
-    font-size: 20px;
+@media (max-height: 700px) {
+  .loginWrapper {
+    align-items: center;
+    padding-top: 2rem;
   }
 }
