@@ -68,7 +68,7 @@ const RoadmapSearchPage = () => {
 
   const handleToggleSave = async (id) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/toggle-roadmap`, 
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/toggle-roadmap/`, 
         { roadmapId: id },
         { headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }, withCredentials: true }
       );
