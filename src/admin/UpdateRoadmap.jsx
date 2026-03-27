@@ -21,7 +21,7 @@ const UpdateRoadmap = () => {
             title: "",
             duration: "",
             description: "",
-            courses: [""] 
+            courses: [{ name: "", link: "" }] 
         }
     ]);
 
@@ -43,8 +43,10 @@ const UpdateRoadmap = () => {
                             title: step.title || "",
                             duration: step.duration || "",
                             description: step.description || "",
-                            // Ensure there is always at least one empty string input for courses if array is empty
-                            courses: step.courses && step.courses.length > 0 ? step.courses : [""]
+                            // Handle legacy string array or new object array
+                            courses: step.courses && step.courses.length > 0 
+                                ? step.courses.map(course => typeof course === 'string' ? { name: course, link: "" } : course)
+                                : [{ name: "", link: "" }]
                         }));
                         setSteps(formattedSteps);
                     }
@@ -72,7 +74,7 @@ const UpdateRoadmap = () => {
     const handleAddStep = () => {
         setSteps([
             ...steps, 
-            { title: "", duration: "", description: "", courses: [""] }
+            { title: "", duration: "", description: "", courses: [{ name: "", link: "" }] }
         ]);
     };
 
@@ -82,15 +84,15 @@ const UpdateRoadmap = () => {
     };
 
     // --- Handlers for Nested Courses ---
-    const handleCourseChange = (stepIndex, courseIndex, value) => {
+    const handleCourseChange = (stepIndex, courseIndex, field, value) => {
         const updatedSteps = [...steps];
-        updatedSteps[stepIndex].courses[courseIndex] = value;
+        updatedSteps[stepIndex].courses[courseIndex][field] = value;
         setSteps(updatedSteps);
     };
 
     const handleAddCourse = (stepIndex) => {
         const updatedSteps = [...steps];
-        updatedSteps[stepIndex].courses.push(""); // Add a new blank string to this step's courses
+        updatedSteps[stepIndex].courses.push({ name: "", link: "" }); // Add a new blank object to this step's courses
         setSteps(updatedSteps);
     };
 
@@ -115,7 +117,7 @@ const UpdateRoadmap = () => {
             duration: step.duration,
             description: step.description,
             // Filter out blank course boxes
-            courses: step.courses.filter(course => course.trim() !== "") 
+            courses: step.courses.filter(course => course.name.trim() !== "") 
         }));
 
         try {
@@ -242,9 +244,16 @@ const UpdateRoadmap = () => {
                                         <div key={courseIndex} className="course-input-row">
                                             <input
                                                 type="text"
-                                                value={course}
-                                                onChange={(e) => handleCourseChange(stepIndex, courseIndex, e.target.value)}
-                                                placeholder={`Course ${courseIndex + 1} (e.g. B.Tech Computer Science)`}
+                                                value={course.name}
+                                                onChange={(e) => handleCourseChange(stepIndex, courseIndex, "name", e.target.value)}
+                                                placeholder={`Course Name ${courseIndex + 1} (e.g. B.Tech Computer Science)`}
+                                                required
+                                            />
+                                            <input
+                                                type="url"
+                                                value={course.link}
+                                                onChange={(e) => handleCourseChange(stepIndex, courseIndex, "link", e.target.value)}
+                                                placeholder={`Course Link ${courseIndex + 1} (URL)`}
                                                 required
                                             />
                                             {step.courses.length > 1 && (

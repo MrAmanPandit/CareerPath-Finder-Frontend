@@ -10,7 +10,7 @@
 /* --- Search Hero Section --- */
 .roadmap-hero {
   background: transparent;
-  padding: 8rem 2rem;
+  padding: 4rem 2rem 6rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -112,6 +112,46 @@
   cursor: not-allowed;
 }
 
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 30px;
+  right: 30px;
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  z-index: 100;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  padding: 12px 25px;
+  color: #f1f5f9;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.suggestion-item:hover {
+  background: rgba(78, 205, 196, 0.15);
+  color: #4ecdc4;
+  padding-left: 30px;
+}
+
+.suggestion-item:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 @media (max-width: 640px) {
   .search-form {
     flex-direction: column;
@@ -137,6 +177,13 @@
     border-radius: 20px;
     padding: 18px 20px;
     justify-content: center;
+  }
+
+  .suggestions-dropdown {
+    left: 0;
+    right: 0;
+    border-radius: 12px;
+    margin-top: 5px;
   }
 }
 

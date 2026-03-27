@@ -16,7 +16,7 @@ const RoadmapCollection = () => {
   // 2. The Dynamic Steps Array State
   // We initialize it with one empty step so the admin has something to type into immediately
   const [steps, setSteps] = useState([
-    { title: '', duration: '', description: '', courses: '' }
+    { title: '', duration: '', description: '', courses: [{ name: '', link: '' }] }
   ]);
 
 
@@ -34,7 +34,7 @@ const RoadmapCollection = () => {
 
   // Add a brand new empty step to the array
   const handleAddStep = () => {
-    setSteps([...steps, { title: '', duration: '', description: '', courses: '' }]);
+    setSteps([...steps, { title: '', duration: '', description: '', courses: [{ name: '', link: '' }] }]);
   };
 
   // Remove a specific step (in case the admin makes a mistake)
@@ -43,24 +43,42 @@ const RoadmapCollection = () => {
     setSteps(updatedSteps);
   };
 
+  // --- Handlers for Nested Courses ---
+  const handleCourseChange = (stepIndex, courseIndex, field, value) => {
+    const updatedSteps = [...steps];
+    updatedSteps[stepIndex].courses[courseIndex][field] = value;
+    setSteps(updatedSteps);
+  };
+
+  const handleAddCourse = (stepIndex) => {
+    const updatedSteps = [...steps];
+    updatedSteps[stepIndex].courses.push({ name: '', link: '' });
+    setSteps(updatedSteps);
+  };
+
+  const handleRemoveCourse = (stepIndex, courseIndexToRemove) => {
+    const updatedSteps = [...steps];
+    updatedSteps[stepIndex].courses = updatedSteps[stepIndex].courses.filter(
+      (_, index) => index !== courseIndexToRemove
+    );
+    setSteps(updatedSteps);
+  };
+
   // 3. Format and Submit Data
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage({ type: '', text: 'Saving roadmap to database...' });
 
-    // Helper function to turn comma strings into clean arrays
-    const toArray = (str) => str.split(',').map(item => item.trim()).filter(item => item !== '');
-
     // Format the payload to match your exact Mongoose Schema
     const formattedPayload = {
       jobTitle: jobTitle.trim(),
-      // Map over the steps to add the required "id" and convert courses to an array
+      // Map over the steps to add the required "id" and filter courses
       steps: steps.map((step, index) => ({
         id: index + 1, // Automatically generates 1, 2, 3... based on its order
         title: step.title,
         duration: step.duration,
         description: step.description,
-        courses: toArray(step.courses) // Converts "Course A, Course B" to ["Course A", "Course B"]
+        courses: step.courses.filter(c => c.name.trim() !== '')
       }))
     };
 
@@ -70,7 +88,7 @@ const RoadmapCollection = () => {
       
       // Reset the form completely
       setJobTitle('');
-      setSteps([{ title: '', duration: '', description: '', courses: '' }]);
+      setSteps([{ title: '', duration: '', description: '', courses: [{ name: '', link: '' }] }]);
     } catch (error) {
       setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to add roadmap.' });
     }
@@ -146,8 +164,45 @@ const RoadmapCollection = () => {
                   </div>
 
                   <div className="input-group">
-                    <label>Recommended Courses (Comma separated)</label>
-                    <input type="text" name="courses" value={step.courses} onChange={(e) => handleStepChange(index, e)} placeholder="e.g., B.Tech CSE, Diploma in IT, Codecademy React..." required />
+                    <label>Recommended Courses for this Step</label>
+                    {step.courses.map((course, courseIndex) => (
+                      <div key={courseIndex} className="course-input-row" style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                        <input
+                          type="text"
+                          value={course.name}
+                          onChange={(e) => handleCourseChange(index, courseIndex, 'name', e.target.value)}
+                          placeholder="Course Name"
+                          required
+                          style={{ flex: 1 }}
+                        />
+                        <input
+                          type="url"
+                          value={course.link}
+                          onChange={(e) => handleCourseChange(index, courseIndex, 'link', e.target.value)}
+                          placeholder="URL"
+                          required
+                          style={{ flex: 1 }}
+                        />
+                        {step.courses.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveCourse(index, courseIndex)}
+                            className="btn-remove-course"
+                            style={{ backgroundColor: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '4px', width: '30px', cursor: 'pointer' }}
+                          >
+                            ✕
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => handleAddCourse(index)}
+                      className="btn-add-course"
+                      style={{ marginTop: '5px', padding: '5px 10px', borderRadius: '4px', border: '1px dashed #ccc', cursor: 'pointer' }}
+                    >
+                      + Add Another Course
+                    </button>
                   </div>
                 </div>
               ))}

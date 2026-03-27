@@ -15,7 +15,7 @@ const AddRoadmap = () => {
             title: "",
             duration: "",
             description: "",
-            courses: [""] // Initializes with one blank course input box
+            courses: [{ name: "", link: "" }] // Initializes with one blank course object
         }
     ]);
 
@@ -29,7 +29,7 @@ const AddRoadmap = () => {
     const handleAddStep = () => {
         setSteps([
             ...steps, 
-            { title: "", duration: "", description: "", courses: [""] }
+            { title: "", duration: "", description: "", courses: [{ name: "", link: "" }] }
         ]);
     };
 
@@ -39,15 +39,15 @@ const AddRoadmap = () => {
     };
 
     // --- Handlers for Nested Courses ---
-    const handleCourseChange = (stepIndex, courseIndex, value) => {
+    const handleCourseChange = (stepIndex, courseIndex, field, value) => {
         const updatedSteps = [...steps];
-        updatedSteps[stepIndex].courses[courseIndex] = value;
+        updatedSteps[stepIndex].courses[courseIndex][field] = value;
         setSteps(updatedSteps);
     };
 
     const handleAddCourse = (stepIndex) => {
         const updatedSteps = [...steps];
-        updatedSteps[stepIndex].courses.push(""); // Add a new blank string to this step's courses
+        updatedSteps[stepIndex].courses.push({ name: "", link: "" }); // Add a new blank object to this step's courses
         setSteps(updatedSteps);
     };
 
@@ -72,7 +72,7 @@ const AddRoadmap = () => {
             duration: step.duration,
             description: step.description,
             // Filter out any blank course boxes the admin forgot to delete
-            courses: step.courses.filter(course => course.trim() !== "") 
+            courses: step.courses.filter(course => course.name.trim() !== "") 
         }));
 
         try {
@@ -91,7 +91,7 @@ const AddRoadmap = () => {
             
             // Reset the form
             setJobTitle("");
-            setSteps([{ title: "", duration: "", description: "", courses: [""] }]);
+            setSteps([{ title: "", duration: "", description: "", courses: [{ name: "", link: "" }] }]);
 
         } catch (error) {
             console.error("Error adding roadmap:", error.response?.data?.message || error.message);
@@ -195,9 +195,16 @@ const AddRoadmap = () => {
                                         <div key={courseIndex} className="course-input-row">
                                             <input
                                                 type="text"
-                                                value={course}
-                                                onChange={(e) => handleCourseChange(stepIndex, courseIndex, e.target.value)}
-                                                placeholder={`Course ${courseIndex + 1} (e.g. B.Tech Computer Science)`}
+                                                value={course.name}
+                                                onChange={(e) => handleCourseChange(stepIndex, courseIndex, "name", e.target.value)}
+                                                placeholder={`Course Name ${courseIndex + 1} (e.g. B.Tech Computer Science)`}
+                                                required
+                                            />
+                                            <input
+                                                type="url"
+                                                value={course.link}
+                                                onChange={(e) => handleCourseChange(stepIndex, courseIndex, "link", e.target.value)}
+                                                placeholder={`Course Link ${courseIndex + 1} (URL)`}
                                                 required
                                             />
                                             {step.courses.length > 1 && (

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './roadmapSearchPage.css';
 import AnimatedPage from './animation';
 import axios from 'axios';
@@ -13,6 +13,9 @@ const RoadmapSearchPage = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [roadmap, setRoadmap] = useState(null);
   const [userSavedRoadmaps, setUserSavedRoadmaps] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchRef = useRef(null);
 
   // Fetch user's saved roadmaps on mount
   useEffect(() => {
@@ -28,6 +31,39 @@ const RoadmapSearchPage = () => {
       }
     };
     fetchSaved();
+  }, []);
+
+  // Fetch suggestions as the user types (with debounce)
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchQuery.trim().length < 2) {
+        setSuggestions([]);
+        setShowSuggestions(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/roadmaps/suggestions?q=${encodeURIComponent(searchQuery.trim())}`);
+        setSuggestions(response.data.data || []);
+        setShowSuggestions(true);
+      } catch (err) {
+        console.error("Error fetching suggestions:", err);
+      }
+    };
+
+    const timer = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Handle outside clicks to close suggestions
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleToggleSave = async (id) => {
@@ -57,13 +93,17 @@ const RoadmapSearchPage = () => {
     "description": "Generate step-by-step career and educational roadmaps tailored to specific professions."
   };
 
-  // Separated the search logic so it can be triggered by the form OR the quick-buttons
+  // Separated the search logic so it can be triggered by the form OR the suggestions OR the quick-buttons
   const triggerSearch = async (query) => {
+    const trimmedQuery = query.trim();
+    if (!trimmedQuery) return;
+
     setIsSearching(true);
+    setShowSuggestions(false);
     setRoadmap(null);
 
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/roadmaps/search?q=${encodeURIComponent(query)}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/roadmaps/search?q=${encodeURIComponent(trimmedQuery)}`);
       
       // Our backend returns { message: "...", data: [ { jobTitle: "...", steps: [...] } ] }
       // We'll take the first match for simplicity
@@ -104,14 +144,32 @@ const RoadmapSearchPage = () => {
         <h1 className="text-gradient">Discover Your Path</h1>
         <p>Enter your dream job below, and we will generate a step-by-step educational roadmap to help you achieve it.</p>
         
-        <form className="search-form" onSubmit={handleFormSubmit}>
+        <form className="search-form" onSubmit={handleFormSubmit} ref={searchRef}>
           <input 
             type="text" 
             className="search-input"
             placeholder="e.g., Software Engineer, Data Scientist, UI/UX Designer..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
           />
+
+          {showSuggestions && suggestions.length > 0 && (
+            <ul className="suggestions-dropdown">
+              {suggestions.map((sug, idx) => (
+                <li 
+                  key={idx} 
+                  className="suggestion-item" 
+                  onClick={() => {
+                    setSearchQuery(sug);
+                    triggerSearch(sug);
+                  }}
+                >
+                  <Search size={14} style={{ marginRight: '10px', opacity: 0.6 }} /> {sug}
+                </li>
+              ))}
+            </ul>
+          )}
           <button type="submit" className="search-btn">
             {isSearching ? 'Mapping...' : (
               <>Generate Roadmap <ArrowRight size={18} /></>
@@ -187,11 +245,25 @@ const RoadmapSearchPage = () => {
                     <div className="course-recommendations">
                       <h4>Recommended Courses & Programs</h4>
                       <ul className="course-list">
-                        {step.courses.map((course, i) => (
-                          <li key={i}>
-                            <a href="#course-link" className="course-item">→ {course}</a>
-                          </li>
-                        ))}
+                        {step.courses.map((course, i) => {
+                          const isObject = typeof course === 'object' && course !== null;
+                          const name = isObject ? course.name : course;
+                          const link = isObject ? course.link : "#";
+                          
+                          return (
+                            <li key={i}>
+                              <a 
+                                href={link} 
+                                target={link && link !== "#" ? "_blank" : "_self"} 
+                                rel="noopener noreferrer" 
+                                className="course-item"
+                                onClick={(e) => (link === "#" || !link) && e.preventDefault()}
+                              >
+                                → {name}
+                              </a>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   )}
