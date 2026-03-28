@@ -1,161 +1,333 @@
 :root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
-  
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  --primary-gradient: linear-gradient(135deg, #4ecdc4, #556270);
+  --accent-gradient: linear-gradient(135deg, #ff6b6b, #ff8e8e);
 }
 
-/* 2. Define exactly what the "Dark Mode" colors should be */
-body.dark-mode {
-  --bg-color: #121212; /* Dark grey, almost black */
-  --text-color: #f1f1f1; /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
-}
-/* Centers the content just like your Login and About pages */
 .contactWrapper {
+  padding: 60px 20px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh; 
-  background-color: var(--bg-color) ;
-  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-  padding: 30px 20px;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #0f172a;
 }
 
-/* The main white container */
+/* --- Animated Background Blobs --- */
+.blob-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.blob-1 {
+  width: 500px;
+  height: 500px;
+  top: -150px;
+  right: -150px;
+  background: rgba(78, 205, 196, 0.25);
+}
+
+.blob-2 {
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  left: -100px;
+  background: rgba(168, 85, 247, 0.15);
+}
+
+.blob-3 {
+  width: 300px;
+  height: 300px;
+  top: 35%;
+  left: 30%;
+  background: rgba(59, 130, 246, 0.15);
+}
+
+/* --- Contact Card --- */
 .contactCard {
-    padding: 4rem 3rem;
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 650px;
+  padding: 50px;
+  border-radius: 36px;
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
-/* Headings and text */
 .contactTitle {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 1rem;
-    text-align: center;
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 15px;
+  letter-spacing: -2px;
+  text-align: center;
+}
+
+/* --- Segmented Control --- */
+.contactSelector {
+  display: flex !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  padding: 5px !important;
+  border-radius: 18px !important;
+  margin: 25px auto 35px !important;
+  max-width: 400px !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  position: relative;
+}
+
+.selectorBtn {
+  flex: 1 !important;
+  padding: 14px 20px !important;
+  border: none !important;
+  background: transparent !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  border-radius: 14px !important;
+  font-size: 0.95rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s ease !important;
+  opacity: 0.6 !important;
+}
+
+.selectorBtn.active {
+  opacity: 1 !important;
+}
+
+.activeBg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #4ecdc4, #45b7af);
+  border-radius: 14px;
+  z-index: -1;
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
 }
 
 .contactText {
-    font-size: 1.1rem;
-    color: #94a3b8;
-    line-height: 1.6;
-    margin-bottom: 3rem;
-    text-align: center;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Form layout */
-.contactForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
+/* --- Form --- */
 .inputGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  margin-bottom: 25px;
 }
 
-/* Labels */
 .inputLabel {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #f1f5f9;
-    margin-left: 0.5rem;
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #64748b !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-left: 5px;
 }
 
-/* Shared styling for Inputs and Textarea */
+.inputContainer {
+  display: flex !important;
+  align-items: center !important;
+  background: rgba(15, 23, 42, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  padding: 2px 18px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.inputIcon {
+  color: #475569;
+  transition: all 0.3s ease;
+}
+
 .inputField {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    color: #ffffff;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    outline: none;
+  width: 100% !important;
+  padding: 16px 12px !important;
+  background: transparent !important;
+  border: none !important;
+  color: #f1f5f9 !important;
+  font-size: 1rem !important;
+  outline: none !important;
 }
 
-/* The indigo focus ring */
-.inputField:focus {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: #4ecdc4;
-    box-shadow: 0 0 15px rgba(78, 205, 196, 0.1);
+.inputContainer:focus-within {
+  border-color: #4ecdc4 !important;
+  background: rgba(15, 23, 42, 0.7) !important;
+  box-shadow: 0 0 25px rgba(78, 205, 196, 0.1);
 }
 
-/* Specific styling for the message box */
+.inputContainer.read-only {
+  background: rgba(15, 23, 42, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.03) !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.inputContainer.read-only:focus-within {
+  box-shadow: none !important;
+  border-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.inputContainer.read-only .inputField {
+  cursor: not-allowed;
+  color: #94a3b8 !important;
+}
+
+.inputContainer:focus-within .inputIcon {
+  color: #4ecdc4;
+  transform: scale(1.1);
+}
+
 .textArea {
-    resize: none;
+  min-height: 120px !important;
+  resize: none !important;
 }
 
-/* The Submit Button */
+/* --- Submit Button --- */
 .submitButton {
-    margin-top: 1rem;
-    background: linear-gradient(135deg, #3b82f6, #4ecdc4);
-    color: white;
-    border: none;
-    padding: 1.2rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
-    font-family: inherit;
+  width: 100% !important;
+  padding: 18px !important;
+  border: none !important;
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, #4ecdc4, #45b7af) !important;
+  color: white !important;
+  font-size: 1.1rem !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  box-shadow: 0 15px 35px rgba(78, 205, 196, 0.2) !important;
+  transition: all 0.3s ease !important;
 }
 
-.submitButton:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
-.submitButton:active {
-  transform: scale(0.98);
+.spinning-icon {
+  animation: spin 1s linear infinite;
 }
 
-/* ── Mobile (≤ 600px) ── */
-@media (max-width: 600px) {
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Success Scene --- */
+.success-scene {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.success-icon-wrapper {
+  color: #4ecdc4;
+  margin-bottom: 25px;
+  filter: drop-shadow(0 0 20px rgba(78, 205, 196, 0.3));
+}
+
+.success-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: #f1f5f9;
+}
+
+.success-text {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 35px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.back-button {
+  padding: 15px 35px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #4ecdc4;
+}
+
+/* --- Responsive Polish --- */
+@media (max-width: 1024px) {
+  .contactCard {
+    max-width: 550px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 768px) {
   .contactWrapper {
-    padding: 20px 14px;
-    align-items: flex-start;
-    padding-top: 30px;
+    padding: 100px 15px 60px;
   }
+  
   .contactCard {
-    padding: 28px 20px;
-    border-radius: 12px;
+    padding: 35px 25px;
+    border-radius: 30px;
   }
+  
   .contactTitle {
-    font-size: 24px;
+    font-size: 2.5rem;
   }
-  .contactText {
-    font-size: 14px;
-  }
-  .inputField {
-    padding: 10px 12px;
-    font-size: 14px;
-  }
-  .submitButton {
-    padding: 12px;
-    font-size: 15px;
+
+  .success-title {
+    font-size: 2rem;
   }
 }
 
-/* ── Very small phones (≤ 380px) ── */
-@media (max-width: 380px) {
-  .contactCard {
-    padding: 20px 14px;
-  }
+@media (max-width: 480px) {
   .contactTitle {
-    font-size: 20px;
+    font-size: 2rem;
+  }
+  
+  .contactText {
+    font-size: 1rem;
+  }
+
+  .selectorBtn {
+    padding: 12px 10px !important;
+    font-size: 0.85rem !important;
+    gap: 6px !important;
   }
 }

@@ -95,6 +95,12 @@ const AdminDashboard = () => {
           <NavLink to="/admin/manage-roadmaps" onClick={() => setIsSidebarOpen(false)} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
             🗺️ Manage Roadmaps
           </NavLink>
+          <NavLink to="/admin/manage-suggestions" onClick={() => setIsSidebarOpen(false)} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+            💡 User Suggestions
+          </NavLink>
+          <NavLink to="/admin/manage-complaints" onClick={() => setIsSidebarOpen(false)} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+            🚩 User Complaints
+          </NavLink>
         </nav>
 
         <div className="sidebar-footer">

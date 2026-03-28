@@ -36,11 +36,14 @@ const AddRoadmap = lazy(() => import('./admin/AddRoadmap.jsx'))
 const ManageUsers = lazy(() => import('./admin/ManageUsers.jsx'))
 const ManageCourses = lazy(() => import('./admin/ManageCourses.jsx'))
 const ManageRoadmaps = lazy(() => import('./admin/ManageRoadmap.jsx'))
-const UpdateRoadmap = lazy(() => import('./admin/ManageRoadmap.jsx'))
+const UpdateRoadmap = lazy(() => import('./admin/UpdateRoadmap.jsx'))
 const UpdateCourse = lazy(() => import('./admin/UpdateCourse.jsx'))
 const YamAiApp = lazy(() => import('./yam-ai/YamAiApp.jsx'))
 const EducationAi = lazy(() => import('./yam-ai/EducationAi.jsx'))
 const CareerAi = lazy(() => import('./yam-ai/CareerAi.jsx'))
+const RoadmapInsights = lazy(() => import('./component/RoadmapInsights.jsx'))
+const ManageSuggestions = lazy(() => import('./admin/ManageSuggestions.jsx'))
+const ManageComplaints = lazy(() => import('./admin/ManageComplaints.jsx'))
 
 const routers = createBrowserRouter([
   {
@@ -85,6 +88,14 @@ const routers = createBrowserRouter([
         {
           path: "update-roadmap/:id",
           element: <UpdateRoadmap />
+        },
+        {
+          path: "manage-suggestions",
+          element: <ManageSuggestions />
+        },
+        {
+          path: "manage-complaints",
+          element: <ManageComplaints />
         }
         ]
       },
@@ -163,6 +174,10 @@ const routers = createBrowserRouter([
       {
         path: "/career/roadmap/search",
         element: <RoadmapSearchPage />
+      },
+      {
+        path: "/career/roadmap/:jobTitle/insights",
+        element: <RoadmapInsights />
       },
       {
         path: "/admin/roadmap/collection",

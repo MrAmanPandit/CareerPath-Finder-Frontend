@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./ManageRoadmap.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import SkeletonLoader from '../component/SkeletonLoader';
 import { showConfirmDialog, showSuccessAlert, showErrorAlert } from "../utils/customAlert";
 
 const ManageRoadmaps = () => {
+    const navigate = useNavigate();
     const [roadmaps, setRoadmaps] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [message, setMessage] = useState({ text: "", type: "" });
@@ -113,7 +114,7 @@ const ManageRoadmaps = () => {
                                                 >Delete</button>
                                                 <button
                                                     className="btn-action btn-update"
-                                                    onClick={() => window.location.href = `/admin/update-roadmap/${roadmap._id}`}
+                                                    onClick={() => navigate(`/admin/update-roadmap/${roadmap._id}`)}
                                                 >Update</button>
                                             </div>
                                         </td>

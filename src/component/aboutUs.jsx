@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Target, TrendingUp, Users } from 'lucide-react';
 import useSEO from '../utils/useSEO';
 import amanImg from '../assets/aman.png';
-import mohitImg from '../assets/mohit.png';
 import yuvImg from '../assets/yuv.png';
 import harshikaImg from '../assets/harshika.png';
 
@@ -79,13 +78,6 @@ const About = () => {
               <img src={amanImg} alt="Aman Pandey" />
               <div className='text'>
                 <h3 className='memberName'>Aman Pandey</h3>
-                <h5 className="designation">Backend Developer</h5>
-              </div>
-            </motion.div>
-            <motion.div className="memberscard glass-card" variants={itemVariants}>
-              <img src={mohitImg} alt="Mohit Pal" />
-              <div className='text'>
-                <h3 className='memberName'>Mohit Pal</h3>
                 <h5 className="designation">Backend Developer</h5>
               </div>
             </motion.div>

@@ -1,10 +1,12 @@
-
+/* Global Navigation States (Inherited from index.css) */
 .active {
-            color: blue;
-        }
+    color: var(--primary) !important;
+}
+
 .inactive {
-            color: black;
-        }
+    color: var(--text-dim) !important;
+    opacity: 0.8;
+}
 /* Main Navbar Container */   
 .navbar {
     background: rgba(15, 23, 42, 0.9);
@@ -17,14 +19,15 @@
     right: 0;
     width: 100%;
     z-index: 1000;
-    transition: background 0.3s ease, backdrop-filter 0.3s ease, border 0.3s ease;
+    transition: background 0.3s ease, border-bottom 0.3s ease;
+    will-change: background;
 }
 
 .navContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 5%;
+    padding: 0.7rem 5%;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -47,43 +50,43 @@
     gap: 32px;
 }
 
- /* Update your existing navLink style to be relative */
+/* Update your existing navLink style to be relative */
 .navLink {
-  position: relative; /* This is crucial for the line to attach correctly */
+  position: relative; 
   text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text-color);
-  transition: color 0.2s ease;
-  padding-bottom: 4px; /* Gives the line some breathing room below the text */
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.3s ease;
+  padding: 8px 12px;
+  letter-spacing: 0.5px;
 }
 
-/* Color change on hover */
-.navLink:hover, .navLink.active {
-  color: var(--primary-color);
+/* Color change on hover and active */
+.navLink:hover, 
+.navLink.active {
+  color: var(--primary);
+  text-shadow: 0 0 20px rgba(78, 205, 196, 0.4);
 }
 
 /* The animated underline */
 .navLink::after {
   content: '';
   position: absolute;
-  width: 0; /* Starts at 0 width (invisible) */
-  height: 3px; /* Thickness of the line */
-  bottom: 0; /* Positions it at the very bottom of the link */
-  left: 0; /* Starts the animation from the left side */
-  background-color: var(--primary-color); /* The line color */
-  transition: width 0.3s ease-in-out; /* Controls the speed of the sliding animation */
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 4px;
 }
 
 /* Expands the line to 100% width when hovered or active */
 .navLink:hover::after,
 .navLink.active::after {
   width: 100%;
-}
-
-.navLink:hover {
-    color: var(--primary-hover);
-    /* Highlights blue on hover/active */
 }
 
 .darkModeToggle {
@@ -113,21 +116,20 @@
 }
 .loginBtn {
     padding: 10px 25px;
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: #ffffff;
     border: none;
-    font-size: 10px;
-    font-weight: 600;
-    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .loginBtn:hover {
-    background-color: var(--primary-hover);
-    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
+    transform: translateY(-2px);
 }
 
 
@@ -169,9 +171,9 @@
     background: var(--text);
     border-radius: 3px;
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-                opacity 0.3s ease,
-                width 0.3s ease;
+                opacity 0.3s ease;
     transform-origin: center;
+    will-change: transform, opacity;
 }
 
 /* Animate bar1 → rotates to form the top of the X */
@@ -264,19 +266,21 @@
         padding: 18px 25px;
         text-decoration: none;
         font-size: 17px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--text);
         border-bottom: 1px solid var(--border);
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         gap: 12px;
+        letter-spacing: 0.5px;
     }
 
     .mobileNavLink:hover, .mobileNavLink.active-link {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(78, 205, 196, 0.08);
         color: var(--primary);
-        padding-left: 30px;
+        padding-left: 35px;
+        border-left: 4px solid var(--primary);
     }
 
     /* Mobile Login Button */

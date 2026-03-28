@@ -6,8 +6,12 @@ const AddRoadmap = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState({ text: "", type: "" });
     
-    // 1. The main Job Title
+    // 1. The main Job Title and Insights
     const [jobTitle, setJobTitle] = useState("");
+    const [expectedSalary, setExpectedSalary] = useState("");
+    const [futureScope, setFutureScope] = useState("");
+    const [companiesHiring, setCompaniesHiring] = useState("");
+    const [requiredSkills, setRequiredSkills] = useState("");
 
     // 2. The dynamic nested state for Steps and their Courses
     const [steps, setSteps] = useState([
@@ -79,7 +83,11 @@ const AddRoadmap = () => {
             // Send to your backend (adjust the URL if your roadmap route is different)
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/admin/add-roadmap`, {
                 jobTitle: jobTitle.trim(),
-                steps: formattedSteps
+                steps: formattedSteps,
+                expectedSalary,
+                futureScope,
+                companiesHiring,
+                requiredSkills
             }, {
                 withCredentials: true,
                 headers: {
@@ -91,6 +99,10 @@ const AddRoadmap = () => {
             
             // Reset the form
             setJobTitle("");
+            setExpectedSalary("");
+            setFutureScope("");
+            setCompaniesHiring("");
+            setRequiredSkills("");
             setSteps([{ title: "", duration: "", description: "", courses: [{ name: "", link: "" }] }]);
 
         } catch (error) {
@@ -121,9 +133,9 @@ const AddRoadmap = () => {
 
                 <form onSubmit={handleSubmit} className="roadmap-form">
                     
-                    {/* Job Title Section */}
+                    {/* Job Title & Insights Section */}
                     <div className="form-section">
-                        <h3 style={{color:"var(--text-color)"}}>Target Career</h3>
+                        <h3 style={{color:"var(--text-color)"}}>Career Insights</h3>
                         <div className="input-group full-width">
                             <label>Dream Job Title</label>
                             <input
@@ -133,6 +145,47 @@ const AddRoadmap = () => {
                                 placeholder="e.g. Full Stack Software Engineer"
                                 required
                                 className="job-title-input"
+                            />
+                        </div>
+                        
+                        <div className="form-grid">
+                            <div className="input-group">
+                                <label>Expected Salary (e.g. ₹8 - ₹20 LPA)</label>
+                                <input
+                                    type="text"
+                                    value={expectedSalary}
+                                    onChange={(e) => setExpectedSalary(e.target.value)}
+                                    placeholder="Enter estimated salary range"
+                                />
+                            </div>
+                            <div className="input-group">
+                                <label>Required Skills (Comma separated)</label>
+                                <input
+                                    type="text"
+                                    value={requiredSkills}
+                                    onChange={(e) => setRequiredSkills(e.target.value)}
+                                    placeholder="e.g. React, Node.js, SQL"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="input-group full-width" style={{ marginTop: '20px' }}>
+                            <label>Future Scope & Growth</label>
+                            <textarea
+                                value={futureScope}
+                                onChange={(e) => setFutureScope(e.target.value)}
+                                placeholder="Describe the career growth and demand..."
+                                rows="3"
+                            />
+                        </div>
+
+                        <div className="input-group full-width" style={{ marginTop: '20px' }}>
+                            <label>Top Companies Hiring</label>
+                            <input
+                                type="text"
+                                value={companiesHiring}
+                                onChange={(e) => setCompaniesHiring(e.target.value)}
+                                placeholder="e.g. Google, Microsoft, Amazon"
                             />
                         </div>
                     </div>

@@ -6,7 +6,7 @@
     min-height: 80vh;
     background-color: var(--bg-color);
     font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-    padding: 2rem 5%;
+    padding: 1.5rem 5% 4rem;
     position: relative;
     overflow: hidden;
 }

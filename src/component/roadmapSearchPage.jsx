@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './roadmapSearchPage.css';
 import AnimatedPage from './animation';
 import axios from 'axios';
@@ -9,6 +10,7 @@ import { Laptop, BarChart, ShieldCheck, Cloud, TrendingUp, Search, Map as MapIco
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
 
 const RoadmapSearchPage = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [roadmap, setRoadmap] = useState(null);
@@ -229,6 +231,12 @@ const RoadmapSearchPage = () => {
               onClick={() => handleToggleSave(roadmap._id)}
             >
               {userSavedRoadmaps.includes(roadmap._id) ? <><Star size={18} fill="currentColor" /> Saved</> : <><Star size={18} /> Save Roadmap</>}
+            </button>
+            <button 
+              className="insights-btn"
+              onClick={() => navigate(`/career/roadmap/${encodeURIComponent(roadmap.jobTitle)}/insights`)}
+            >
+              <TrendingUp size={18} /> View Insights
             </button>
           </div>
 

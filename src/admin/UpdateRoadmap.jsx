@@ -12,8 +12,12 @@ const UpdateRoadmap = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState({ text: "", type: "" });
     
-    // 1. The main Job Title
+    // 1. The main Job Title and Insights
     const [jobTitle, setJobTitle] = useState("");
+    const [expectedSalary, setExpectedSalary] = useState("");
+    const [futureScope, setFutureScope] = useState("");
+    const [companiesHiring, setCompaniesHiring] = useState("");
+    const [requiredSkills, setRequiredSkills] = useState("");
 
     // 2. The dynamic nested state for Steps and their Courses
     const [steps, setSteps] = useState([
@@ -37,6 +41,10 @@ const UpdateRoadmap = () => {
                 if (response.data && response.data.data) {
                     const data = response.data.data;
                     setJobTitle(data.jobTitle || "");
+                    setExpectedSalary(data.expectedSalary || "");
+                    setFutureScope(data.futureScope || "");
+                    setCompaniesHiring(data.companiesHiring || "");
+                    setRequiredSkills(data.requiredSkills || "");
                     
                     if (data.steps && data.steps.length > 0) {
                         const formattedSteps = data.steps.map(step => ({
@@ -124,7 +132,11 @@ const UpdateRoadmap = () => {
             // Send PUT request to save changes
             const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/v1/admin/roadmaps/${id}`, {
                 jobTitle: jobTitle.trim(),
-                steps: formattedSteps
+                steps: formattedSteps,
+                expectedSalary,
+                futureScope,
+                companiesHiring,
+                requiredSkills
             }, {
                 withCredentials: true,
                 headers: {
@@ -170,9 +182,9 @@ const UpdateRoadmap = () => {
 
                 <form onSubmit={handleSubmit} className="roadmap-form">
                     
-                    {/* Job Title Section */}
+                    {/* Job Title & Insights Section */}
                     <div className="form-section">
-                        <h3 style={{color:"var(--text-color)"}}>Target Career</h3>
+                        <h3 style={{color:"var(--text-color)"}}>Career Insights</h3>
                         <div className="input-group full-width">
                             <label>Dream Job Title</label>
                             <input
@@ -182,6 +194,47 @@ const UpdateRoadmap = () => {
                                 placeholder="e.g. Full Stack Software Engineer"
                                 required
                                 className="job-title-input"
+                            />
+                        </div>
+
+                        <div className="form-grid">
+                            <div className="input-group">
+                                <label>Expected Salary (e.g. ₹8 - ₹20 LPA)</label>
+                                <input
+                                    type="text"
+                                    value={expectedSalary}
+                                    onChange={(e) => setExpectedSalary(e.target.value)}
+                                    placeholder="Enter estimated salary range"
+                                />
+                            </div>
+                            <div className="input-group">
+                                <label>Required Skills (Comma separated)</label>
+                                <input
+                                    type="text"
+                                    value={requiredSkills}
+                                    onChange={(e) => setRequiredSkills(e.target.value)}
+                                    placeholder="e.g. React, Node.js, SQL"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="input-group full-width" style={{ marginTop: '20px' }}>
+                            <label>Future Scope & Growth</label>
+                            <textarea
+                                value={futureScope}
+                                onChange={(e) => setFutureScope(e.target.value)}
+                                placeholder="Describe the career growth and demand..."
+                                rows="3"
+                            />
+                        </div>
+
+                        <div className="input-group full-width" style={{ marginTop: '20px' }}>
+                            <label>Top Companies Hiring</label>
+                            <input
+                                type="text"
+                                value={companiesHiring}
+                                onChange={(e) => setCompaniesHiring(e.target.value)}
+                                placeholder="e.g. Google, Microsoft, Amazon"
                             />
                         </div>
                     </div>

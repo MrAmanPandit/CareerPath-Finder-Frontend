@@ -1,0 +1,198 @@
+.insights-page-wrapper {
+  padding: 120px 20px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.insights-container {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+}
+
+@media (max-width: 992px) {
+  .insights-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.insights-header {
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.insights-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.insights-header p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.insights-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.insights-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary-gradient);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.card-title svg {
+  color: #a855f7;
+}
+
+/* Salary Card Styles */
+.salary-display {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.salary-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.salary-label {
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+/* Scope & Growth */
+.scope-text {
+  line-height: 1.7;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skill-tag {
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  color: #d8b4fe;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+  background: rgba(168, 85, 247, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Companies Section */
+.companies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.company-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 20px;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+}
+
+.company-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Sidebar Analytics */
+.insights-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-widget {
+  padding: 25px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.stat-label {
+  opacity: 0.6;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #4ade80;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.no-data-state {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.no-data-state h3 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
