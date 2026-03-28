@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom' 
 import useSEO from '../utils/useSEO';
 import { motion } from 'framer-motion';
 import SEOSchema from './SEOSchema';
-import { ArrowRight, GraduationCap, Briefcase, Target, Zap, Map } from 'lucide-react';
+import { ArrowRight, GraduationCap, Briefcase, Target, Zap, Map, Compass, Heart, Sparkles, Milestone } from 'lucide-react';
 import YamLogo from '../yam-ai/YamLogo';
 import './AiHubSection.css';
 
@@ -26,8 +26,20 @@ const itemVariants = {
   },
   hover: { 
     y: -10, 
+    scale: 1.02,
     boxShadow: "0px 15px 30px rgba(78, 205, 196, 0.2)",
     transition: { duration: 0.3 }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
   }
 };
 
@@ -80,50 +92,152 @@ const content = () => {
     ]
   };
 
+  const typingWords = ["Future", "Passion", "Success", "Dream"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const fullWord = typingWords[currentWordIndex];
+      
+      if (isDeleting) {
+        setCurrentText(fullWord.substring(0, currentText.length - 1));
+        setTypingSpeed(75);
+      } else {
+        setCurrentText(fullWord.substring(0, currentText.length + 1));
+        setTypingSpeed(150);
+      }
+
+      if (!isDeleting && currentText === fullWord) {
+        setTimeout(() => setIsDeleting(true), 2000);
+      } else if (isDeleting && currentText === "") {
+        setIsDeleting(false);
+        setCurrentWordIndex((prev) => (prev + 1) % typingWords.length);
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, currentWordIndex]);
+
   return (
-    <main>
+    <main className="home-grid-container">
         <SEOSchema schema={faqSchema} />
-        <section className="hero">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              Discover & Explore your <span className="text-gradient">Career Path</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-            >
-              Select your stream and explore personalized career options designed to match your skills, interests, and goals.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
-              <Link to="/career/roadmap/search" className="btn-primary">Get Started</Link>
-            </motion.div>
+        
+        {/* Module 1: Hero Card */}
+        <section className="macro-card hero-card">
+            <div className="hero-bg-blobs">
+                <motion.div 
+                    className="blob blob-1"
+                    animate={{ 
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 90, 0],
+                        x: [0, 30, 0],
+                        y: [0, 50, 0]
+                    }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div 
+                    className="blob blob-2"
+                    animate={{ 
+                        scale: [1, 1.3, 1],
+                        rotate: [0, -90, 0],
+                        x: [0, -40, 0],
+                        y: [0, -60, 0]
+                    }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                />
+            </div>
+
+            <div className="hero-content">
+                <motion.div 
+                    className="hero-badge"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                >
+                    <Sparkles size={14} /> <span>AI-Powered Career Discovery</span>
+                </motion.div>
+
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  Discover & Explore your <span className="text-gradient dynamic-word">{currentText}<span className="cursor-dynamic">|</span></span>
+                </motion.h1>
+
+                <motion.div className="hero-feature-tags">
+                    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
+                        <Target size={18} className="tag-icon icon-target" /> Personalized
+                    </motion.span>
+                    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0 }}>
+                        <Zap size={18} className="tag-icon icon-zap" /> Fast Roadmap
+                    </motion.span>
+                    <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}>
+                        <GraduationCap size={18} className="tag-icon icon-grad" /> Expert Guidance
+                    </motion.span>
+                </motion.div>
+
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.8 }}
+                >
+                  Select your stream and explore personalized career options designed to match your skills, interests, and goals.
+                </motion.p>
+                <motion.div
+                  className="hero-cta"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                >
+                  <Link to="/career/roadmap/search" className="btn-primary btn-glow">Get Started Free</Link>
+                  <span className="cta-subtext">No credit card required</span>
+                </motion.div>
+            </div>
         </section>
 
+        {/* Module 2: The Choice Card */}
         <motion.section 
-          className="about"
+          className="macro-card the-choice"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={sectionVariants}
         >
-            <h2 className="section-title">About <span className="text-gradient">Us</span></h2>
-            <p>CareerPath Finder is your personalized guide to discovering the right career. Whether you're a student exploring options, a graduate unsure of your next step, or a professional considering a career switch, CareerPath Finder helps you identify opportunities that align with your skills, interests, and goals.</p>
+            <div className="section-content-human">
+                <Compass className="icon-accent" size={48} />
+                <h2 className="section-title">The <span className="text-gradient">Overwhelming Choice</span></h2>
+                <p>We've all been there. 10th grade, 12th grade, or even after graduation—the same haunting question: <strong>"What next?"</strong></p>
+                <p>The world is full of thousands of career paths, but you only have one life. My goal is to stop the guesswork and help you find the path that actually feels like <em>you</em>.</p>
+            </div>
         </motion.section>
 
-        {/* AI Intelligence Hub Section */}
+        {/* Module 3: Mission Card */}
         <motion.section 
-          className="ai-hub-section"
+          className="macro-card about mission-card"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
+        >
+            <h2 className="section-title">My <span className="text-gradient">Mission</span></h2>
+            <p>CareerPath Finder isn't just a platform; it's a commitment. I believe that every talent deserves a roadmap, and no ambition should be lost in the noise of traditional counseling. Whether you're a biology student dreaming of research or a commerce student looking at new-age fin-tech, I help you bridge the gap between where you are and where you belong.</p>
+            <div className="mission-quote">
+                <Heart size={20} className="icon-heart" />
+                <span>Building clarity, one roadmap at a time.</span>
+            </div>
+        </motion.section>
+
+        {/* Module 4: Intelligence Hub (Full-width grid card) */}
+        <motion.section 
+          className="macro-card ai-hub-section"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
           variants={sectionVariants}
         >
             <h2 className="section-title">YAM AI <span className="text-gradient">Intelligence Core</span></h2>
@@ -163,65 +277,41 @@ const content = () => {
             </div>
         </motion.section>
 
+        {/* Module 5: Journey Roadmap (Full-width grid card) */}
         <motion.section 
-          className="features"
+          className="macro-card the-process"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={sectionVariants}
+          viewport={{ once: true, amount: 0.1 }}
+          variants={staggerContainer}
         >
-            <h2 className="section-title">Platform <span className="text-gradient">Features</span></h2>
-            <motion.div 
-               className="feature-grid"
-               variants={containerVariants}
-               initial="hidden"
-               whileInView="visible"
-               viewport={{ once: true, amount: 0.2 }}
-            >
-                <motion.div 
-                  className="feature-card glass-card" 
-                  variants={itemVariants} 
-                  whileHover="hover"
-                >
-                    <motion.div className="ai-card-icon" variants={iconVariants}>
-                        <Target size={40} />
-                    </motion.div>
-                    <h3>Personalized Assessments</h3>
-                    <p>Discover careers that suit your strengths and passions.</p>
+            <h2 className="section-title">Your <span className="text-gradient">Success Journey</span></h2>
+            <div className="process-narrative">
+                <motion.div className="narrative-step" variants={itemVariants} whileHover="hover">
+                    <div className="step-count">01</div>
+                    <div className="step-text">
+                        <h3>Tell me your story</h3>
+                        <p>Not just your stream, but your interests. We start by understanding who you are.</p>
+                    </div>
                 </motion.div>
-                <motion.div 
-                  className="feature-card glass-card" 
-                  variants={itemVariants}
-                  whileHover="hover"
-                >
-                    <motion.div className="ai-card-icon" variants={iconVariants}>
-                        <Zap size={40} />
-                    </motion.div>
-                    <h3>Comprehensive Insights</h3>
-                    <p>Get detailed information about job roles, required skills, and growth.</p>
+                <motion.div className="narrative-step" variants={itemVariants} whileHover="hover">
+                    <div className="step-count">02</div>
+                    <div className="step-text">
+                        <h3>Map the future</h3>
+                        <p>We generate a step-by-step educational roadmap—from your current stage to your dream office.</p>
+                    </div>
                 </motion.div>
-                <motion.div 
-                  className="feature-card glass-card" 
-                  variants={itemVariants}
-                  whileHover="hover"
-                >
-                    <motion.div className="ai-card-icon" variants={iconVariants}>
-                        <GraduationCap size={40} />
-                    </motion.div>
-                    <h3>Education Guidance</h3>
-                    <p>Find the best courses and certifications for your chosen path.</p>
+                <motion.div className="narrative-step" variants={itemVariants} whileHover="hover">
+                    <div className="step-count">03</div>
+                    <div className="step-text">
+                        <h3>Take the leap</h3>
+                        <p>With clarity in hand, you're no longer just dreaming; you're following a plan.</p>
+                    </div>
                 </motion.div>
-                <motion.div 
-                  className="feature-card glass-card" 
-                  variants={itemVariants}
-                  whileHover="hover"
-                >
-                    <motion.div className="ai-card-icon" variants={iconVariants}>
-                        <Map size={40} />
-                    </motion.div>
-                    <h3>Actionable Roadmaps</h3>
-                    <p>Step-by-step guidance to help you reach your dream career.</p>
-                </motion.div>
+            </div>
+            <motion.div className="final-cta" variants={itemVariants}>
+                <p>Are you ready to stop searching and start following your path?</p>
+                <Link to="/career/roadmap/search" className="btn-secondary">Let's Build Your Roadmap <Sparkles size={16} /></Link>
             </motion.div>
         </motion.section>
 

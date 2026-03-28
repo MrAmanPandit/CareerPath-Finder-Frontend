@@ -21,8 +21,36 @@
   --hover-scale: 1.03;
   --hover-glow: 0 10px 40px rgba(78, 205, 196, 0.15);
   
-  /* Spacing */
-  --section-padding: 4.5rem 5%;
+  /* Spacing & Layout */
+  --section-padding: 5rem 5%;
+  --section-margin: 4.5rem;
+  --section-title-margin: 3rem;
+  --container-max-width: 1200px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: 4rem 5%;
+    --section-margin: 3.5rem;
+    --section-title-margin: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 3.5rem 5%;
+    --section-margin: 2.5rem;
+    --section-title-margin: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-padding: 3rem 5%;
+    --section-margin: 2rem;
+    --section-title-margin: 1.5rem;
+    --card-radius: 20px;
+  }
 }
 
 .light-mode-global {
@@ -84,6 +112,10 @@
   display: inline-block;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: radial-gradient(circle at top right, #1a1a2e, #16213e, #0f172a);
   background-attachment: fixed;
@@ -102,6 +134,39 @@ body::before {
   opacity: 0.05;
   pointer-events: none;
   z-index: -1;
+}
+
+/* ----- Global Form Styles ----- */
+input, select, textarea {
+  color: var(--text) !important;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.15);
+}
+
+::placeholder {
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  opacity: 0.9;
 }
 
 /* Global Background Animation */
