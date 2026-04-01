@@ -15,7 +15,7 @@ const ClinicalPsychologistRoadmap = () => {
       id: 1,
       phase: "Phase 1: Foundation",
       title: "High School (10+2)",
-      description: "Start by choosing the Arts/Humanities or Science (Biology) stream. While you can technically come from any stream, having a background in Biology or taking Psychology as a core subject in high school provides a massive advantage for understanding human behavior and brain anatomy.",
+      description: "Start by choosing the Arts/Humanities or Science (Biology) academic path. While you can technically come from any branch, having a background in Biology or taking Psychology as a core subject in high school provides a massive advantage for understanding human behavior and brain anatomy.",
       skills: ["10+2 (Arts or Biology)", "Basic Psychology", "Sociology", "Communication Skills"]
     },
     {

@@ -93,13 +93,15 @@ const Header = () => {
 
         {/* Logo */}
         <div className="logo">
+          <Link to={"/"}>
           CareerPath Finder
+          </Link>
         </div>
 
         {/* Desktop Navigation (Hidden on Mobile) */}
         <nav className="desktopNav">
           <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Home</MotionNavLink>
-          <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/streams" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Streams</MotionNavLink>
+          <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/streams" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Academic Paths</MotionNavLink>
           <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/career" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Career</MotionNavLink>
           <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/about" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>About Us</MotionNavLink>
           <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/contact" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Contact Us</MotionNavLink>
@@ -136,7 +138,7 @@ const Header = () => {
       {/* Mobile Navigation Dropdown (Visible only when toggled on Mobile) */}
       <div className={`mobileNav ${isMenuOpen ? 'open' : ''}`}>
         <NavLink to="/" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Home</NavLink>
-        <NavLink to="/streams" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Streams</NavLink>
+        <NavLink to="/streams" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Academic Paths</NavLink>
         <NavLink to="/career" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Career</NavLink>
         <NavLink to="/about" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>About Us</NavLink>
         <NavLink to="/contact" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Contact Us</NavLink>

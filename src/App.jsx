@@ -6,9 +6,14 @@ import Footer from './component/footer';
 import PageTransition from './component/PageTransition';
 import SkeletonLoader from './component/SkeletonLoader';
 import YamAiIcon from './component/YamAiIcon';
+import useAutoLogout from './utils/useAutoLogout';
+import FeedbackThankYou from './component/FeedbackThankYou';
 
 function App() {
   const location = useLocation();
+
+  // Auto-logout when access token expires or is absent
+  useAutoLogout();
 
   React.useEffect(() => {
     document.body.classList.add('dark-mode');
@@ -33,6 +38,8 @@ function App() {
       </div>
       {!isAiPage && <Footer />}
       <YamAiIcon />
+      {/* Thank-you popup: fires once when admin marks user feedback as Done */}
+      <FeedbackThankYou />
     </div>
   );
 }

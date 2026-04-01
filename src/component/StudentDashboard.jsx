@@ -5,18 +5,30 @@ import { BookOpen, Clock, Trophy, Star, CheckCircle, ArrowRight, Save, Loader2 }
 
 const StudentDashboard = () => {
     const [user, setUser] = useState(null);
+    const [insights, setInsights] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
-                    },
+                const config = {
+                    headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
                     withCredentials: true
-                });
-                setUser(response.data.message);
+                };
+
+                const [userRes, insightsRes] = await Promise.allSettled([
+                    axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, config),
+                    axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/insights`, config)
+                ]);
+
+                if (userRes.status === 'fulfilled') {
+                    setUser(userRes.value.data.message);
+                }
+
+                if (insightsRes.status === 'fulfilled') {
+                    setInsights(insightsRes.value.data.data);
+                }
+
             } catch (error) {
                 console.error("Error fetching user data for dashboard:", error);
             } finally {
@@ -70,6 +82,44 @@ const StudentDashboard = () => {
                 <h3><Trophy size={20} className="header-icon" /> Student Dashboard</h3>
                 <p>Track your progress and stay ahead in your career journey.</p>
             </div>
+
+            {/* AI Insight Section */}
+            {loading ? (
+                <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', padding: '20px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                    <p style={{ fontSize: '14px', opacity: 0.6 }}>✨ Calculating your personalized insights...</p>
+                </motion.div>
+            ) : insights ? (
+                <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', position: 'relative', overflow: 'hidden', padding: '20px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(159, 48, 157, 0.1))', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                        <span style={{ background: 'linear-gradient(to right, #4ecdc4, #9f309d)', WebkitBackgroundClip: 'text', color: 'transparent', fontWeight: 'bold' }}>✨ YAM AI Guidance</span>
+                        <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, rgba(78, 205, 196, 0.5), transparent)' }}></div>
+                    </div>
+                    
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+                        <div className="insight-block">
+                            <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><CheckCircle size={14} style={{ display:'inline', marginRight:'4px' }}/> {insights.phase?.title}</h4>
+                            <p style={{ fontSize: '14px', lineHeight: '1.5' }}>{insights.phase?.message}</p>
+                        </div>
+                        <div className="insight-block">
+                            <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><Trophy size={14} style={{ display:'inline', marginRight:'4px' }}/> {insights.performance?.title}</h4>
+                            <p style={{ fontSize: '14px', lineHeight: '1.5' }}>{insights.performance?.message}</p>
+                        </div>
+                        {insights.recommendation && (
+                            <div className="insight-block" style={{ background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(78, 205, 196, 0.3)' }}>
+                                <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><Star size={14} style={{ display:'inline', marginRight:'4px' }}/> {insights.recommendation.title}</h4>
+                                <p style={{ fontSize: '14px', lineHeight: '1.5', marginBottom: '10px' }}>{insights.recommendation.message}</p>
+                                <a href={insights.recommendation.url} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: '600', color: '#4ecdc4', textDecoration: 'none' }}>
+                                    View {insights.recommendation.match} <ArrowRight size={12} />
+                                </a>
+                            </div>
+                        )}
+                    </div>
+                </motion.div>
+            ) : (
+                <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', padding: '20px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                   <p style={{ fontSize: '14px', opacity: 0.8 }}>⚡ Please <Link to="/edit-details" style={{color: '#4ecdc4', textDecoration: 'none', fontWeight: 'bold'}}>update your profile</Link> to generate personalized career insights!</p>
+                </motion.div>
+            )}
 
             {/* Stats Overview */}
             <div className="stats-grid">

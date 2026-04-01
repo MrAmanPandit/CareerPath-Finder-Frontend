@@ -131,6 +131,8 @@
 
 /* Highlight Colors */
 .emailHighlight { color: #60a5fa; }
+.currentStudyHighlight{ color :#aa35e9}
+.branchHighlight{ color :#3b82f6}
 .streamHighlight { color: #fbbf24; }
 .dreamHighlight { color: #f472b6; }
 .mobileHighlight { color: #34d399; }

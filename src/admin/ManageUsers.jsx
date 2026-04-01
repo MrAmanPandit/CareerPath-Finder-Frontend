@@ -111,6 +111,7 @@ const ManageUsers = () => {
                                 <tr>
                                     <th>Name</th>
                                     <th>Email Address</th>
+                                    <th>Study / Branch</th>
                                     <th>Joined Date</th>
                                     <th>Role</th>
                                     <th>Actions</th>
@@ -128,6 +129,13 @@ const ManageUsers = () => {
                                             </div>
                                         </td>
                                         <td>{user.email}</td>
+                                        <td>
+                                            <div style={{fontSize: '13px'}}>
+                                                <span style={{color: 'var(--text-color)', fontWeight: '500'}}>{user.currentStudy || user.grade || "N/A"}</span>
+                                                <br />
+                                                <span style={{opacity: 0.6}}>{user.branch || user.stream || "N/A"}</span>
+                                            </div>
+                                        </td>
                                         <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                                         <td>
                                             <span className={`role-badge ${user.role === 'admin' ? 'badge-admin' : 'badge-user'}`}>

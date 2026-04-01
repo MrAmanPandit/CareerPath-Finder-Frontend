@@ -79,7 +79,7 @@ const Contact = () => {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/contact/${endpoint}`, formData);
       
       setIsSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData(prev => ({ ...prev, message: '' })); // keep name & email pre-filled
     } catch (error) {
       console.error("Submission error:", error);
       showErrorAlert(error.response?.data?.message || `Failed to submit ${contactType}. Please try again.`);

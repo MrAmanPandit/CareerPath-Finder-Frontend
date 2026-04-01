@@ -31,9 +31,9 @@ const cardVariants = {
 
 const Stream = () => {
   useSEO({
-    title: 'Choose Your Stream | Biology, Maths, Commerce & Arts',
-    description: 'Select your academic stream — Biology (PCB), Mathematics (PCM), Commerce, or Arts — explore tailored career paths and top courses available for you.',
-    keywords: 'choose stream, biology stream careers, maths PCM careers, commerce careers, arts stream careers, stream career guidance',
+    title: 'Choose Your Academic Path | Science, Commerce & Arts',
+    description: 'Select your academic branch — Biology, Mathematics, Commerce, or Arts — explore tailored career paths and top courses available for you.',
+    keywords: 'choose branch, biology careers, maths careers, commerce careers, arts careers, academic path guidance',
     canonical: '/streams'
   });
 
@@ -53,7 +53,7 @@ const Stream = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Choose Your <span className="text-gradient">Stream</span>
+          Choose Your <span className="text-gradient">Academic Path</span>
         </motion.h1>
 
         <motion.div 

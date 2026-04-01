@@ -124,6 +124,27 @@ body.dark-mode .active-icon {
   color: #fff;
 }
 
+/* Suggestions & Complaints icons */
+.suggestions-icon {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  color: #b45309;
+}
+
+.complaints-icon {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  color: #b91c1c;
+}
+
+body.dark-mode .suggestions-icon {
+  background: linear-gradient(135deg, #451a03, #78350f);
+  color: #fbbf24;
+}
+
+body.dark-mode .complaints-icon {
+  background: linear-gradient(135deg, #450a0a, #7f1d1d);
+  color: #f87171;
+}
+
 .stat-details {
   display: flex;
   flex-direction: column;
@@ -142,6 +163,29 @@ body.dark-mode .active-icon {
   font-size: 28px;
   font-weight: 800;
   margin: 0;
+}
+
+/* Unread pill under the stat number */
+.stat-unread-pill {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: #1a1a1a;
+  animation: badgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.stat-unread-pill.complaints-pill {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  color: #fff;
+}
+
+@keyframes badgePop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 
 /* --- Lower Grid Layout --- */
@@ -274,6 +318,29 @@ body.dark-mode .active-icon {
   font-size: 15px;
   font-weight: 600;
   color: var(--text-color);
+  flex: 1;
+}
+
+/* Badge on action buttons */
+.action-badge {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: #1a1a1a;
+  animation: badgePop 0.3s ease both;
+}
+
+.complaints-action-badge {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  color: #fff;
 }
 
 .outline-btn {

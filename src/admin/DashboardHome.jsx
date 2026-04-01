@@ -5,11 +5,15 @@ import axios from 'axios';
 import './DashboardHome.css';
 import SkeletonLoader from '../component/SkeletonLoader';
 
+const authHeaders = () => ({
+  withCredentials: true,
+  headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
+});
+
 const DashboardHome = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  // Mock data representing what your backend will eventually send
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalCourses: 0,
@@ -17,24 +21,36 @@ const DashboardHome = () => {
     activeSessions: 0
   });
 
+  const [feedbackCounts, setFeedbackCounts] = useState({
+    totalSuggestions: 0,
+    unreadSuggestions: 0,
+    totalComplaints: 0,
+    unreadComplaints: 0
+  });
+
   const [recentUsers, setRecentUsers] = useState([]);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/admin/dashboard-stats`, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`
-          }
-        });
+        // Use allSettled so one failing request doesn't block the other
+        const [dashResult, feedbackResult] = await Promise.allSettled([
+          axios.get(`${import.meta.env.VITE_API_URL}/api/v1/admin/dashboard-stats`, authHeaders()),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/v1/contact/counts`, authHeaders())
+        ]);
 
-        if (response.data) {
-          setStats(response.data.stats);
-          setRecentUsers(response.data.recentUsers);
+        if (dashResult.status === 'fulfilled' && dashResult.value.data) {
+          setStats(dashResult.value.data.stats);
+          setRecentUsers(dashResult.value.data.recentUsers);
+        } else if (dashResult.status === 'rejected') {
+          console.error("Failed to fetch dashboard stats:", dashResult.reason);
         }
-      } catch (error) {
-        console.error("Failed to fetch dashboard stats:", error);
+
+        if (feedbackResult.status === 'fulfilled' && feedbackResult.value.data?.data) {
+          setFeedbackCounts(feedbackResult.value.data.data);
+        } else if (feedbackResult.status === 'rejected') {
+          console.warn("Feedback counts not available (backend may need restart):", feedbackResult.reason?.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -94,6 +110,38 @@ const DashboardHome = () => {
             <h3 className="stat-number">{stats.activeSessions}</h3>
           </div>
         </div>
+
+        {/* Suggestions Card */}
+        <Link to="/admin/manage-suggestions">
+          <div className="stat-card">
+            <div className="stat-icon suggestions-icon">💡</div>
+            <div className="stat-details">
+              <p className="stat-label">User Suggestions</p>
+              <h3 className="stat-number">{feedbackCounts.totalSuggestions}</h3>
+              {feedbackCounts.unreadSuggestions > 0 && (
+                <span className="stat-unread-pill">
+                  {feedbackCounts.unreadSuggestions} unread
+                </span>
+              )}
+            </div>
+          </div>
+        </Link>
+
+        {/* Complaints Card */}
+        <Link to="/admin/manage-complaints">
+          <div className="stat-card">
+            <div className="stat-icon complaints-icon">🚩</div>
+            <div className="stat-details">
+              <p className="stat-label">User Complaints</p>
+              <h3 className="stat-number">{feedbackCounts.totalComplaints}</h3>
+              {feedbackCounts.unreadComplaints > 0 && (
+                <span className="stat-unread-pill complaints-pill">
+                  {feedbackCounts.unreadComplaints} unread
+                </span>
+              )}
+            </div>
+          </div>
+        </Link>
       </div>
 
       <div className="dashboard-lower-grid">
@@ -146,6 +194,20 @@ const DashboardHome = () => {
             <button className="action-btn" onClick={() => navigate('/admin/add-roadmap')}>
               <span className="action-icon">🛤️</span>
               <span className="action-text">Build Roadmap</span>
+            </button>
+            <button className="action-btn" onClick={() => navigate('/admin/manage-suggestions')}>
+              <span className="action-icon">💡</span>
+              <span className="action-text">View Suggestions</span>
+              {feedbackCounts.unreadSuggestions > 0 && (
+                <span className="action-badge">{feedbackCounts.unreadSuggestions}</span>
+              )}
+            </button>
+            <button className="action-btn" onClick={() => navigate('/admin/manage-complaints')}>
+              <span className="action-icon">🚩</span>
+              <span className="action-text">View Complaints</span>
+              {feedbackCounts.unreadComplaints > 0 && (
+                <span className="action-badge complaints-action-badge">{feedbackCounts.unreadComplaints}</span>
+              )}
             </button>
             <button className="action-btn outline-btn" onClick={() => navigate('/')}>
               <span className="action-icon">👁️</span>

@@ -14,8 +14,8 @@ const Signup = () => {
     lastName: '',
     email: '',
     mobileNumber: '',
-    grade: '',
-    stream: '',
+    currentStudy: '',
+    branch: '',
     dream: '',
     password: '',
     confirmPassword: ''
@@ -44,8 +44,8 @@ const Signup = () => {
         lastName: user.lastName,
         email: user.email,
         password: user.password,
-        grade: user.grade,
-        stream: user.stream,
+        currentStudy: user.currentStudy,
+        branch: user.branch,
         dream: user.dream,
         mobileNumber: user.mobileNumber
       }
@@ -122,26 +122,26 @@ const Signup = () => {
             {/* Side-by-side inputs for Grade and Stream */}
             <div className="inputRow">
               <div className="inputGroup">
-                <label className="inputLabel" htmlFor="grade">Grade / Class</label>
+                <label className="inputLabel" htmlFor="currentStudy">Current Study / Qualification</label>
                 <input
                   type="text"
-                  placeholder="e.g., 11th, 12th, College"
+                  placeholder="e.g., 12th, B.Tech, MCA"
                   className="inputField"
-                  value={user.grade}
+                  value={user.currentStudy}
                   onChange={handleInputChange}
-                  name="grade"
+                  name="currentStudy"
                   required />
               </div>
 
               <div className="inputGroup">
-                <label className="inputLabel" htmlFor="stream">Stream</label>
+                <label className="inputLabel" htmlFor="branch">Branch / Specialization</label>
                 <input
                   type="text"
-                  placeholder="e.g., Science, Commerce, Arts"
+                  placeholder="e.g., Science, CS, Finance"
                   className="inputField"
-                  value={user.stream}
+                  value={user.branch}
                   onChange={handleInputChange}
-                  name="stream"
+                  name="branch"
                   required />
               </div>
 

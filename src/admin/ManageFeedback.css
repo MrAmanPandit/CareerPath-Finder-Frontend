@@ -74,3 +74,64 @@
   font-size: 1.2rem;
   opacity: 0.6;
 }
+
+/* ── Feedback header row with unread badge ── */
+.feedback-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.feedback-unread-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  animation: badgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.suggestions-unread {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: #1a1a1a;
+}
+
+.complaints-unread {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  color: #fff;
+}
+
+/* ── Unread row highlight ── */
+.row-unread {
+  background: rgba(245, 158, 11, 0.06);
+  border-left: 3px solid #f59e0b;
+}
+
+.row-unread td:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Inline dot indicator next to name */
+.inline-unread-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f59e0b;
+  flex-shrink: 0;
+  animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.75); }
+}
+
+@keyframes badgePop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}

@@ -64,7 +64,7 @@ const sectionVariants = {
 const content = () => {
   useSEO({
     title: 'Discover & Explore Your Career Path',
-    description: 'CareerPath Finder helps students and professionals explore personalized career options, step-by-step roadmaps, and course guidance based on their stream — Biology, Maths, Commerce, or Arts.',
+    description: 'CareerPath Finder helps students and professionals explore personalized career options, step-by-step roadmaps, and course guidance based on their current study and branch path.',
     keywords: 'career path finder, career guidance, career roadmap, career for students, find career, best career options India',
     canonical: '/'
   });
@@ -186,7 +186,7 @@ const content = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
                 >
-                  Select your stream and explore personalized career options designed to match your skills, interests, and goals.
+                  Tell us your current study and branch to explore personalized career options designed to match your skills, interests, and goals.
                 </motion.p>
                 <motion.div
                   className="hero-cta"

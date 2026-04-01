@@ -17,7 +17,7 @@ const Footer = () => {
         {/* Navigation Links */}
         <div className="footerLinks">
           <Link to="/" className="footerLink">Home</Link>
-          <Link to="/streams" className="footerLink">Streams</Link>
+          <Link to="/streams" className="footerLink">Academic Paths</Link>
           <Link to="/career" className="footerLink">Career</Link>
           <Link to="/about" className="footerLink">About</Link>
           <Link to="/contact" className="footerLink">Contact Us</Link>

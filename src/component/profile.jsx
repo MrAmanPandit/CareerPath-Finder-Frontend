@@ -93,7 +93,7 @@ const Profile = () => {
           <div className="profileHeader">
             <div className="profileAvatar">{getInitial(user?.firstName)}</div>
             <h2 className="profileName">{user?.firstName} {user?.lastName}</h2>
-            <p className="profileRole">Student Grade • {user?.grade}</p>
+            <p className="profileRole">{user?.currentStudy || user?.grade} • Student</p>
           </div>
 
           <div className="divider"></div>
@@ -106,8 +106,13 @@ const Profile = () => {
             </div>
 
             <div className="detailGroup">
-              <span className="detailLabel">Chosen Stream • </span>
-              <span className="detailValue streamHighlight">{user?.stream}</span>
+              <span className="detailLabel">Current Study • </span>
+              <span className="detailValue currentStudyHighlight">{user?.currentStudy || user?.grade}</span>
+            </div>
+
+            <div className="detailGroup">
+              <span className="detailLabel">Academic Branch • </span>
+              <span className="detailValue branchHighlight">{user?.branch || user?.stream}</span>
             </div>
 
             <div className="detailGroup">

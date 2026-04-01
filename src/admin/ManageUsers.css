@@ -271,6 +271,17 @@ body.dark-mode .avatar-circle {
   border-color: #fca5a5;
 }
 
+.btn-done {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #86efac;
+}
+
+.btn-done:hover {
+  background-color: #dcfce7;
+  border-color: #4ade80;
+}
+
 /* --- States --- */
 .loading-state,
 .empty-state {

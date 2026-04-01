@@ -10,8 +10,8 @@ const EditDetails = () => {
     firstName: '',
     lastName: '',
     mobileNumber: '',
-    grade: '',
-    stream: '',
+    currentStudy: '',
+    branch: '',
     dream: ''
   });
 
@@ -23,8 +23,8 @@ const EditDetails = () => {
     firstName: '',
     lastName: '',
     mobileNumber: '',
-    grade: '',
-    stream: '',
+    currentStudy: '',
+    branch: '',
     dream: '',
   });
 
@@ -47,8 +47,8 @@ const EditDetails = () => {
                     firstName: fetchedUser.firstName || '',
                     lastName: fetchedUser.lastName || '',
                     mobileNumber: fetchedUser.mobileNumber || '',
-                    grade: fetchedUser.grade || '',
-                    stream: fetchedUser.stream || '',
+                    currentStudy: fetchedUser.currentStudy || '',
+                    branch: fetchedUser.branch || '',
                     dream: fetchedUser.dream || '',
                 });
 
@@ -78,8 +78,8 @@ const EditDetails = () => {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/edit-user`,{
            firstName: userData.firstName,
            lastName: userData.lastName,
-           grade: userData.grade,
-           stream: userData.stream,
+           currentStudy: userData.currentStudy,
+           branch: userData.branch,
            dream: userData.dream,
            mobileNumber: userData.mobileNumber
         },
@@ -156,25 +156,25 @@ const EditDetails = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="grade">Current Grade / Year</label>
+              <label htmlFor="currentStudy">Current Study / Qualification</label>
               <input 
               type="text" 
-              name="grade" 
-              id="grade" 
-              value={userData.grade} 
+              name="currentStudy" 
+              id="currentStudy" 
+              value={userData.currentStudy} 
               onChange={handleInputChange} 
-              placeholder={`Your Current Grade / Year: ${user.grade}`} required />
+              placeholder={`Your Current Study: ${user.currentStudy}`} required />
             </div>
 
             <div className="form-group">
-              <label htmlFor="stream">Academic Stream</label>
+              <label htmlFor="branch">Academic Branch</label>
               <input 
               type="text" 
-              name="stream" 
-              id="stream" 
-              value={userData.stream} 
+              name="branch" 
+              id="branch" 
+              value={userData.branch} 
               onChange={handleInputChange} 
-              placeholder={`Your Current Stream: ${user.stream}`} required/>
+              placeholder={`Your Current Branch: ${user.branch}`} required/>
             </div>
 
             <div className="form-group full-width">

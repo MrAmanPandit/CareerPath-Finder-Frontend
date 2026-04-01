@@ -12,6 +12,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [adminName, setAdminName] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [unreadCounts, setUnreadCounts] = useState({ unreadSuggestions: 0, unreadComplaints: 0 });
 
   // Protect the entire dashboard
   // Dashboard data loading (No longer restricted)
@@ -38,6 +39,21 @@ const AdminDashboard = () => {
       }
     };
     fetchAdminInfo();
+
+    // Fetch unread feedback counts for sidebar badges
+    const fetchUnreadCounts = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/contact/counts`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
+        });
+        if (res.data?.data) {
+          setUnreadCounts(res.data.data);
+        }
+      } catch {
+        // silently fail – counts are non-critical
+      }
+    };
+    fetchUnreadCounts();
   }, []);
 
   const handleLogout = async () => {
@@ -96,10 +112,20 @@ const AdminDashboard = () => {
             🗺️ Manage Roadmaps
           </NavLink>
           <NavLink to="/admin/manage-suggestions" onClick={() => setIsSidebarOpen(false)} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-            💡 User Suggestions
+            <span className="nav-link-content">
+              {unreadCounts.unreadSuggestions > 0 && (
+                <span className="sidebar-badge suggestions-badge">{unreadCounts.unreadSuggestions}</span>
+              )}
+              💡 User Suggestions
+            </span>
           </NavLink>
           <NavLink to="/admin/manage-complaints" onClick={() => setIsSidebarOpen(false)} className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-            🚩 User Complaints
+            <span className="nav-link-content">
+              {unreadCounts.unreadComplaints > 0 && (
+                <span className="sidebar-badge complaints-badge">{unreadCounts.unreadComplaints}</span>
+              )}
+              🚩 User Complaints
+            </span>
           </NavLink>
         </nav>
 
@@ -122,7 +148,7 @@ const AdminDashboard = () => {
             <span className="h-bar hbar2"></span>
             <span className="h-bar hbar3"></span>
           </button>
-          <span style={{color:"#594ae6ff",fontWeight:"500"}}>Welcome back, <span style={{color:"#9f309dff",fontWeight:"bold",fontStyle:'italic'}}>Mr./ Ms./ Mrs. {adminName}</span></span>
+          <span style={{color:"#594ae6ff",fontWeight:"500"}}>Welcome back, <span style={{color:"#9f309dff",fontWeight:"bold",fontStyle:'italic'}}>Mr. {adminName}</span></span>
         </header>
 
         {/* 3. The Outlet - This is where your nested pages will render! */}
