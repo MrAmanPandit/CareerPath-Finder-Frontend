@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { BookOpen, Clock, Trophy, Star, CheckCircle, ArrowRight, Save, Loader2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { BookOpen, Clock, Trophy, Star, CheckCircle, ArrowRight, Save, Loader2, AlertCircle } from 'lucide-react';
 
 const StudentDashboard = () => {
     const [user, setUser] = useState(null);
@@ -23,10 +24,15 @@ const StudentDashboard = () => {
 
                 if (userRes.status === 'fulfilled') {
                     setUser(userRes.value.data.message);
+                } else {
+                    console.error("User fetch failed:", userRes.reason);
                 }
 
                 if (insightsRes.status === 'fulfilled') {
                     setInsights(insightsRes.value.data.data);
+                } else {
+                    console.error("Insights fetch failed:", insightsRes.reason);
+                    setInsights({ error: true }); // Mark as failed instead of null to show error UI
                 }
 
             } catch (error) {
@@ -88,7 +94,7 @@ const StudentDashboard = () => {
                 <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', padding: '20px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                     <p style={{ fontSize: '14px', opacity: 0.6 }}>✨ Calculating your personalized insights...</p>
                 </motion.div>
-            ) : insights ? (
+            ) : (insights && !insights.error) ? (
                 <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', position: 'relative', overflow: 'hidden', padding: '20px', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(159, 48, 157, 0.1))', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
                         <span style={{ background: 'linear-gradient(to right, #4ecdc4, #9f309d)', WebkitBackgroundClip: 'text', color: 'transparent', fontWeight: 'bold' }}>✨ YAM AI Guidance</span>
@@ -114,6 +120,16 @@ const StudentDashboard = () => {
                             </div>
                         )}
                     </div>
+                </motion.div>
+            ) : insights?.error ? (
+                <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', padding: '20px', borderRadius: '16px', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                   <p style={{ fontSize: '14px', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                     <AlertCircle size={16} /> 
+                     Unable to connect to AI Guidance. 
+                     <button onClick={() => window.location.reload()} style={{ background: 'none', border: 'none', color: '#ef4444', textDecoration: 'underline', cursor: 'pointer', marginLeft: '4px', padding: 0, fontSize: '14px', fontWeight: 'bold' }}>
+                        Re-sync Now
+                     </button>
+                   </p>
                 </motion.div>
             ) : (
                 <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', padding: '20px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
