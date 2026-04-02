@@ -28,14 +28,18 @@ const Login = () => {
     e.preventDefault(); 
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/login/`, credentials, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/login`, credentials, {
           withCredentials: true
       });
       
-      const token = response.data?.message?.accessToken || response.data?.accessToken;
+      const token = response.data?.data?.accessToken || response.data?.message?.accessToken || response.data?.accessToken;
+      const user = response.data?.data?.user;
 
       if (token) {
           localStorage.setItem("accessToken", token);
+          if (user) {
+              localStorage.setItem("user", JSON.stringify(user));
+          }
           localStorage.setItem("isLoggedIn", "true");
           
           console.log("Login successful:");
@@ -47,7 +51,7 @@ const Login = () => {
       }
       
     } catch (error) {
-      const errorMsg = error.response?.data?.message || error.message;
+      const errorMsg = error.response?.data?.message || error.response?.data?.data || error.message;
       console.error("Error logging in:", errorMsg);
       showErrorAlert(`Error logging in: ${errorMsg}`);
     }
