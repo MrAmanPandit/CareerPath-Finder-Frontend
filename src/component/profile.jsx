@@ -27,7 +27,7 @@ const Profile = () => {
           }
         });
 
-        setUser(response.data.message); // Assuming your API wraps response in a 'data' object
+        setUser(response.data.data); // Correctly extract user from 'data' property
       } catch (err) {
         setError(err.response?.data?.message || "Failed to load profile");
       } finally {

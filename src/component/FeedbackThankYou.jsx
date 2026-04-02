@@ -22,7 +22,7 @@ const FeedbackThankYou = () => {
                 const userRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-                const email = userRes.data?.message?.email;
+                const email = userRes.data?.data?.email;
                 if (!email) return;
 
                 // Check if admin has marked any of their feedback as done

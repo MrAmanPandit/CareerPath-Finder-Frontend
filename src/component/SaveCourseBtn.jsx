@@ -16,7 +16,7 @@ const SaveCourseBtn = ({ courseName }) => {
                     headers: { Authorization: `Bearer ${token}` },
                     withCredentials: true
                 });
-                const savedCourses = response.data.message.savedCourses || [];
+                const savedCourses = response.data.data.savedCourses || [];
                 setIsSaved(savedCourses.includes(courseName));
             } catch (err) {
                 console.error("Error checking saved status:", err);
@@ -44,7 +44,7 @@ const SaveCourseBtn = ({ courseName }) => {
                     withCredentials: true 
                 }
             );
-            const newList = response.data.message;
+            const newList = response.data.data;
             setIsSaved(newList.includes(courseName));
             showSuccessAlert(newList.includes(courseName) ? "Course saved to dashboard!" : "Course removed from dashboard");
         } catch (err) {

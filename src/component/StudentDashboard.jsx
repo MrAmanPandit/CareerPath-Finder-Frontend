@@ -23,7 +23,7 @@ const StudentDashboard = () => {
                 ]);
 
                 if (userRes.status === 'fulfilled') {
-                    setUser(userRes.value.data.message);
+                    setUser(userRes.value.data.data);
                 } else {
                     console.error("User fetch failed:", userRes.reason);
                 }
@@ -78,7 +78,7 @@ const StudentDashboard = () => {
     };
 
     return (
-        <motion.div 
+        <motion.div
             className="student-dashboard"
             variants={containerVariants}
             initial="hidden"
@@ -100,19 +100,19 @@ const StudentDashboard = () => {
                         <span style={{ background: 'linear-gradient(to right, #4ecdc4, #9f309d)', WebkitBackgroundClip: 'text', color: 'transparent', fontWeight: 'bold' }}>✨ YAM AI Guidance</span>
                         <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, rgba(78, 205, 196, 0.5), transparent)' }}></div>
                     </div>
-                    
+
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
                         <div className="insight-block">
-                            <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><CheckCircle size={14} style={{ display:'inline', marginRight:'4px' }}/> {insights.phase?.title}</h4>
+                            <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><CheckCircle size={14} style={{ display: 'inline', marginRight: '4px' }} /> {insights.phase?.title}</h4>
                             <p style={{ fontSize: '14px', lineHeight: '1.5' }}>{insights.phase?.message}</p>
                         </div>
                         <div className="insight-block">
-                            <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><Trophy size={14} style={{ display:'inline', marginRight:'4px' }}/> {insights.performance?.title}</h4>
+                            <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><Trophy size={14} style={{ display: 'inline', marginRight: '4px' }} /> {insights.performance?.title}</h4>
                             <p style={{ fontSize: '14px', lineHeight: '1.5' }}>{insights.performance?.message}</p>
                         </div>
                         {insights.recommendation && (
                             <div className="insight-block" style={{ background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(78, 205, 196, 0.3)' }}>
-                                <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><Star size={14} style={{ display:'inline', marginRight:'4px' }}/> {insights.recommendation.title}</h4>
+                                <h4 style={{ fontSize: '14px', color: 'var(--text-color)', marginBottom: '6px', opacity: 0.8 }}><Star size={14} style={{ display: 'inline', marginRight: '4px' }} /> {insights.recommendation.title}</h4>
                                 <p style={{ fontSize: '14px', lineHeight: '1.5', marginBottom: '10px' }}>{insights.recommendation.message}</p>
                                 <a href={insights.recommendation.url} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: '600', color: '#4ecdc4', textDecoration: 'none' }}>
                                     View {insights.recommendation.match} <ArrowRight size={12} />
@@ -123,25 +123,25 @@ const StudentDashboard = () => {
                 </motion.div>
             ) : insights?.error ? (
                 <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', padding: '20px', borderRadius: '16px', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
-                   <p style={{ fontSize: '14px', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                     <AlertCircle size={16} /> 
-                     Unable to connect to AI Guidance. 
-                     <button onClick={() => window.location.reload()} style={{ background: 'none', border: 'none', color: '#ef4444', textDecoration: 'underline', cursor: 'pointer', marginLeft: '4px', padding: 0, fontSize: '14px', fontWeight: 'bold' }}>
-                        Re-sync Now
-                     </button>
-                   </p>
+                    <p style={{ fontSize: '14px', color: '#ef4444', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <AlertCircle size={16} />
+                        Unable to connect to AI Guidance.
+                        <button onClick={() => window.location.reload()} style={{ background: 'none', border: 'none', color: '#ef4444', textDecoration: 'underline', cursor: 'pointer', marginLeft: '4px', padding: 0, fontSize: '14px', fontWeight: 'bold' }}>
+                            Re-sync Now
+                        </button>
+                    </p>
                 </motion.div>
             ) : (
                 <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', padding: '20px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                   <p style={{ fontSize: '14px', opacity: 0.8 }}>⚡ Please <Link to="/edit-details" style={{color: '#4ecdc4', textDecoration: 'none', fontWeight: 'bold'}}>update your profile</Link> to generate personalized career insights!</p>
+                    <p style={{ fontSize: '14px', opacity: 0.8 }}>⚡ Please <Link to="/edit-details" style={{ color: '#4ecdc4', textDecoration: 'none', fontWeight: 'bold' }}>update your profile</Link> to generate personalized career insights!</p>
                 </motion.div>
             )}
 
             {/* Stats Overview */}
             <div className="stats-grid">
                 {stats.map(stat => (
-                    <motion.div 
-                        key={stat.id} 
+                    <motion.div
+                        key={stat.id}
                         className="stat-card glass-card"
                         variants={itemVariants}
                         whileHover={{ y: -5, scale: 1.02 }}
@@ -164,7 +164,7 @@ const StudentDashboard = () => {
                     <span className="percentage">{user.readinessScore || 0}%</span>
                 </div>
                 <div className="progress-bar-container">
-                    <motion.div 
+                    <motion.div
                         className="progress-bar-fill"
                         initial={{ width: 0 }}
                         animate={{ width: `${user.readinessScore || 0}%` }}
@@ -201,7 +201,7 @@ const StudentDashboard = () => {
                     ) : (
                         <p className="empty-saved">No roadmaps saved yet.</p>
                     )}
-                    <button className="view-all-btn" onClick={() => window.location.href='/career/roadmap/search'}>Explore Roadmaps <ArrowRight size={14} /></button>
+                    <button className="view-all-btn" onClick={() => window.location.href = '/career/roadmap/search'}>Explore Roadmaps <ArrowRight size={14} /></button>
                 </motion.div>
 
                 {/* Saved Courses */}
@@ -226,7 +226,7 @@ const StudentDashboard = () => {
                     ) : (
                         <p className="empty-saved">No courses saved yet.</p>
                     )}
-                    <button className="view-all-btn" onClick={() => window.location.href='/streams'}>Discover Courses <ArrowRight size={14} /></button>
+                    <button className="view-all-btn" onClick={() => window.location.href = '/streams'}>Discover Courses <ArrowRight size={14} /></button>
                 </motion.div>
             </div>
         </motion.div>

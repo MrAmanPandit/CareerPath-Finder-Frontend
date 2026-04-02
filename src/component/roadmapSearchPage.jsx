@@ -27,7 +27,7 @@ const RoadmapSearchPage = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
           withCredentials: true
         });
-        setUserSavedRoadmaps(response.data.message.savedRoadmaps || []);
+        setUserSavedRoadmaps(response.data.data.savedRoadmaps || []);
       } catch (err) {
         console.error("Error fetching saved roadmaps:", err);
       }
@@ -70,12 +70,12 @@ const RoadmapSearchPage = () => {
 
   const handleToggleSave = async (id) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/toggle-roadmap/`, 
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/toggle-roadmap/`,
         { roadmapId: id },
         { headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }, withCredentials: true }
       );
-      setUserSavedRoadmaps(response.data.message);
-      showSuccessAlert(userSavedRoadmaps.includes(id) ? "Roadmap removed from dashboard" : "Roadmap saved to dashboard!");
+      setUserSavedRoadmaps(response.data.data);
+      showSuccessAlert(response.data.data.includes(id) ? "Roadmap removed from dashboard" : "Roadmap saved to dashboard!");
     } catch (err) {
       showErrorAlert("Login required to save roadmaps");
     }
@@ -106,7 +106,7 @@ const RoadmapSearchPage = () => {
 
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/roadmaps/search?q=${encodeURIComponent(trimmedQuery)}`);
-      
+
       // Our backend returns { message: "...", data: [ { jobTitle: "...", steps: [...] } ] }
       // We'll take the first match for simplicity
       if (response.data.data && response.data.data.length > 0) {
@@ -138,151 +138,151 @@ const RoadmapSearchPage = () => {
 
   return (
     <AnimatedPage>
-    <SEOSchema schema={searchSchema} />
-    <div className="roadmap-page">
+      <SEOSchema schema={searchSchema} />
+      <div className="roadmap-page">
 
-      {/* 1. The Search Hero */}
-      <section className="roadmap-hero">
-        <h1 className="text-gradient">Discover Your Path</h1>
-        <p>Enter your dream job below, and we will generate a step-by-step educational roadmap to help you achieve it.</p>
-        
-        <form className="search-form" onSubmit={handleFormSubmit} ref={searchRef}>
-          <input 
-            type="text" 
-            className="search-input"
-            placeholder="e.g., Software Engineer, Data Scientist, UI/UX Designer..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
-          />
+        {/* 1. The Search Hero */}
+        <section className="roadmap-hero">
+          <h1 className="text-gradient">Discover Your Path</h1>
+          <p>Enter your dream job below, and we will generate a step-by-step educational roadmap to help you achieve it.</p>
 
-          {showSuggestions && suggestions.length > 0 && (
-            <ul className="suggestions-dropdown">
-              {suggestions.map((sug, idx) => (
-                <li 
-                  key={idx} 
-                  className="suggestion-item" 
-                  onClick={() => {
-                    setSearchQuery(sug);
-                    triggerSearch(sug);
-                  }}
-                >
-                  <Search size={14} style={{ marginRight: '10px', opacity: 0.6 }} /> {sug}
-                </li>
-              ))}
-            </ul>
-          )}
-          <button type="submit" className="search-btn">
-            {isSearching ? 'Mapping...' : (
-              <>Generate Roadmap <ArrowRight size={18} /></>
+          <form className="search-form" onSubmit={handleFormSubmit} ref={searchRef}>
+            <input
+              type="text"
+              className="search-input"
+              placeholder="e.g., Software Engineer, Data Scientist, UI/UX Designer..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
+            />
+
+            {showSuggestions && suggestions.length > 0 && (
+              <ul className="suggestions-dropdown">
+                {suggestions.map((sug, idx) => (
+                  <li
+                    key={idx}
+                    className="suggestion-item"
+                    onClick={() => {
+                      setSearchQuery(sug);
+                      triggerSearch(sug);
+                    }}
+                  >
+                    <Search size={14} style={{ marginRight: '10px', opacity: 0.6 }} /> {sug}
+                  </li>
+                ))}
+              </ul>
             )}
-          </button>
-        </form>
-      </section>
-
-      {/* 2. Loading State */}
-      {isSearching && (
-        <div className="loading-state" style={{marginTop: '30px'}}>
-          <SkeletonLoader type="search" />
-        </div>
-      )}
-      
-      {/* 3. Empty State */}
-      {!roadmap && !isSearching && (
-        <section className="suggestions-section">
-          <h2 className="suggestions-header">Not sure where to start?</h2>
-          <p className="suggestions-subtext">Explore some of the most popular career paths chosen by our students.</p>
-          
-          <div className="popular-jobs-grid">
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Software Engineer")}><Laptop size={18} /> Software Engineer</button>
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Data Scientist")}><BarChart size={18} /> Data Scientist</button>
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Cyber Security")}><ShieldCheck size={18} /> Cyber Security</button>
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Cloud Architect")}><Cloud size={18} /> Cloud Architect</button>
-            <button className="job-pill-btn" onClick={() => handleQuickSearch("Product Manager")}><TrendingUp size={18} /> Product Manager</button>
-          </div>
-
-          <div className="how-it-works-grid">
-            <div className="step-card glass-card">
-              <div className="step-icon"><Search size={28} /></div>
-              <h3>Search a Career</h3>
-              <p>Type in any professional career or tech role you are dreaming of pursuing.</p>
-            </div>
-            <div className="step-card glass-card">
-              <div className="step-icon"><MapIcon size={28} /></div>
-              <h3>Get the Roadmap</h3>
-              <p>We break down exactly which degrees, diplomas, and skills you need.</p>
-            </div>
-            <div className="step-card glass-card">
-              <div className="step-icon"><Play size={28} /></div>
-              <h3>Start Learning</h3>
-              <p>Click on the recommended courses to instantly start building your foundation.</p>
-            </div>
-          </div>
+            <button type="submit" className="search-btn">
+              {isSearching ? 'Mapping...' : (
+                <>Generate Roadmap <ArrowRight size={18} /></>
+              )}
+            </button>
+          </form>
         </section>
-      )}
 
-      {/* 4. The Timeline Results (Shows when roadmap exists) */}
-      {roadmap && !isSearching && (
-        <section className="roadmap-results">
-          <div className="results-header">
-            <h2>Your Roadmap to becoming a <span>{roadmap.jobTitle}</span></h2>
-            <button 
-              className={`save-roadmap-btn ${userSavedRoadmaps.includes(roadmap._id) ? 'saved' : ''}`}
-              onClick={() => handleToggleSave(roadmap._id)}
-            >
-              {userSavedRoadmaps.includes(roadmap._id) ? <><Star size={18} fill="currentColor" /> Saved</> : <><Star size={18} /> Save Roadmap</>}
-            </button>
-            <button 
-              className="insights-btn"
-              onClick={() => navigate(`/career/roadmap/${encodeURIComponent(roadmap.jobTitle)}/insights`)}
-            >
-              <TrendingUp size={18} /> View Insights
-            </button>
+        {/* 2. Loading State */}
+        {isSearching && (
+          <div className="loading-state" style={{ marginTop: '30px' }}>
+            <SkeletonLoader type="search" />
           </div>
+        )}
 
-          <div className="timeline">
-            {roadmap.steps.map((step, index) => (
-              <div className="timeline-item" key={step.id}>
-                <div className="timeline-dot">{index + 1}</div>
-                <div className="timeline-content">
-                  <h3 className="step-title">{step.title}</h3>
-                  <span className="step-duration">{step.duration}</span>
-                  <p className="step-description">{step.description}</p>
-                  
-                  {step.courses && step.courses.length > 0 && (
-                    <div className="course-recommendations">
-                      <h4>Recommended Courses & Programs</h4>
-                      <ul className="course-list">
-                        {step.courses.map((course, i) => {
-                          const isObject = typeof course === 'object' && course !== null;
-                          const name = isObject ? course.name : course;
-                          const link = isObject ? course.link : "#";
-                          
-                          return (
-                            <li key={i}>
-                              <a 
-                                href={link} 
-                                target={link && link !== "#" ? "_blank" : "_self"} 
-                                rel="noopener noreferrer" 
-                                className="course-item"
-                                onClick={(e) => (link === "#" || !link) && e.preventDefault()}
-                              >
-                                → {name}
-                              </a>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
-                </div>
+        {/* 3. Empty State */}
+        {!roadmap && !isSearching && (
+          <section className="suggestions-section">
+            <h2 className="suggestions-header">Not sure where to start?</h2>
+            <p className="suggestions-subtext">Explore some of the most popular career paths chosen by our students.</p>
+
+            <div className="popular-jobs-grid">
+              <button className="job-pill-btn" onClick={() => handleQuickSearch("Software Engineer")}><Laptop size={18} /> Software Engineer</button>
+              <button className="job-pill-btn" onClick={() => handleQuickSearch("Data Scientist")}><BarChart size={18} /> Data Scientist</button>
+              <button className="job-pill-btn" onClick={() => handleQuickSearch("Cyber Security")}><ShieldCheck size={18} /> Cyber Security</button>
+              <button className="job-pill-btn" onClick={() => handleQuickSearch("Cloud Architect")}><Cloud size={18} /> Cloud Architect</button>
+              <button className="job-pill-btn" onClick={() => handleQuickSearch("Product Manager")}><TrendingUp size={18} /> Product Manager</button>
+            </div>
+
+            <div className="how-it-works-grid">
+              <div className="step-card glass-card">
+                <div className="step-icon"><Search size={28} /></div>
+                <h3>Search a Career</h3>
+                <p>Type in any professional career or tech role you are dreaming of pursuing.</p>
               </div>
-            ))}
-          </div>
-        </section>
-      )}
-      
-    </div>
+              <div className="step-card glass-card">
+                <div className="step-icon"><MapIcon size={28} /></div>
+                <h3>Get the Roadmap</h3>
+                <p>We break down exactly which degrees, diplomas, and skills you need.</p>
+              </div>
+              <div className="step-card glass-card">
+                <div className="step-icon"><Play size={28} /></div>
+                <h3>Start Learning</h3>
+                <p>Click on the recommended courses to instantly start building your foundation.</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 4. The Timeline Results (Shows when roadmap exists) */}
+        {roadmap && !isSearching && (
+          <section className="roadmap-results">
+            <div className="results-header">
+              <h2>Your Roadmap to becoming a <span>{roadmap.jobTitle}</span></h2>
+              <button
+                className={`save-roadmap-btn ${userSavedRoadmaps.includes(roadmap._id) ? 'saved' : ''}`}
+                onClick={() => handleToggleSave(roadmap._id)}
+              >
+                {userSavedRoadmaps.includes(roadmap._id) ? <><Star size={18} fill="currentColor" /> Saved</> : <><Star size={18} /> Save Roadmap</>}
+              </button>
+              <button
+                className="insights-btn"
+                onClick={() => navigate(`/career/roadmap/${encodeURIComponent(roadmap.jobTitle)}/insights`)}
+              >
+                <TrendingUp size={18} /> View Insights
+              </button>
+            </div>
+
+            <div className="timeline">
+              {roadmap.steps.map((step, index) => (
+                <div className="timeline-item" key={step.id}>
+                  <div className="timeline-dot">{index + 1}</div>
+                  <div className="timeline-content">
+                    <h3 className="step-title">{step.title}</h3>
+                    <span className="step-duration">{step.duration}</span>
+                    <p className="step-description">{step.description}</p>
+
+                    {step.courses && step.courses.length > 0 && (
+                      <div className="course-recommendations">
+                        <h4>Recommended Courses & Programs</h4>
+                        <ul className="course-list">
+                          {step.courses.map((course, i) => {
+                            const isObject = typeof course === 'object' && course !== null;
+                            const name = isObject ? course.name : course;
+                            const link = isObject ? course.link : "#";
+
+                            return (
+                              <li key={i}>
+                                <a
+                                  href={link}
+                                  target={link && link !== "#" ? "_blank" : "_self"}
+                                  rel="noopener noreferrer"
+                                  className="course-item"
+                                  onClick={(e) => (link === "#" || !link) && e.preventDefault()}
+                                >
+                                  → {name}
+                                </a>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+      </div>
     </AnimatedPage>
   );
 };

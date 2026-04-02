@@ -42,7 +42,7 @@ const Contact = () => {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        const user = response.data.message;
+        const user = response.data.data;
         if (user) {
           setFormData(prev => ({
             ...prev,
