@@ -3,19 +3,52 @@ import './header.css';
 import { Link, NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useRef } from 'react';
+import axios from 'axios';
 import '../index.css';
 import { motion } from 'framer-motion';
-import { useUser } from '../context/UserContext.jsx'; // shared context — no extra API call
 
 const MotionNavLink = motion.create(NavLink);
 const MotionLink = motion.create(Link);
 
 const Header = () => {
-  const headerRef = useRef(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // State to handle mobile menu toggle
 
-  // Read from shared context — user is already fetched once at app startup
-  const { user, isLoggedIn } = useUser();
+  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("isLoggedIn") === "true");
+  const headerRef = useRef(null);
+
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // This React code remains the same in Header.jsx
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        // 'withCredentials' is required if you are using cookies for JWT
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
+          headers: {
+            // Include this if you are using the Authorization Header instead of Cookies
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+          }
+        });
+
+        setUser(response.data.data); // Correctly extract user from 'data' property
+      } catch (err) {
+        setError(err.response?.data?.message || "Failed to load profile");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isLoggedIn) {
+      fetchUserProfile();
+    } else {
+      setLoading(false);
+    }
+  }, [isLoggedIn]);
+
+  // 1. Create a reference for the header component
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -25,14 +58,18 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   // Combined Effect to handle clicks/taps outside the header to close the menu
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // If the menu is open, and the interaction happened outside our header...
       if (isMenuOpen && headerRef.current && !headerRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
     };
 
+    // Listen for both desktop clicks and mobile touches
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("touchstart", handleClickOutside);
 
@@ -41,8 +78,9 @@ const Header = () => {
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [isMenuOpen]);
-
   return (
+
+
     <motion.header
       className="navbar"
       ref={headerRef}
@@ -67,6 +105,7 @@ const Header = () => {
           <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/career" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Career</MotionNavLink>
           <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/about" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>About Us</MotionNavLink>
           <MotionNavLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} to="/contact" className={({ isActive }) => `navLink ${isActive ? 'active' : 'inactive'}`}>Contact Us</MotionNavLink>
+          
         </nav>
 
 
@@ -115,5 +154,11 @@ const Header = () => {
     </motion.header>
   );
 };
+
+
+
+
+
+
 
 export default Header;
