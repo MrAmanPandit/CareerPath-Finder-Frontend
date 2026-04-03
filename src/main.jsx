@@ -7,6 +7,7 @@ import './App.css'
 import App from './App.jsx'
 import SkeletonLoader from './component/SkeletonLoader.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { UserProvider } from './context/UserContext.jsx';
 
 const Stream = lazy(() => import('./component/stream.jsx'))
 import Home from './component/home.jsx';
@@ -145,36 +146,36 @@ const routers = createBrowserRouter([
       },
       {
         path: "/career",
-        element: <Career />
-      },
-      {
-        path: "/career/roadmap/software-engineer",
-        element: <SoftwareEngineer />
-      },
-      {
-        path: "/career/roadmap/investment-banker",
-        element: <InvestmentBanker />
-      },
-      {
-        path: "/career/roadmap/clinical-psychologist",
-        element: <ClinicalPsychologistRoadmap />
-      },
-      {
-        path: "/career/roadmap/commercial-pilot",
-        element: <CommercialPilotRoadmap />
-      },
-      {
-        path: "/career/roadmap/ui-ux-designer",
-        element: <UiUxRoadmap />
-      },
-      {
-        path: "/career/roadmap/data-scientist",
-        element: <DataScientistRoadmap />
-      },
-      {
-        path: "/career/roadmap/search",
         element: <RoadmapSearchPage />
       },
+      // {
+      //   path: "/career/roadmap/software-engineer",
+      //   element: <SoftwareEngineer />
+      // },
+      // {
+      //   path: "/career/roadmap/investment-banker",
+      //   element: <InvestmentBanker />
+      // },
+      // {
+      //   path: "/career/roadmap/clinical-psychologist",
+      //   element: <ClinicalPsychologistRoadmap />
+      // },
+      // {
+      //   path: "/career/roadmap/commercial-pilot",
+      //   element: <CommercialPilotRoadmap />
+      // },
+      // {
+      //   path: "/career/roadmap/ui-ux-designer",
+      //   element: <UiUxRoadmap />
+      // },
+      // {
+      //   path: "/career/roadmap/data-scientist",
+      //   element: <DataScientistRoadmap />
+      // },
+      // {
+      //   path: "/career/roadmap/search",
+      //   element: <RoadmapSearchPage />
+      // }
       {
         path: "/career/roadmap/:jobTitle/insights",
         element: <RoadmapInsights />
@@ -200,6 +201,8 @@ const routers = createBrowserRouter([
 ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={routers} />
+    <UserProvider>
+      <RouterProvider router={routers} />
+    </UserProvider>
   </StrictMode>
 )

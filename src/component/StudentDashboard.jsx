@@ -3,45 +3,35 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { BookOpen, Clock, Trophy, Star, CheckCircle, ArrowRight, Save, Loader2, AlertCircle } from 'lucide-react';
+import { useUser } from '../context/UserContext.jsx'; // shared context — user already fetched
 
 const StudentDashboard = () => {
-    const [user, setUser] = useState(null);
+    const { user } = useUser(); // read from shared context, no extra API call
     const [insights, setInsights] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUserData = async () => {
+        const fetchInsights = async () => {
             try {
                 const config = {
                     headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
                     withCredentials: true
                 };
 
-                const [userRes, insightsRes] = await Promise.allSettled([
-                    axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, config),
-                    axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/insights`, config)
-                ]);
-
-                if (userRes.status === 'fulfilled') {
-                    setUser(userRes.value.data.data);
-                } else {
-                    console.error("User fetch failed:", userRes.reason);
-                }
-
-                if (insightsRes.status === 'fulfilled') {
-                    setInsights(insightsRes.value.data.data);
-                } else {
-                    console.error("Insights fetch failed:", insightsRes.reason);
-                    setInsights({ error: true }); // Mark as failed instead of null to show error UI
-                }
+                const insightsRes = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/api/v1/users/insights`,
+                    config
+                );
+                setInsights(insightsRes.data.data);
 
             } catch (error) {
-                console.error("Error fetching user data for dashboard:", error);
+                console.error("Insights fetch failed:", error);
+                setInsights({ error: true });
             } finally {
                 setLoading(false);
             }
         };
-        fetchUserData();
+        fetchInsights();
     }, []);
 
     if (loading) {
