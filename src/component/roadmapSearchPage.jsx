@@ -175,11 +175,13 @@ const RoadmapSearchPage = () => {
               <Search className="search-icon-inside" size={20} />
               <input
                 type="text"
-                className="search-input-premium"
+                className="get-input-premium"
                 placeholder="Find any professional career..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
+                onFocus={() => {
+                  if (searchQuery.trim().length >= 2) setShowSuggestions(true);
+                }}
               />
               {searchQuery && (
                 <button type="button" className="clear-btn" onClick={clearSearch}>

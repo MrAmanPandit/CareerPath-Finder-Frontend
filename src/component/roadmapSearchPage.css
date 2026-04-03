@@ -54,14 +54,15 @@
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .hero-subtitle {
   color: var(--text-dim);
   font-size: clamp(1rem, 2.5vw, 1.25rem);
   max-width: 600px;
-  margin: 0 auto 3.5rem;
+  margin: 0 auto 4.5rem;
+  line-height: 1.6;
 }
 
 /* Premium Search Form */
@@ -163,7 +164,7 @@
   padding: 10px;
   list-style: none;
   z-index: 1000;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
 }
 
 .suggestion-item-premium {
@@ -249,23 +250,23 @@
 .results-header-premium {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 3rem;
+  align-items: flex-start;
+  margin-bottom: 4rem;
   border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 2rem;
+  padding-bottom: 2.5rem;
 }
 
 .badge-career {
   display: inline-block;
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(78, 205, 196, 0.1));
   color: var(--accent-cyan);
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 0.8rem;
-  border: 1px solid rgba(78, 205, 196, 0.2);
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(78, 205, 196, 0.3);
 }
 
 .header-text h1 {
