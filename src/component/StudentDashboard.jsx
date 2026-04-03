@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { BookOpen, Clock, Trophy, Star, CheckCircle, ArrowRight, Save, Loader2, AlertCircle } from 'lucide-react';
 
-const StudentDashboard = () => {
-    const [user, setUser] = useState(null);
+const StudentDashboard = ({ user: propUser }) => {
+    const [user, setUser] = useState(propUser || null);
     const [insights, setInsights] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!propUser); // if we have user, only insights are loading
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -17,32 +17,35 @@ const StudentDashboard = () => {
                     withCredentials: true
                 };
 
-                const [userRes, insightsRes] = await Promise.allSettled([
-                    axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, config),
-                    axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/insights`, config)
-                ]);
-
-                if (userRes.status === 'fulfilled') {
-                    setUser(userRes.value.data.data);
+                // If user was passed from parent, only fetch insights. Otherwise fetch both.
+                if (propUser) {
+                    const insightsRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/insights`, config);
+                    setInsights(insightsRes.data.data);
+                    setLoading(false);
                 } else {
-                    console.error("User fetch failed:", userRes.reason);
-                }
+                    const [userRes, insightsRes] = await Promise.allSettled([
+                        axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, config),
+                        axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/insights`, config)
+                    ]);
 
-                if (insightsRes.status === 'fulfilled') {
-                    setInsights(insightsRes.value.data.data);
-                } else {
-                    console.error("Insights fetch failed:", insightsRes.reason);
-                    setInsights({ error: true }); // Mark as failed instead of null to show error UI
+                    if (userRes.status === 'fulfilled') {
+                        setUser(userRes.value.data.data);
+                    }
+                    if (insightsRes.status === 'fulfilled') {
+                        setInsights(insightsRes.value.data.data);
+                    } else {
+                        setInsights({ error: true });
+                    }
+                    setLoading(false);
                 }
 
             } catch (error) {
-                console.error("Error fetching user data for dashboard:", error);
-            } finally {
+                console.error("Error fetching dashboard data:", error);
                 setLoading(false);
             }
         };
         fetchUserData();
-    }, []);
+    }, [propUser]);
 
     if (loading) {
         return (

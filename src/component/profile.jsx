@@ -127,7 +127,7 @@ const Profile = () => {
 
           </div>
 
-          <StudentDashboard />
+          <StudentDashboard user={user} />
 
           {/* Action Buttons */}
           <div className="profileActions">
