@@ -6,8 +6,13 @@ import axios from 'axios';
 import SkeletonLoader from './SkeletonLoader';
 import useSEO from '../utils/useSEO';
 import SEOSchema from './SEOSchema';
-import { Laptop, BarChart, ShieldCheck, Cloud, TrendingUp, Search, Map as MapIcon, Play, ArrowRight, Star } from 'lucide-react';
+import { 
+  Laptop, BarChart, ShieldCheck, Cloud, TrendingUp, Search, 
+  Map as MapIcon, Play, ArrowRight, Star, DollarSign, 
+  Award, Building, Briefcase, Zap, X, Info
+} from 'lucide-react';
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const RoadmapSearchPage = () => {
   const navigate = useNavigate();
@@ -23,8 +28,11 @@ const RoadmapSearchPage = () => {
   useEffect(() => {
     const fetchSaved = async () => {
       try {
+        const token = localStorage.getItem("accessToken");
+        if (!token) return;
+
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+          headers: { Authorization: `Bearer ${token}` },
           withCredentials: true
         });
         setUserSavedRoadmaps(response.data.data.savedRoadmaps || []);
@@ -75,7 +83,7 @@ const RoadmapSearchPage = () => {
         { headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }, withCredentials: true }
       );
       setUserSavedRoadmaps(response.data.data);
-      showSuccessAlert(response.data.data.includes(id) ? "Roadmap removed from dashboard" : "Roadmap saved to dashboard!");
+      showSuccessAlert(response.data.data.includes(id) ? "Roadmap saved to dashboard!" : "Roadmap removed from dashboard");
     } catch (err) {
       showErrorAlert("Login required to save roadmaps");
     }
@@ -95,7 +103,6 @@ const RoadmapSearchPage = () => {
     "description": "Generate step-by-step career and educational roadmaps tailored to specific professions."
   };
 
-  // Separated the search logic so it can be triggered by the form OR the suggestions OR the quick-buttons
   const triggerSearch = async (query) => {
     const trimmedQuery = query.trim();
     if (!trimmedQuery) return;
@@ -107,184 +114,313 @@ const RoadmapSearchPage = () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/roadmaps/search?q=${encodeURIComponent(trimmedQuery)}`);
 
-      // Our backend returns { message: "...", data: [ { jobTitle: "...", steps: [...] } ] }
-      // We'll take the first match for simplicity
       if (response.data.data && response.data.data.length > 0) {
         setRoadmap(response.data.data[0]);
       } else {
-        setRoadmap(null); // Explicitly handle no matches (though backend returns a 404 in this case)
+        setRoadmap(null);
       }
     } catch (error) {
       console.error("Error fetching roadmap:", error);
-      // Optional: Add a state for displaying an error message to the user here
       setRoadmap(null);
     } finally {
       setIsSearching(false);
     }
   };
 
-  // Triggered when they press "Enter" or click the Search button
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
     triggerSearch(searchQuery);
   };
 
-  // Triggered when they click a suggestion pill
   const handleQuickSearch = (job) => {
-    setSearchQuery(job); // Fills the input box
-    triggerSearch(job);  // Instantly searches
+    setSearchQuery(job); 
+    triggerSearch(job);  
   };
+
+  const clearSearch = () => {
+    setSearchQuery('');
+    setRoadmap(null);
+    setShowSuggestions(false);
+  };
+
+  // Helper to split comma-separated strings
+  const getList = (str) => str ? str.split(',').map(s => s.trim()) : [];
 
   return (
     <AnimatedPage>
       <SEOSchema schema={searchSchema} />
-      <div className="roadmap-page">
+      <div className="roadmap-page improved-ux">
+        
+        {/* Animated Background Elements */}
+        <div className="bg-blur blur-1"></div>
+        <div className="bg-blur blur-2"></div>
 
-        {/* 1. The Search Hero */}
         <section className="roadmap-hero">
-          <h1 className="text-gradient">Discover Your Path</h1>
-          <p>Enter your dream job below, and we will generate a step-by-step educational roadmap to help you achieve it.</p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="hero-title">
+              Architect Your <span className="text-gradient">Future</span>
+            </h1>
+            <p className="hero-subtitle">
+              Precision-engineered roadmaps for the world's most competitive careers.
+            </p>
+          </motion.div>
 
-          <form className="search-form" onSubmit={handleFormSubmit} ref={searchRef}>
-            <input
-              type="text"
-              className="search-input"
-              placeholder="e.g., Software Engineer, Data Scientist, UI/UX Designer..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
-            />
-
-            {showSuggestions && suggestions.length > 0 && (
-              <ul className="suggestions-dropdown">
-                {suggestions.map((sug, idx) => (
-                  <li
-                    key={idx}
-                    className="suggestion-item"
-                    onClick={() => {
-                      setSearchQuery(sug);
-                      triggerSearch(sug);
-                    }}
-                  >
-                    <Search size={14} style={{ marginRight: '10px', opacity: 0.6 }} /> {sug}
-                  </li>
-                ))}
-              </ul>
-            )}
-            <button type="submit" className="search-btn">
-              {isSearching ? 'Mapping...' : (
-                <>Generate Roadmap <ArrowRight size={18} /></>
+          <form className="search-form-premium" onSubmit={handleFormSubmit} ref={searchRef}>
+            <div className="search-input-wrapper">
+              <Search className="search-icon-inside" size={20} />
+              <input
+                type="text"
+                className="search-input-premium"
+                placeholder="Find any professional career..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
+              />
+              {searchQuery && (
+                <button type="button" className="clear-btn" onClick={clearSearch}>
+                  <X size={16} />
+                </button>
               )}
+            </div>
+
+            <AnimatePresence>
+              {showSuggestions && suggestions.length > 0 && (
+                <motion.ul 
+                  className="suggestions-dropdown-premium"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                >
+                  {suggestions.map((sug, idx) => (
+                    <li
+                      key={idx}
+                      className="suggestion-item-premium"
+                      onClick={() => {
+                        setSearchQuery(sug);
+                        triggerSearch(sug);
+                      }}
+                    >
+                      <Zap size={14} className="suggestion-icon" /> {sug}
+                    </li>
+                  ))}
+                </motion.ul>
+              )}
+            </AnimatePresence>
+
+            <button type="submit" className="search-btn-premium">
+              {isSearching ? <div className="loader-dots"><span></span><span></span><span></span></div> : 'Analyze Path'}
             </button>
           </form>
+
+          {!roadmap && !isSearching && (
+             <motion.div 
+               className="trending-topics"
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               transition={{ delay: 0.4 }}
+             >
+               <span>Trending:</span>
+               {["Software Engineer", "UI/UX Designer", "Product Manager", "Data Scientist"].map(job => (
+                 <button key={job} onClick={() => handleQuickSearch(job)} className="trend-pill">{job}</button>
+               ))}
+             </motion.div>
+          )}
         </section>
 
-        {/* 2. Loading State */}
         {isSearching && (
-          <div className="loading-state" style={{ marginTop: '30px' }}>
+          <div className="search-loading-container">
             <SkeletonLoader type="search" />
           </div>
         )}
 
-        {/* 3. Empty State */}
-        {!roadmap && !isSearching && (
-          <section className="suggestions-section">
-            <h2 className="suggestions-header">Not sure where to start?</h2>
-            <p className="suggestions-subtext">Explore some of the most popular career paths chosen by our students.</p>
-
-            <div className="popular-jobs-grid">
-              <button className="job-pill-btn" onClick={() => handleQuickSearch("Software Engineer")}><Laptop size={18} /> Software Engineer</button>
-              <button className="job-pill-btn" onClick={() => handleQuickSearch("Data Scientist")}><BarChart size={18} /> Data Scientist</button>
-              <button className="job-pill-btn" onClick={() => handleQuickSearch("Cyber Security")}><ShieldCheck size={18} /> Cyber Security</button>
-              <button className="job-pill-btn" onClick={() => handleQuickSearch("Cloud Architect")}><Cloud size={18} /> Cloud Architect</button>
-              <button className="job-pill-btn" onClick={() => handleQuickSearch("Product Manager")}><TrendingUp size={18} /> Product Manager</button>
-            </div>
-
-            <div className="how-it-works-grid">
-              <div className="step-card glass-card">
-                <div className="step-icon"><Search size={28} /></div>
-                <h3>Search a Career</h3>
-                <p>Type in any professional career or tech role you are dreaming of pursuing.</p>
+        <AnimatePresence mode="wait">
+          {!roadmap && !isSearching && (
+            <motion.section 
+              key="empty-state"
+              className="empty-state-v2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <div className="features-grid-premium">
+                {[
+                  { icon: <MapIcon />, title: "Precision Mapping", desc: "Granular steps from entry level to senior executive." },
+                  { icon: <TrendingUp />, title: "Market Realities", desc: "Live-updated salary ranges and industrial demand." },
+                  { icon: <ShieldCheck />, title: "Verified Courses", desc: "Curated learning paths from top universities & platforms." }
+                ].map((feat, i) => (
+                  <div key={i} className="feature-card-v2">
+                    <div className="feat-icon">{feat.icon}</div>
+                    <h3>{feat.title}</h3>
+                    <p>{feat.desc}</p>
+                  </div>
+                ))}
               </div>
-              <div className="step-card glass-card">
-                <div className="step-icon"><MapIcon size={28} /></div>
-                <h3>Get the Roadmap</h3>
-                <p>We break down exactly which degrees, diplomas, and skills you need.</p>
-              </div>
-              <div className="step-card glass-card">
-                <div className="step-icon"><Play size={28} /></div>
-                <h3>Start Learning</h3>
-                <p>Click on the recommended courses to instantly start building your foundation.</p>
-              </div>
-            </div>
-          </section>
-        )}
+            </motion.section>
+          )}
 
-        {/* 4. The Timeline Results (Shows when roadmap exists) */}
-        {roadmap && !isSearching && (
-          <section className="roadmap-results">
-            <div className="results-header">
-              <h2>Your Roadmap to becoming a <span>{roadmap.jobTitle}</span></h2>
-              <button
-                className={`save-roadmap-btn ${userSavedRoadmaps.includes(roadmap._id) ? 'saved' : ''}`}
-                onClick={() => handleToggleSave(roadmap._id)}
-              >
-                {userSavedRoadmaps.includes(roadmap._id) ? <><Star size={18} fill="currentColor" /> Saved</> : <><Star size={18} /> Save Roadmap</>}
-              </button>
-              <button
-                className="insights-btn"
-                onClick={() => navigate(`/career/roadmap/${encodeURIComponent(roadmap.jobTitle)}/insights`)}
-              >
-                <TrendingUp size={18} /> View Insights
-              </button>
-            </div>
+          {roadmap && !isSearching && (
+            <motion.section 
+              key="results"
+              className="roadmap-results-v2"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="results-layout">
+                {/* Main Content: The Path */}
+                <div className="path-main">
+                  <div className="results-header-premium">
+                    <div className="header-text">
+                      <span className="badge-career">Professional Path</span>
+                      <h1>{roadmap.jobTitle}</h1>
+                    </div>
+                    <div className="header-actions">
+                      <button
+                        className={`action-btn-save ${userSavedRoadmaps.includes(roadmap._id) ? 'saved' : ''}`}
+                        onClick={() => handleToggleSave(roadmap._id)}
+                      >
+                        <Star size={18} fill={userSavedRoadmaps.includes(roadmap._id) ? "currentColor" : "none"} />
+                        {userSavedRoadmaps.includes(roadmap._id) ? 'Saved to Dashboard' : 'Save Roadmap'}
+                      </button>
+                    </div>
+                  </div>
 
-            <div className="timeline">
-              {roadmap.steps.map((step, index) => (
-                <div className="timeline-item" key={step.id}>
-                  <div className="timeline-dot">{index + 1}</div>
-                  <div className="timeline-content">
-                    <h3 className="step-title">{step.title}</h3>
-                    <span className="step-duration">{step.duration}</span>
-                    <p className="step-description">{step.description}</p>
-
-                    {step.courses && step.courses.length > 0 && (
-                      <div className="course-recommendations">
-                        <h4>Recommended Courses & Programs</h4>
-                        <ul className="course-list">
-                          {step.courses.map((course, i) => {
-                            const isObject = typeof course === 'object' && course !== null;
-                            const name = isObject ? course.name : course;
-                            const link = isObject ? course.link : "#";
-
-                            return (
-                              <li key={i}>
-                                <a
-                                  href={link}
-                                  target={link && link !== "#" ? "_blank" : "_self"}
-                                  rel="noopener noreferrer"
-                                  className="course-item"
-                                  onClick={(e) => (link === "#" || !link) && e.preventDefault()}
-                                >
-                                  → {name}
-                                </a>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    )}
+                  <div className="path-timeline-premium">
+                    {roadmap.steps.map((step, index) => (
+                      <motion.div 
+                        className="path-step" 
+                        key={step.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <div className="step-marker">
+                          <div className="step-number">{index + 1}</div>
+                          <div className="step-line"></div>
+                        </div>
+                        <div className="step-body card-glass">
+                          <div className="step-meta">
+                            <h3>{step.title}</h3>
+                            <span className="step-tag">{step.duration}</span>
+                          </div>
+                          <p className="step-info">{step.description}</p>
+                          
+                          {step.courses && step.courses.length > 0 && (
+                            <div className="step-resources">
+                              <span className="res-label">Target Learning:</span>
+                              <div className="res-grid">
+                                {step.courses.map((course, i) => (
+                                  <a 
+                                    key={i} 
+                                    href={typeof course === 'object' ? course.link : "#"} 
+                                    target="_blank" 
+                                    rel="noreferrer"
+                                    className="res-item"
+                                  >
+                                    <Play size={12} fill="currentColor" />
+                                    {typeof course === 'object' ? course.name : course}
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
+
+                {/* Sidebar: Market Insights */}
+                <aside className="path-sidebar">
+                  <div className="sidebar-card-premium card-glass">
+                    <div className="sidebar-title">
+                      <DollarSign size={20} className="icon-gold" />
+                      <h4>Earnings Potential</h4>
+                    </div>
+                    <div className="salary-highlight">
+                      {roadmap.expectedSalary || "₹8L - ₹15L"}
+                      <span>Avg. Starting / Year</span>
+                    </div>
+                    <p className="sidebar-description">Based on current market trends for professionals with verified certifications.</p>
+                  </div>
+
+                  <div className="sidebar-card-premium card-glass">
+                    <div className="sidebar-title">
+                      <TrendingUp size={20} className="icon-blue" />
+                      <h4>Future Trajectory</h4>
+                    </div>
+                    <p className="sidebar-description">{roadmap.futureScope || "This role is seeing exponential growth due to digital transformation across all sectors."}</p>
+                  </div>
+
+                  <div className="sidebar-card-premium card-glass">
+                    <div className="sidebar-title">
+                      <Award size={20} className="icon-purple" />
+                      <h4>Core Competencies</h4>
+                    </div>
+                    <div className="skills-tags-premium">
+                      {getList(roadmap.requiredSkills).length > 0 ? getList(roadmap.requiredSkills).map((s, i) => (
+                        <span key={i} className="skill-pill-premium">{s}</span>
+                      )) : (
+                        ["Logical Reasoning", "Technical Basics", "Communication"].map(s => <span key={s} className="skill-pill-premium">{s}</span>)
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="sidebar-card-premium card-glass">
+                    <div className="sidebar-title">
+                      <Building size={20} className="icon-green" />
+                      <h4>Top Destinations</h4>
+                    </div>
+                    <div className="companies-stack">
+                      {getList(roadmap.companiesHiring).length > 0 ? getList(roadmap.companiesHiring).map((c, i) => (
+                        <div key={i} className="company-logo-text">
+                          <CheckCircle size={14} className="icon-check" /> {c}
+                        </div>
+                      )) : (
+                        ["Top Tier MNCs", "Growth Startups"].map(c => <div key={c} className="company-logo-text"><CheckCircle size={14} className="icon-check" /> {c}</div>)
+                      )}
+                    </div>
+                  </div>
+
+                  <button 
+                    className="full-insights-cta"
+                    onClick={() => navigate(`/career/roadmap/${encodeURIComponent(roadmap.jobTitle)}/insights`)}
+                  >
+                    Deep Dive Analytics <ArrowRight size={18} />
+                  </button>
+                </aside>
+              </div>
+            </motion.section>
+          )}
+        </AnimatePresence>
 
       </div>
     </AnimatedPage>
   );
 };
+
+const CheckCircle = ({ size, className }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+    <polyline points="22 4 12 14.01 9 11.01" />
+  </svg>
+);
 
 export default RoadmapSearchPage;
