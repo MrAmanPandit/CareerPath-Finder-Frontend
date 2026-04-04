@@ -24,9 +24,7 @@ const Signup = () => {
 
   // OTP Verification States
   const [emailOTP, setEmailOTP] = useState('');
-  const [phoneOTP, setPhoneOTP] = useState('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
-  const [isPhoneVerified, setIsPhoneVerified] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,7 +63,6 @@ const Signup = () => {
 
       // 3. Send Initial OTPs
       await sendOTP('email');
-      await sendOTP('phone');
 
       showSuccessAlert("Account created! Please verify your details.");
 
@@ -83,7 +80,8 @@ const Signup = () => {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/otp/send-${type}-otp`, {}, { withCredentials: true });
       showSuccessAlert(`${type === 'email' ? 'Email' : 'Phone'} OTP sent successfully!`);
     } catch (err) {
-      showErrorAlert(`Failed to send ${type} OTP`);
+      const errorMsg = err.response?.data?.message || err.message;
+      showErrorAlert(`Failed to send ${type} OTP: ${errorMsg}`);
     }
   };
 
@@ -101,7 +99,6 @@ const Signup = () => {
       );
 
       if (type === 'email') setIsEmailVerified(true);
-      if (type === 'phone') setIsPhoneVerified(true);
 
       showSuccessAlert(`${type === 'email' ? 'Email' : 'Phone'} successfully verified!`);
     } catch (error) {
@@ -211,41 +208,12 @@ const Signup = () => {
                 )}
               </div>
 
-              <div className="otp-section-card">
-                <div className="otp-section-header">
-                  <Phone className="otp-icon-blue" size={24} />
-                  <div>
-                    <h4>Phone Verification</h4>
-                    <span>+91 {user.mobileNumber}</span>
-                  </div>
-                  {isPhoneVerified && <CheckCircle className="verified-check" size={24} />}
-                </div>
-
-                {!isPhoneVerified ? (
-                  <div className="otp-input-area">
-                    <input
-                      type="text"
-                      maxLength="6"
-                      placeholder="Enter 6-digit Code"
-                      className="inputField otp-box"
-                      value={phoneOTP}
-                      onChange={(e) => setPhoneOTP(e.target.value.replace(/\D/g, ''))}
-                    />
-                    <div className="otp-action-buttons">
-                      <button className="otp-btn verify-btn" onClick={() => verifyOTP('phone')}>Verify</button>
-                      <button className="otp-btn resend-btn" onClick={() => sendOTP('phone')}>Resend</button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="success-banner">Phone Securely Verified</div>
-                )}
-              </div>
-
               <button
-                className={`signupButton complete-btn ${(isEmailVerified && isPhoneVerified) ? 'all-good' : ''}`}
+                className={`signupButton complete-btn ${isEmailVerified ? 'all-good' : ''}`}
                 onClick={completeRegistration}
+                disabled={!isEmailVerified}
               >
-                {(isEmailVerified && isPhoneVerified) ? 'Go to Dashboard' : 'Skip & Continue to Dashboard'}
+                {isEmailVerified ? 'Go to Dashboard' : 'Email Verification Required to Continue'}
                 <ArrowRight size={18} style={{ marginLeft: '8px' }} />
               </button>
             </div>

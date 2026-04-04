@@ -166,10 +166,6 @@ const Profile = () => {
               <span className="detailLabel">Phone Number • </span>
               <span className="detailValue mobileHighlight">
                 📞+91 - {user?.mobileNumber}
-                {user?.isPhoneVerified ? 
-                  <span className="verified-badge">✔ Verified</span> : 
-                  <button className="verify-btn-small" onClick={() => handleSendOTP('phone')}>Verify Now</button>
-                }
               </span>
             </div>
 
