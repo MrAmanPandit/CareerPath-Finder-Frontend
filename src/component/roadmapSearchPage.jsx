@@ -205,6 +205,7 @@ const RoadmapSearchPage = () => {
                       onClick={() => {
                         setSearchQuery(sug);
                         triggerSearch(sug);
+                        setShowSuggestions(false);
                       }}
                     >
                       <Zap size={14} className="suggestion-icon" /> {sug}
