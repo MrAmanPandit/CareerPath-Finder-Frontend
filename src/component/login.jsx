@@ -1,32 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './login.css';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import AnimatedPage from './animation';
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
+import { ArrowLeft, KeyRound, Mail, Lock } from 'lucide-react';
 
 const Login = () => {
-
   const navigate = useNavigate();
+
+  // Mode: 0=Login, 1=Forgot(Req Email), 2=Forgot(Req OTP), 3=Forgot(Req New Pwd)
+  const [resetStep, setResetStep] = useState(0); 
 
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
   });
 
+  // Dedicated States for Reset Flow
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetOtp, setResetOtp] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCredentials(prevCredentials => ({
-      ...prevCredentials,
-      [name]: value
-    }));
+    setCredentials(prev => ({ ...prev, [name]: value }));
   };
 
   const handleLogin = async (e) => {
     e.preventDefault(); 
-
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/login`, credentials, {
           withCredentials: true
@@ -37,72 +40,156 @@ const Login = () => {
 
       if (token) {
           localStorage.setItem("accessToken", token);
-          if (user) {
-              localStorage.setItem("user", JSON.stringify(user));
-          }
+          if (user) localStorage.setItem("user", JSON.stringify(user));
           localStorage.setItem("isLoggedIn", "true");
           
-          console.log("Login successful:");
           await showSuccessAlert("Logged in successfully!");
           window.location.href = '/'; 
       } else {
-          console.error("Login failed: No access token received");
           showErrorAlert("Login failed: No access token received");
       }
-      
     } catch (error) {
-      const errorMsg = error.response?.data?.message || error.response?.data?.data || error.message;
-      console.error("Error logging in:", errorMsg);
+      const errorMsg = error.response?.data?.message || error.message;
       showErrorAlert(`Error logging in: ${errorMsg}`);
     }
   };
 
-  // Keep your existing return ( ... ) statement exactly as it is below this line!
+  const handleSendResetOTP = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/forgot-password-otp`, { email: resetEmail });
+      showSuccessAlert("OTP sent! Please check your email inbox (or terminal).");
+      setResetStep(2);
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || error.message;
+      showErrorAlert(errorMsg);
+    }
+  };
+
+  // We transition from step 2 to 3 immediately after verifying OTP visually, or just submit it together with the new password.
+  // Wait, in our backend API `/reset-password`, we need Email, OTP, and NewPassword simultaneously!
+  // So Step 2 gets the OTP, and Step 3 sets the PWD, then we submit them together!
+  const proceedToNewPassword = (e) => {
+    e.preventDefault();
+    if(resetOtp.length < 6) return showErrorAlert("Please enter a valid 6-digit OTP.");
+    setResetStep(3);
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmNewPassword) return showErrorAlert("Passwords do not match!");
+    
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/reset-password`, {
+        email: resetEmail,
+        otp: resetOtp,
+        newPassword: newPassword
+      });
+      
+      showSuccessAlert("Password Reset Successfully! You can now log in.");
+      
+      // Clean up and go back to login screen
+      setResetStep(0);
+      setResetEmail('');
+      setResetOtp('');
+      setNewPassword('');
+      setConfirmNewPassword('');
+      setCredentials({ email: resetEmail, password: '' });
+
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || error.message;
+      showErrorAlert(errorMsg);
+    }
+  }
 
   return (
     <AnimatedPage>
     <div className="loginWrapper">
       <div className="loginCard">
-        <h2 className="loginTitle">Login</h2>
 
-        <form className="loginForm" onSubmit={handleLogin}>
-          <div className="inputGroup">
-            <label className="inputLabel">Email</label>
-            <input
-              type="email"
-              placeholder="Enter email"
-              className="inputField"
-              name="email"
-              value={credentials.email}
-              onChange={handleInputChange}
-              required
-            />
+        {/* DEFAULT LOGIN SCREEN */}
+        {resetStep === 0 && (
+          <>
+            <h2 className="loginTitle">Login</h2>
+            <form className="loginForm" onSubmit={handleLogin}>
+              <div className="inputGroup">
+                <label className="inputLabel">Email</label>
+                <input type="email" placeholder="Enter email" className="inputField" name="email" value={credentials.email} onChange={handleInputChange} required />
+              </div>
+              <div className="inputGroup">
+                <label className="inputLabel">
+                  Password
+                  <button type="button" className="forgot-pwd-link" onClick={() => setResetStep(1)}>Forgot Password?</button>
+                </label>
+                <input type="password" placeholder="Enter password" className="inputField" name="password" value={credentials.password} onChange={handleInputChange} required />
+              </div>
+              <button type="submit" className="loginButton" >Login</button>
+            </form>
+            <p className="signupText">
+              Don't have an account? <Link to="/signup" className="signupLink">Sign Up</Link>
+            </p>
+          </>
+        )}
+
+        {/* FORGOT PWD: STEP 1 - REQUEST EMAIL */}
+        {resetStep === 1 && (
+          <div className="reset-flow-ui">
+             <button className="back-btn" onClick={() => setResetStep(0)}><ArrowLeft size={20}/></button>
+             <h2 className="loginTitle"><KeyRound className="title-icon"/> Reset Password</h2>
+             <p className="reset-instruction">Enter your registered email address and we'll send you an OTP.</p>
+             
+             <form className="loginForm" onSubmit={handleSendResetOTP}>
+               <div className="inputGroup">
+                 <label className="inputLabel">Registered Email Address</label>
+                 <input type="email" placeholder="hello@example.com" className="inputField" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)} required />
+               </div>
+               <button type="submit" className="loginButton">Send OTP</button>
+             </form>
           </div>
+        )}
 
-          <div className="inputGroup">
-            <label className="inputLabel">Password</label>
-            <input
-              type="password"
-              placeholder="Enter password"
-              className="inputField"
-              name="password"
-              value={credentials.password}
-              onChange={handleInputChange}
-              required
-            />
+        {/* FORGOT PWD: STEP 2 - ENTER OTP */}
+        {resetStep === 2 && (
+          <div className="reset-flow-ui">
+             <button className="back-btn" onClick={() => setResetStep(1)}><ArrowLeft size={20}/></button>
+             <h2 className="loginTitle"><Mail className="title-icon"/> Verify Email</h2>
+             <p className="reset-instruction">Enter the 6-digit code sent to <strong style={{color:"#4ecdc4"}}>{resetEmail}</strong></p>
+             
+             <form className="loginForm" onSubmit={proceedToNewPassword}>
+               <div className="inputGroup">
+                 <input type="text" maxLength="6" placeholder="000000" className="inputField otp-style" value={resetOtp} onChange={(e) => setResetOtp(e.target.value.replace(/\D/g, ''))} required />
+               </div>
+               <button type="submit" className="loginButton verify-colors">Verify Code</button>
+             </form>
+             <button type="button" className="resend-inline-btn" onClick={handleSendResetOTP}>Resend Code</button>
           </div>
+        )}
 
-          <button type="submit" className="loginButton" >Login</button>
-        </form>
+        {/* FORGOT PWD: STEP 3 - NEW PASSWORD */}
+        {resetStep === 3 && (
+          <div className="reset-flow-ui">
+             <button className="back-btn" onClick={() => setResetStep(2)}><ArrowLeft size={20}/></button>
+             <h2 className="loginTitle"><Lock className="title-icon"/> Secure Account</h2>
+             <p className="reset-instruction">Create a strong new password for your account.</p>
+             
+             <form className="loginForm" onSubmit={handleResetPassword}>
+               <div className="inputGroup">
+                 <label className="inputLabel">New Password</label>
+                 <input type="password" placeholder="Create new password" className="inputField" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+               </div>
+                <div className="inputGroup">
+                 <label className="inputLabel">Confirm New Password</label>
+                 <input type="password" placeholder="Confirm your password" className="inputField" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} required />
+               </div>
+               <button type="submit" className="loginButton update-colors">Update Password & Login</button>
+             </form>
+          </div>
+        )}
 
-        <p className="signupText">
-          Don't have an account? <Link to="/signup" className="signupLink">Sign Up</Link>
-        </p>
       </div>
     </div>
     </AnimatedPage>
   );
 };
 
-
-export default Login
+export default Login;
