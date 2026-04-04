@@ -50,7 +50,6 @@ const RoadmapSearchPage = () => {
       // have no active roadmap result, and input length is valid.
       if (searchQuery.trim().length < 2 || isSearching || roadmap) {
         setSuggestions([]);
-        setShowSuggestions(false);
         return;
       }
 
