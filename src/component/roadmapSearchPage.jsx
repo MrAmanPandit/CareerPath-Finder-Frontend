@@ -46,7 +46,9 @@ const RoadmapSearchPage = () => {
   // Fetch suggestions as the user types (with debounce)
   useEffect(() => {
     const fetchSuggestions = async () => {
-      if (searchQuery.trim().length < 2) {
+      // Guard: Only show if we're not currently searching, 
+      // have no active roadmap result, and input length is valid.
+      if (searchQuery.trim().length < 2 || isSearching || roadmap) {
         setSuggestions([]);
         setShowSuggestions(false);
         return;
@@ -55,7 +57,11 @@ const RoadmapSearchPage = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/roadmaps/suggestions?q=${encodeURIComponent(searchQuery.trim())}`);
         setSuggestions(response.data.data || []);
-        setShowSuggestions(true);
+        
+        // Final guard before showing: check if we are still "free" to show
+        if (!isSearching && !roadmap) {
+          setShowSuggestions(true);
+        }
       } catch (err) {
         console.error("Error fetching suggestions:", err);
       }
@@ -63,7 +69,7 @@ const RoadmapSearchPage = () => {
 
     const timer = setTimeout(fetchSuggestions, 300);
     return () => clearTimeout(timer);
-  }, [searchQuery]);
+  }, [searchQuery, isSearching, roadmap]);
 
   // Handle outside clicks to close suggestions
   useEffect(() => {
