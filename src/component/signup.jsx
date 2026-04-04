@@ -176,7 +176,7 @@ const Signup = () => {
           ) : (
             <div className="otp-verification-container">
               <h2 className="signupTitle">Secure Your Account</h2>
-              <p className="signupSubtitle">Please enter the 6-digit verification codes sent to your email and phone.</p>
+              <p className="signupSubtitle">Please enter the 6-digit verification code sent to your email.</p>
 
               <div className="otp-section-card">
                 <div className="otp-section-header">

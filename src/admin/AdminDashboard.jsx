@@ -24,9 +24,9 @@ const AdminDashboard = () => {
                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
         });
-        if (response.data.message.role === 'admin') {
+        if (response.data.data.role === 'admin') {
           setIsAdmin(true);
-          setAdminName(response.data.message.firstName);
+          setAdminName(response.data.data.firstName);
         } else {
           setIsAdmin(true); // Allow non-admins to stay
           setAdminName("Guest Admin");
