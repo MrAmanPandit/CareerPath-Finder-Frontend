@@ -174,6 +174,135 @@
   text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
 }
 
+/* OTP Verification Step */
+.otp-verification-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.otp-section-card {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.otp-section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 1.2rem;
+}
+
+.otp-section-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.otp-section-header span {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.otp-icon-gold {
+  color: #fbbf24;
+}
+
+.otp-icon-blue {
+  color: #3b82f6;
+}
+
+.verified-check {
+  margin-left: auto;
+  color: #10b981;
+}
+
+.otp-input-area {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.otp-box {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  letter-spacing: 4px;
+}
+
+.otp-action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.otp-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.verify-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.verify-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.resend-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resend-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.success-banner {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.complete-btn {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.complete-btn.all-good {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
 /* Responsive Adjustments */
 @media (max-width: 600px) {
   .signupWrapper {

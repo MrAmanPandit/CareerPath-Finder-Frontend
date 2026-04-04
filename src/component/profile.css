@@ -510,3 +510,115 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* Verification Badges and Modal */
+.verified-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.verify-btn-small {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(78, 205, 196, 0.1));
+  color: #4ecdc4;
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.verify-btn-small:hover {
+  background: rgba(78, 205, 196, 0.2);
+  color: white;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.otp-modal-profile {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.otp-modal-profile h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.otp-modal-profile p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.otp-box-profile {
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  padding: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.modal-actions-profile {
+  display: flex;
+  gap: 15px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-btn.verify-action {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.modal-btn.verify-action:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.modal-btn.cancel-action {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+}
+
+.modal-btn.cancel-action:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

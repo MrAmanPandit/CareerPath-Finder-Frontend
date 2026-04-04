@@ -16,6 +16,42 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // OTP Verification States
+  const [showVerifyModal, setShowVerifyModal] = useState(false);
+  const [verifyType, setVerifyType] = useState(null); // 'email' or 'phone'
+  const [otp, setOtp] = useState('');
+
+  const handleSendOTP = async (type) => {
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/otp/send-${type}-otp`, {}, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        withCredentials: true
+      });
+      setVerifyType(type);
+      setShowVerifyModal(true);
+    } catch (err) {
+      // Ignore if error is sent but ignore alert for silent resends, wait we don't have silent resend.
+      showErrorAlert(`Failed to send ${type} OTP`);
+    }
+  };
+
+  const handleVerifyOTP = async () => {
+    if (!otp || otp.length < 6) return showErrorAlert("Enter valid 6-digit OTP");
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/otp/verify-${verifyType}-otp`, { otp }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        withCredentials: true
+      });
+      setUser({ ...user, [verifyType === 'email' ? 'isEmailVerified' : 'isPhoneVerified']: true });
+      setShowVerifyModal(false);
+      setOtp('');
+      showSuccessAlert(`${verifyType === 'email' ? 'Email' : 'Phone'} verified!`);
+    } catch (err) {
+      showErrorAlert(err.response?.data?.message || "Verification failed");
+    }
+  };
+
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
@@ -102,7 +138,13 @@ const Profile = () => {
           <div className="profileDetails">
             <div className="detailGroup">
               <span className="detailLabel">Email Address • </span>
-              <span className="detailValue emailHighlight">{user?.email}</span>
+              <span className="detailValue emailHighlight">
+                {user?.email}
+                {user?.isEmailVerified ? 
+                  <span className="verified-badge">✔ Verified</span> : 
+                  <button className="verify-btn-small" onClick={() => handleSendOTP('email')}>Verify Now</button>
+                }
+              </span>
             </div>
 
             <div className="detailGroup">
@@ -122,7 +164,13 @@ const Profile = () => {
 
             <div className="detailGroup">
               <span className="detailLabel">Phone Number • </span>
-              <span className="detailValue mobileHighlight">📞+91 - {user?.mobileNumber}</span>
+              <span className="detailValue mobileHighlight">
+                📞+91 - {user?.mobileNumber}
+                {user?.isPhoneVerified ? 
+                  <span className="verified-badge">✔ Verified</span> : 
+                  <button className="verify-btn-small" onClick={() => handleSendOTP('phone')}>Verify Now</button>
+                }
+              </span>
             </div>
 
           </div>
@@ -134,6 +182,28 @@ const Profile = () => {
             <Link to="/edit-details" className="editBtn">Edit Details</Link>
             <button className="logoutBtn" onClick={handleLogout}>Log Out</button>
           </div>
+
+          {/* OTP Verification Modal */}
+          {showVerifyModal && (
+            <div className="modal-overlay">
+              <div className="otp-modal-profile">
+                <h3>Verify {verifyType === 'email' ? 'Email' : 'Phone'}</h3>
+                <p>Check the backend terminal for the mocked 6-digit OTP code.</p>
+                <input 
+                  type="text" 
+                  maxLength={6} 
+                  placeholder="Enter OTP" 
+                  className="inputField otp-box-profile"
+                  value={otp} 
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                />
+                <div className="modal-actions-profile">
+                  <button className="modal-btn verify-action" onClick={handleVerifyOTP}>Verify Code</button>
+                  <button className="modal-btn cancel-action" onClick={() => {setShowVerifyModal(false); setOtp('')}}>Cancel</button>
+                </div>
+              </div>
+            </div>
+          )}
 
         </div>
       </div>
