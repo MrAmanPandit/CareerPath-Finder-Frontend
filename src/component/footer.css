@@ -4,8 +4,9 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--border);
-  padding: clamp(3rem, 10vw, 6rem) 0 30px;
+  padding: clamp(0.75rem, 2vw, 1.5rem) 0 10px;
   color: var(--text);
+  max-height: 60vh;
   overflow: hidden;
   font-family: 'Outfit', 'Inter', sans-serif;
 }
@@ -43,8 +44,8 @@
 .footer-grid {
   display: grid;
   grid-template-columns: 2fr 1.5fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  margin-bottom: 60px;
+  gap: clamp(0.5rem, 2vw, 1.2rem);
+  margin-bottom: 0.8rem;
 }
 
 /* Column Styling */
@@ -55,10 +56,10 @@
 }
 
 .footer-title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   letter-spacing: 0.5px;
   position: relative;
 }
@@ -69,7 +70,7 @@
 }
 
 .logo-text {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: -0.5px;
 }
@@ -83,9 +84,9 @@
 
 .footer-description {
   color: #94a3b8;
-  line-height: 1.7;
-  font-size: 0.95rem;
-  max-width: 320px;
+  line-height: 1.5;
+  font-size: 0.85rem;
+  max-width: 300px;
 }
 
 .contact-info {
@@ -155,14 +156,16 @@
 
 .social-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
   margin-top: 5px;
 }
 
 .social-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
   display: flex;
@@ -182,31 +185,31 @@
 
 /* Status Indicator */
 .status-indicator {
-  margin-top: 25px;
+  margin-top: 5px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 15px;
-  background: rgba(34, 197, 94, 0.05);
-  border: 1px solid rgba(34, 197, 94, 0.1);
+  gap: 6px;
+  padding: 5px 10px;
+  background: rgba(34, 197, 194, 0.05);
+  border: 1px solid rgba(34, 197, 194, 0.1);
   border-radius: 50px;
   width: fit-content;
 }
 
 .status-indicator span {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   color: #22c55e;
 }
 
 .pulse-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background-color: #22c55e;
   border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  box-shadow: 0 0 0 0 rgba(34, 197, 194, 0.7);
   animation: pulse 2s infinite;
 }
 
@@ -225,7 +228,7 @@
     var(--border) 50%,
     rgba(255, 255, 255, 0.01) 100%
   );
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .footer-bottom {
@@ -233,26 +236,26 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 12px;
 }
 
 .copyright {
   color: #64748b;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .bottom-links {
   display: flex;
-  gap: 30px;
+  gap: 20px;
 }
 
 .bottom-links a {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   color: #64748b;
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   transition: color 0.3s ease;
 }
 
@@ -260,43 +263,74 @@
   color: var(--text);
 }
 
-@media (max-width: 850px) {
-  .footer-grid {
-    gap: 40px;
-  }
-}
-
-@media (max-width: 550px) {
+@media (max-width: 650px) {
   .footer {
-    padding: clamp(2rem, 8vw, 4rem) 0 30px;
-    text-align: center;
+    padding: clamp(2rem, 5vw, 3rem) 20px;
   }
+  
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
+    text-align: center;
   }
+  
   .brand-col, .connect-col {
-    grid-column: span 1;
     align-items: center;
   }
+  
   .footer-description {
     max-width: 100%;
+    margin: 0 auto;
   }
+  
   .contact-info {
     align-items: center;
   }
+  
   .social-links {
     justify-content: center;
   }
+  
   .footer-bottom {
     flex-direction: column;
     text-align: center;
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
+
   .bottom-links {
     justify-content: center;
     width: 100%;
-    flex-wrap: wrap;
     gap: 1.5rem;
+  }
+}
+
+@media (max-width: 750px) {
+  .footer {
+    padding: clamp(1.5rem, 6vw, 2.5rem) 15px;
+  }
+  
+  .footer-grid {
+    gap: 1.8rem;
+  }
+  
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .footer-description {
+    font-size: 0.8rem;
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 650px) {
+  .footer {
+    padding: clamp(1.5rem, 8vw, 3rem) 15px;
+    max-height: 83vh;
+  }
+  
+  .social-icon {
+    width: 32px;
+    height: 32px;
   }
 }

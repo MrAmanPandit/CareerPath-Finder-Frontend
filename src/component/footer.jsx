@@ -48,9 +48,9 @@ const Footer = () => {
           {/* Column 1: Brand & Mission */}
           <motion.div className="footer-col brand-col" variants={itemVariants}>
             <div className="footer-logo">
-              <span className="logo-text">CareerPath<span>Finder</span></span>
+              <span className="logo-text">CareerPath<span> Finder</span></span>
             </div>
-            <p className="footer-description">
+            <p className="footer-description ">
               Empowering students with AI-driven academic guidance and personalized career roadmaps to navigate their future with confidence.
             </p>
             <div className="contact-info">
@@ -59,7 +59,7 @@ const Footer = () => {
                 <Mail size={16} />
                 <span>careerpathsfinder@gmail.com</span>
               </div>
-              <div className="contact-item">
+              <div className="contact-item ">
                 <MapPin size={16} />
                 <span>Sikandra, Kanpur Dehat, Uttar Pradesh</span>
               </div>
@@ -71,10 +71,8 @@ const Footer = () => {
             <h4 className="footer-title">Connect With Us</h4>
             <p className="footer-subtitle">Join us for the latest career insights.</p>
             <div className="social-links">
-              {[
-                { icon: <Github size={20} />, href: "https://github.com" },
-                { icon: <Linkedin size={20} />, href: "https://linkedin.com" },
-                { icon: <Twitter size={20} />, href: "https://twitter.com" },
+              {
+              [
                 { icon: <Instagram size={20} />, href: "https://instagram.com" },
                 { icon: <Youtube size={20} />, href: "https://youtube.com" },
                 { icon: <Mail size={20} />, href: "mailto:careerpathsfinder@gmail.com" }
