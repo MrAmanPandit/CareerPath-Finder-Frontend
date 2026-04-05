@@ -200,6 +200,22 @@
   font-size: 14px;
 }
 
+@media (max-width: 600px) {
+  .admin-welcome-flex {
+    gap: 8px;
+  }
+  
+  .welcome-text {
+    font-size: 0.85rem;
+  }
+
+  .admin-topbar-avatar,
+  .admin-topbar-avatar-placeholder {
+    width: 32px;
+    height: 32px;
+  }
+}
+
 .admin-content-area {
   max-height: 80vh;
   padding: 20px 50px;

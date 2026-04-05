@@ -414,3 +414,24 @@
   font-size: 3rem;
   color: var(--text-dim);
 }
+
+@media (max-width: 600px) {
+  .signupCard {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .signupTitle {
+    font-size: 1.85rem;
+  }
+  
+  .inputRow {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .signupButton {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}

@@ -119,3 +119,27 @@
     right: 0;
     bottom: 0;
 }
+
+@media (max-width: 500px) {
+    .cropper-container-card {
+        border-radius: 16px !important;
+    }
+
+    .cropper-wrapper {
+        height: 280px;
+    }
+
+    .cropper-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .cropper-controls {
+        padding: 16px;
+    }
+
+    .cropper-btn-cancel,
+    .cropper-btn-done {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

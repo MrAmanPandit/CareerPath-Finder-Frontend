@@ -264,6 +264,26 @@
   color: var(--text-dim);
 }
 
+@media (max-width: 480px) {
+  .profile-preview-circle {
+    width: 100px;
+    height: 100px;
+    border-width: 3px;
+  }
+  
+  .camera-icon-trigger {
+    width: 32px;
+    height: 32px;
+    bottom: 0;
+    right: 0;
+  }
+
+  .preview-placeholder {
+    font-size: 2.8rem;
+  }
+}
+
+
 .fileInput {
   padding: 0.7rem 1rem !important;
   cursor: pointer;
