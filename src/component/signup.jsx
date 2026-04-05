@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './signup.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import AnimatedPage from './animation';
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
-import { CheckCircle, Mail, Phone, ArrowRight } from 'lucide-react';
+import { CheckCircle, Mail, Phone, ArrowRight, Camera } from 'lucide-react';
 
 const Signup = () => {
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [step, setStep] = useState(1); // 1 = Signup Form, 2 = OTP Verification
 
   const [user, setUser] = useState({
@@ -47,6 +48,10 @@ const Signup = () => {
     } else {
       setPreviewUrl(null);
     }
+  };
+
+  const handleCircleClick = () => {
+    fileInputRef.current.click();
   };
 
   const handleSignup = async (e) => {
@@ -145,13 +150,25 @@ const Signup = () => {
               <p className="signupSubtitle">Join CareerPath Finder and discover your future.</p>
 
               <div className="profile-preview-container">
-                <div className="profile-preview-circle">
+                <div className="profile-preview-circle" onClick={handleCircleClick} title="Update Profile Picture">
                   {previewUrl ? (
                     <img src={previewUrl} alt="Preview" className="preview-image" />
                   ) : (
                     <div className="preview-placeholder">👤</div>
                   )}
+                  <div className="camera-icon-trigger">
+                    <Camera size={20} />
+                  </div>
                 </div>
+                <input
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  onChange={handleFileChange}
+                />
               </div>
 
               <form className="signupForm" onSubmit={handleSignup}>
@@ -172,17 +189,7 @@ const Signup = () => {
                   <input type="tel" placeholder="Mobile number" className="inputField" value={user.mobileNumber} onChange={handleInputChange} name="mobileNumber" required />
                 </div>
 
-                <div className="inputGroup">
-                  <label className="inputLabel" htmlFor="avatar">Profile Picture (Optional)</label>
-                  <input 
-                    type="file" 
-                    id="avatar" 
-                    name="avatar" 
-                    accept="image/*" 
-                    className="inputField fileInput" 
-                    onChange={handleFileChange} 
-                  />
-                </div>
+
 
                 <div className="inputRow">
                   <div className="inputGroup">

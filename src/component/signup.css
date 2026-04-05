@@ -372,6 +372,36 @@
   justify-content: center;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-preview-circle:hover {
+  border-color: #3b82f6;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+}
+
+.camera-icon-trigger {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background: var(--primary);
+  color: #1a1a2e;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #1a1a2e;
+  transition: all 0.3s ease;
+}
+
+.profile-preview-circle:hover .camera-icon-trigger {
+  background: #3b82f6;
+  color: white;
 }
 
 .preview-image {

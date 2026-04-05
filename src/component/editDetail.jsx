@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import AnimatedPage from './animation';
 import './editDetail.css';
 import SkeletonLoader from './SkeletonLoader';
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
+import { Camera } from 'lucide-react';
 
 const EditDetails = () => {
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -84,6 +87,10 @@ const EditDetails = () => {
     }
   };
 
+  const handleCircleClick = () => {
+    fileInputRef.current.click();
+  };
+
   const handleEditDetail = async (e) => {
     e.preventDefault(); // Prevents the page from reloading
 
@@ -140,13 +147,25 @@ const EditDetails = () => {
           </div>
 
           <div className="profile-preview-container">
-            <div className="profile-preview-circle">
+            <div className="profile-preview-circle" onClick={handleCircleClick} title="Update Profile Picture">
               {previewUrl ? (
                 <img src={previewUrl} alt="Preview" className="preview-image" />
               ) : (
                 <div className="preview-placeholder">👤</div>
               )}
+              <div className="camera-icon-trigger">
+                <Camera size={24} />
+              </div>
             </div>
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handleFileChange}
+            />
           </div>
 
           <form className="updateForm" onSubmit={handleEditDetail}>
@@ -216,18 +235,6 @@ const EditDetails = () => {
                   value={userData.dream}
                   onChange={handleInputChange}
                   placeholder={`Your Current Dream: ${user.dream}`} required />
-              </div>
-
-              <div className="form-group full-width">
-                <label htmlFor="avatar">Update Profile Picture (Optional)</label>
-                <input
-                  type="file"
-                  name="avatar"
-                  id="avatar"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="inputField fileInput"
-                />
               </div>
             </div>
 
