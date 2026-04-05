@@ -11,11 +11,24 @@ const ManageRoadmaps = () => {
     const [roadmaps, setRoadmaps] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [message, setMessage] = useState({ text: "", type: "" });
+    const [userRole, setUserRole] = useState("user");
 
     // Fetch all roadmaps when the page loads
     useEffect(() => {
+        fetchUserInfo();
         fetchRoadmaps();
     }, []);
+
+    const fetchUserInfo = async () => {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
+            });
+            setUserRole(response.data.data.role);
+        } catch (error) {
+            console.error("Error fetching user role", error);
+        }
+    };
 
     const fetchRoadmaps = async () => {
         setIsLoading(true);
@@ -108,10 +121,12 @@ const ManageRoadmaps = () => {
                                         <td>{new Date(roadmap.createdAt).toLocaleDateString()}</td>
                                         <td>
                                             <div className="action-cells">
-                                                <button
-                                                    className="btn-action btn-delete"
-                                                    onClick={() => handleDelete(roadmap._id, roadmap.jobTitle)}
-                                                >Delete</button>
+                                                {userRole === 'admin' && (
+                                                    <button
+                                                        className="btn-action btn-delete"
+                                                        onClick={() => handleDelete(roadmap._id, roadmap.jobTitle)}
+                                                    >Delete</button>
+                                                )}
                                                 <button
                                                     className="btn-action btn-update"
                                                     onClick={() => navigate(`/admin/update-roadmap/${roadmap._id}`)}

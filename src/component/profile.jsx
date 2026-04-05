@@ -337,6 +337,15 @@ const Profile = () => {
 
           {/* Action Buttons */}
           <div className="profileActions">
+            {(user?.role === 'admin' || user?.role === 'mentor') && (
+              <Link 
+                to={user.role === 'admin' ? "/admin/dashboard" : "/mentor/dashboard"} 
+                className="editBtn" 
+                style={{ backgroundColor: user.role === 'admin' ? '#2563eb' : '#8b5cf6', color: 'white', border: 'none' }}
+              >
+                Go to {user.role === 'admin' ? 'Admin' : 'Mentor'} Panel
+              </Link>
+            )}
             <Link to="/edit-details" className="editBtn">Edit Details</Link>
             <button className="logoutBtn" onClick={handleLogout}>Log Out</button>
           </div>

@@ -308,7 +308,7 @@
   .footer {
     padding: clamp(1.5rem, 6vw, 2.5rem) 15px;
   }
-  
+
   .footer-grid {
     gap: 1.8rem;
   }

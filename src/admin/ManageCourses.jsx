@@ -9,11 +9,24 @@ const ManageCourses = () => {
     const [courses, setCourses] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [message, setMessage] = useState({ text: "", type: "" });
+    const [userRole, setUserRole] = useState("user");
 
     // Fetch all courses when the page loads
     useEffect(() => {
+        fetchUserInfo();
         fetchCourses();
     }, []);
+
+    const fetchUserInfo = async () => {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/current-user`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
+            });
+            setUserRole(response.data.data.role);
+        } catch (error) {
+            console.error("Error fetching user role", error);
+        }
+    };
 
     const fetchCourses = async () => {
         setIsLoading(true);
@@ -100,10 +113,12 @@ const ManageCourses = () => {
                                         <td className="data-feild">{course.privateCollegesFees || course.avgFees || "N/A"}</td>
                                         <td>
                                             <div className="action-cells">
-                                                <button
-                                                    className="btn-action btn-delete"
-                                                    onClick={() => handleDelete(course._id, course.name || course.title)}
-                                                >Delete</button>
+                                                {userRole === 'admin' && (
+                                                    <button
+                                                        className="btn-action btn-delete"
+                                                        onClick={() => handleDelete(course._id, course.name || course.title)}
+                                                    >Delete</button>
+                                                )}
                                                 <button
                                                     className="btn-action btn-update"
                                                     onClick={() => window.location.href = `/admin/update-course/${course._id}`}

@@ -1,0 +1,124 @@
+
+:root {
+  --mentor-primary: #8b5cf6; /* Indigo/Violet */
+  --mentor-primary-dark: #7c3aed;
+  --mentor-accent: #dbeafe;
+  --mentor-bg: #f8fafc;
+  --mentor-card-bg: rgba(255, 255, 255, 0.8);
+}
+
+.mentor-theme {
+  --primary: var(--mentor-primary);
+  --primary-hover: var(--mentor-primary-dark);
+}
+
+.mentor-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--bg-color);
+}
+
+.mentor-header h2 {
+  color: var(--mentor-primary) !important;
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.mentor-badge-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--mentor-primary), #c084fc);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.mentor-topbar {
+  background: var(--mentor-bg);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mentor-topbar h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, var(--mentor-primary), #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mentor-metrics {
+  display: flex;
+  gap: 1rem;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  color: var(--mentor-primary);
+}
+
+/* Sidebar Specifics */
+.mentor-theme .admin-sidebar {
+  background: #1e1b4b; /* Deep Indigo */
+}
+
+.mentor-theme .sidebar-divider {
+  color: #6366f1;
+  border-top-color: #312e81;
+}
+
+.mentor-content {
+  background-color: var(--mentor-bg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mentor-theme .nav-link:hover, 
+.mentor-theme .nav-link.active {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: white;
+  border-left-color: #fbbf24; /* Golden accent for mentor */
+}
+
+/* Glassmorphism Contribution Widget (The "New & Good Look" thing) */
+.contribution-widget {
+  margin: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+@media (max-width: 768px) {
+  .mentor-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+}

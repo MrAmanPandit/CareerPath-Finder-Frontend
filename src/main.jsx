@@ -44,6 +44,8 @@ const RoadmapInsights = lazy(() => import('./component/RoadmapInsights.jsx'))
 const ManageSuggestions = lazy(() => import('./admin/ManageSuggestions.jsx'))
 const ManageComplaints = lazy(() => import('./admin/ManageComplaints.jsx'))
 const SecurityPolicy = lazy(() => import('./component/SecurityPolicy.jsx'))
+const MentorDashboard = lazy(() => import('./mentor/MentorDashboard.jsx'))
+const MentorHome = lazy(() => import('./mentor/MentorHome.jsx'))
 
 const routers = createBrowserRouter([
   {
@@ -97,6 +99,40 @@ const routers = createBrowserRouter([
           path: "manage-complaints",
           element: <ManageComplaints />
         }
+        ]
+      },
+      {
+        path: "/mentor",
+        element: <MentorDashboard />,
+        children: [
+          {
+            path: "dashboard",
+            element: <MentorHome />
+          },
+          {
+            path: "manage-courses",
+            element: <ManageCourses />
+          },
+          {
+            path: "manage-roadmaps",
+            element: <ManageRoadmaps />
+          },
+          {
+            path: "add-course",
+            element: <AddCourse />
+          },
+          {
+            path: "add-roadmap",
+            element: <AddRoadmap />
+          },
+          {
+            path: "update-course/:id",
+            element: <UpdateCourse />
+          },
+          {
+            path: "update-roadmap/:id",
+            element: <UpdateRoadmap />
+          }
         ]
       },
       {

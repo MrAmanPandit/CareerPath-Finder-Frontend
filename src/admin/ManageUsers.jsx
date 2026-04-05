@@ -3,6 +3,7 @@ import axios from "axios";
 import "./ManageUsers.css";
 import { Link, useNavigate } from "react-router-dom";
 import SkeletonLoader from "../component/SkeletonLoader";
+import Swal from "sweetalert2";
 import { showConfirmDialog, showSuccessAlert, showErrorAlert } from "../utils/customAlert";
 
 const ManageUsers = () => {
@@ -44,24 +45,55 @@ const ManageUsers = () => {
     const handlePromote = async (userId, currentRole) => {
         if (currentRole === 'admin') return;
 
-        const result = await showConfirmDialog(
-            "Promote to Admin?",
-            "Are you sure you want to promote this user to Admin privileges?",
-            "Yes, promote user!"
+        const { value: role } = await showConfirmDialog(
+            "Change User Role",
+            "Select the new role for this user:",
+            "Update Role",
+            true, // isPromotion
+            ['mentor', 'admin', 'user'] // options
         );
-        if (!result.isConfirmed) return;
+
+        // Since showConfirmDialog might not support selection yet, 
+        // I'll implement a custom SweetAlert call here for better UX
+        const { value: selectedRole } = await Swal.fire({
+            title: 'Update User Role',
+            input: 'select',
+            inputOptions: {
+                'user': 'Regular User',
+                'mentor': 'Content Mentor',
+                'admin': 'System Admin'
+            },
+            inputPlaceholder: 'Select a role',
+            showCancelButton: true,
+            confirmButtonText: 'Update Role',
+            confirmButtonColor: '#8b5cf6',
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (value) {
+                        resolve();
+                    } else {
+                        resolve('You need to select a role!');
+                    }
+                });
+            }
+        });
+
+        if (!selectedRole) return;
 
         try {
-            await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/admin/users/${userId}/promote`, {}, {
-                withCredentials: true,
-                headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
-            });
+            await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/admin/users/${userId}/promote`, 
+                { role: selectedRole }, 
+                {
+                    withCredentials: true,
+                    headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
+                }
+            );
 
             setMessage({ text: "", type: "" });
-            await showSuccessAlert("User successfully promoted to Admin!");
-            fetchUsers(); // Refresh the list
+            await showSuccessAlert(`User successfully updated to ${selectedRole}!`);
+            fetchUsers();
         } catch (error) {
-            showErrorAlert(error.response?.data?.message || "Failed to promote user.");
+            showErrorAlert(error.response?.data?.message || "Failed to update role.");
         }
     };
 
@@ -142,8 +174,8 @@ const ManageUsers = () => {
                                         </td>
                                         <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                                         <td>
-                                            <span className={`role-badge ${user.role === 'admin' ? 'badge-admin' : 'badge-user'}`}>
-                                                {user.role}
+                                            <span className={`role-badge badge-${user.role || 'user'}`}>
+                                                {user.role || 'user'}
                                             </span>
                                         </td>
                                         <td>

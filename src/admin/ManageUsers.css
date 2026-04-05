@@ -224,6 +224,12 @@ body.dark-mode .avatar-circle {
   border: 1px solid #a5b4fc;
 }
 
+.badge-mentor {
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+  color: #7e22ce;
+  border: 1px solid #d8b4fe;
+}
+
 /* --- Action Buttons --- */
 .action-cells {
   display: flex;
