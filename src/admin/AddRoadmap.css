@@ -1,24 +1,11 @@
-/* AddRoadmap.css */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
-
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* 2. Define exactly what the "Dark Mode" colors should be */
-body.dark-mode {
-  --bg-color: #121212;
-  /* Dark grey, almost black */
-  --text-color: #f1f1f1;
-  /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
+.add-roadmap-wrapper {
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 
@@ -38,20 +25,20 @@ body.dark-mode {
   max-width: 900px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   padding: 40px;
   border-top: 6px solid #2563eb;
 }
 
 .form-header {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 20px;
   margin-bottom: 30px;
 }
 
 .form-header h2 {
   font-size: 28px;
-  color: var(--text-color);
+  color: var(--text);
   margin: 0 0 8px 0;
   font-weight: 700;
 }
@@ -99,13 +86,13 @@ body.dark-mode {
   font-size: 18px !important;
   background-color: var(--bg-color);
   font-weight: 600;
-  border: 2px solid var(--border-color) !important;
+  border: 2px solid var(--border) !important;
 }
 
 /* --- Dynamic Step Cards --- */
 .step-card {
   background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 24px;
   margin-bottom: 24px;
@@ -148,7 +135,7 @@ body.dark-mode {
   margin-top: 25px;
   padding: 20px;
   background-color: var(--bg-color);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   border-radius: 8px;
 }
 
@@ -171,7 +158,7 @@ body.dark-mode {
   flex: 1;
   background-color: var(--bg-color);
   padding: 10px 14px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 14px;
 }

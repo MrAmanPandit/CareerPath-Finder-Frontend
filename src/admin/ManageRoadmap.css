@@ -1,24 +1,11 @@
-/* ManageRoadmaps.css */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
-
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* 2. Define exactly what the "Dark Mode" colors should be */
-body.dark-mode {
-  --bg-color: #121212;
-  /* Dark grey, almost black */
-  --text-color: #f1f1f1;
-  /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
+.manage-roadmaps-wrapper {
+  background-color: var(--bg-color);
+  min-height: 80vh;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .manage-roadmaps-wrapper {
@@ -38,21 +25,21 @@ body.dark-mode {
   /* Nice and wide for the table data */
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   padding: 40px;
   border-top: 6px solid #2563eb;
 }
 
 /* --- Header & Banners --- */
 .form-header {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 20px;
   margin-bottom: 30px;
 }
 
 .form-header h2 {
   font-size: 28px;
-  color: var(--text-color);
+  color: var(--text);
   margin: 0 0 8px 0;
   font-weight: 700;
 }
@@ -81,7 +68,7 @@ body.dark-mode {
 .banner-error {
   background-color: var(--bg-color);
   color: #991b1b;
-  border: 1px solid #fecaca;
+  border: 1px solid var(--border);
 }
 
 /* --- Table Styling --- */
@@ -136,7 +123,7 @@ body.dark-mode {
   padding: 0 18px;
   height: 64px;
   border-bottom: 1px solid var(--border-color);
-  color: var(--text-color);
+  color: var(--text);
   font-size: 14px;
   vertical-align: middle;
   transition: background-color 0.15s ease;

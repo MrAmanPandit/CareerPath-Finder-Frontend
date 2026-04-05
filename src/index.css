@@ -1,11 +1,12 @@
 :root {
-  /* Unified Brand Colors */
+  /* Brand Colors */
   --primary: #4ecdc4;
   --primary-hover: #45b7af;
   --secondary: #ff6b6b;
   --secondary-hover: #ee5d5d;
   
-  /* Shared Theme Variables (Default: Dark) */
+  /* Core UI Variables (Default: Dark Mode) */
+  --bg-color: #121212;
   --bg-gradient: radial-gradient(circle at top right, #1a1a2e, #16213e, #0f172a);
   --header-bg: rgba(255, 255, 255, 0.03);
   --text: #f1f5f9;
@@ -14,6 +15,7 @@
   --card-bg: rgba(30, 41, 59, 0.4);
   --input-bg: rgba(255, 255, 255, 0.05);
   --shadow: rgba(0, 0, 0, 0.3);
+  --navbar-bg: #1a1a1a;
   
   /* Glassmorphism Specs */
   --glass-blur: 16px;
@@ -55,7 +57,13 @@
   }
 }
 
-.light-mode-global {
+body.dark-mode {
+  --bg-color: #121212;
+  --text: #f1f5f9;
+}
+
+body.light-mode {
+  --bg-color: #f8fafc;
   --bg-gradient: radial-gradient(circle at top right, #f8fafc, #f1f5f9, #e2e8f0);
   --header-bg: rgba(0, 0, 0, 0.03);
   --text: #0f172a;
@@ -64,7 +72,16 @@
   --card-bg: #ffffff;
   --input-bg: #ffffff;
   --shadow: rgba(0, 0, 0, 0.1);
+  --navbar-bg: #f8f9fa;
 }
+
+/* Ensure the app always follows the current bg-color */
+body {
+  background-color: var(--bg-color);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 
 /* 3. Global Utility Classes */
 .glass-card {

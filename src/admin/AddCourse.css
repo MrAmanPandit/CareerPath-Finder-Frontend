@@ -1,35 +1,4 @@
-:root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --navbar-bg: #f8f9fa;
-  --card-bg: #ffffff;
-  --border-color: #dddddd;
 
-  /* Smooth transition for when we switch */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* 2. Define exactly what the "Dark Mode" colors should be */
-body.dark-mode {
-  --bg-color: #121212;
-  /* Dark grey, almost black */
-  --text-color: #f1f1f1;
-  /* Off-white, easier on eyes than pure white */
-  --navbar-bg: #1a1a1a;
-  --card-bg: #1e1e1e;
-  --border-color: #333333;
-}
-
-.add-course-wrapper {
-  min-height: 80vh;
-  background-color: var(--bg-color);
-  /* Matches the light gray admin theme */
-  padding: 20px 20px;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
 
 .add-course-container {
   background-color: var(--card-bg);
@@ -54,7 +23,7 @@ body.dark-mode {
 
 .form-header h2 {
   font-size: 28px;
-  color: var(--text-color);
+  color: var(--text);
   margin: 0 0 8px 0;
   font-weight: 700;
 }
@@ -100,10 +69,10 @@ body.dark-mode {
 
 .form-section h3 {
   font-size: 18px;
-  color: var(--text-color);
+  color: var(--text);
   margin: 0 0 20px 0;
   padding-bottom: 10px;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border);
 }
 
 /* --- Input Grid System --- */
@@ -147,7 +116,7 @@ body.dark-mode {
 .input-group label {
   font-size: 14px;
   font-weight: 600;
-  color: #7a94b7;
+  color: var(--text);
   margin-bottom: 8px;
 }
 
@@ -225,7 +194,7 @@ body.dark-mode {
   align-items: center;
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 1px dashed var(--border-color);
+  border-bottom: 1px dashed var(--border);
 }
 
 .card-header h4 {
