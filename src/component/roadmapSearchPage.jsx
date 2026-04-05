@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './roadmapSearchPage.css';
 import AnimatedPage from './animation';
 import axios from 'axios';
 import SkeletonLoader from './SkeletonLoader';
 import useSEO from '../utils/useSEO';
 import SEOSchema from './SEOSchema';
-import { 
-  Laptop, BarChart, ShieldCheck, Cloud, TrendingUp, Search, 
-  Map as MapIcon, Play, ArrowRight, Star, DollarSign, 
+import {
+  Laptop, BarChart, ShieldCheck, Cloud, TrendingUp, Search,
+  Map as MapIcon, Play, ArrowRight, Star, DollarSign,
   Award, Building, Briefcase, Zap, X, Info
 } from 'lucide-react';
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
@@ -16,13 +16,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const RoadmapSearchPage = () => {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
+  const { jobTitle } = useParams();
+  const searchRef = useRef(null);
+
+  const [searchQuery, setSearchQuery] = useState(jobTitle ? decodeURIComponent(jobTitle) : '');
   const [isSearching, setIsSearching] = useState(false);
   const [roadmap, setRoadmap] = useState(null);
   const [userSavedRoadmaps, setUserSavedRoadmaps] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const searchRef = useRef(null);
+
+  // When jobTitle changes in URL, trigger search
+  useEffect(() => {
+    if (jobTitle) {
+      const decoded = decodeURIComponent(jobTitle);
+      setSearchQuery(decoded);
+      triggerSearch(decoded);
+    } else {
+      // Clear if returning to base /career
+      setRoadmap(null);
+      setSearchQuery('');
+    }
+  }, [jobTitle]);
 
   // Fetch user's saved roadmaps on mount
   useEffect(() => {
@@ -56,7 +71,7 @@ const RoadmapSearchPage = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/roadmaps/suggestions?q=${encodeURIComponent(searchQuery.trim())}`);
         setSuggestions(response.data.data || []);
-        
+
         // Final guard before showing: check if we are still "free" to show
         if (!isSearching && !roadmap) {
           setShowSuggestions(true);
@@ -97,7 +112,7 @@ const RoadmapSearchPage = () => {
   useSEO({
     title: 'AI Career Roadmap Generator | Search Any Career',
     description: 'Use our AI-powered roadmap generator to discover the exact degrees, courses, and steps required to achieve your dream career in technology, medicine, design, and more.',
-    canonical: '/career/roadmap/search',
+    canonical: '/career',
     keywords: 'AI career roadmap, roadmap generator, career path search, create career plan'
   });
 
@@ -135,12 +150,11 @@ const RoadmapSearchPage = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
-    triggerSearch(searchQuery);
+    navigate(`/career/roadmap/${encodeURIComponent(searchQuery.trim())}`);
   };
 
   const handleQuickSearch = (job) => {
-    setSearchQuery(job); 
-    triggerSearch(job);  
+    navigate(`/career/roadmap/${encodeURIComponent(job)}`);
   };
 
   const clearSearch = () => {
@@ -156,13 +170,13 @@ const RoadmapSearchPage = () => {
     <AnimatedPage>
       <SEOSchema schema={searchSchema} />
       <div className="roadmap-page improved-ux">
-        
+
         {/* Animated Background Elements */}
         <div className="bg-blur blur-1"></div>
         <div className="bg-blur blur-2"></div>
 
         <section className="roadmap-hero">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -180,7 +194,7 @@ const RoadmapSearchPage = () => {
               <Search className="search-icon-inside" size={20} />
               <input
                 type="text"
-                className="get-input-premium"
+                className="search-input-premium"
                 placeholder="Find any professional career..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -197,7 +211,7 @@ const RoadmapSearchPage = () => {
 
             <AnimatePresence>
               {showSuggestions && suggestions.length > 0 && (
-                <motion.ul 
+                <motion.ul
                   className="suggestions-dropdown-premium"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -226,17 +240,17 @@ const RoadmapSearchPage = () => {
           </form>
 
           {!roadmap && !isSearching && (
-             <motion.div 
-               className="trending-topics"
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               transition={{ delay: 0.4 }}
-             >
-               <span>Trending:</span>
-               {["Software Engineer", "UI/UX Designer", "Product Manager", "Data Scientist"].map(job => (
-                 <button key={job} onClick={() => handleQuickSearch(job)} className="trend-pill">{job}</button>
-               ))}
-             </motion.div>
+            <motion.div
+              className="trending-topics"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <span>Trending:</span>
+              {["Software Engineer", "UI/UX Designer", "Product Manager", "Data Scientist"].map(job => (
+                <button key={job} onClick={() => handleQuickSearch(job)} className="trend-pill">{job}</button>
+              ))}
+            </motion.div>
           )}
         </section>
 
@@ -248,7 +262,7 @@ const RoadmapSearchPage = () => {
 
         <AnimatePresence mode="wait">
           {!roadmap && !isSearching && (
-            <motion.section 
+            <motion.section
               key="empty-state"
               className="empty-state-v2"
               initial={{ opacity: 0 }}
@@ -272,7 +286,7 @@ const RoadmapSearchPage = () => {
           )}
 
           {roadmap && !isSearching && (
-            <motion.section 
+            <motion.section
               key="results"
               className="roadmap-results-v2"
               initial={{ opacity: 0, y: 40 }}
@@ -300,8 +314,8 @@ const RoadmapSearchPage = () => {
 
                   <div className="path-timeline-premium">
                     {roadmap.steps.map((step, index) => (
-                      <motion.div 
-                        className="path-step" 
+                      <motion.div
+                        className="path-step"
                         key={step.id}
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -318,16 +332,16 @@ const RoadmapSearchPage = () => {
                             <span className="step-tag">{step.duration}</span>
                           </div>
                           <p className="step-info">{step.description}</p>
-                          
+
                           {step.courses && step.courses.length > 0 && (
                             <div className="step-resources">
                               <span className="res-label">Target Learning:</span>
                               <div className="res-grid">
                                 {step.courses.map((course, i) => (
-                                  <a 
-                                    key={i} 
-                                    href={typeof course === 'object' ? course.link : "#"} 
-                                    target="_blank" 
+                                  <a
+                                    key={i}
+                                    href={typeof course === 'object' ? course.link : "#"}
+                                    target="_blank"
                                     rel="noreferrer"
                                     className="res-item"
                                   >
@@ -396,7 +410,7 @@ const RoadmapSearchPage = () => {
                     </div>
                   </div>
 
-                  <button 
+                  <button
                     className="full-insights-cta"
                     onClick={() => navigate(`/career/roadmap/${encodeURIComponent(roadmap.jobTitle)}/insights`)}
                   >
@@ -414,16 +428,16 @@ const RoadmapSearchPage = () => {
 };
 
 const CheckCircle = ({ size, className }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className={className}
   >
     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />

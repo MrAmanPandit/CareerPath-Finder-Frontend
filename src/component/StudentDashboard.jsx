@@ -230,7 +230,7 @@ const StudentDashboard = ({ user: propUser }) => {
                     ) : (
                         <p className="empty-saved">No roadmaps saved yet.</p>
                     )}
-                    <button className="view-all-btn" onClick={() => window.location.href = '/career/roadmap/search'}>Explore Roadmaps <ArrowRight size={14} /></button>
+                    <button className="view-all-btn" onClick={() => window.location.href = '/career'}>Explore Roadmaps <ArrowRight size={14} /></button>
                 </motion.div>
 
                 {/* Saved Courses */}

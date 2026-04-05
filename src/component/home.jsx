@@ -194,7 +194,7 @@ const content = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.5, duration: 0.5 }}
                 >
-                  <Link to="/career/roadmap/search" className="btn-primary btn-glow">Get Started Free</Link>
+                  <Link to="/career" className="btn-primary btn-glow">Get Started Free</Link>
                   <span className="cta-subtext">No credit card required</span>
                 </motion.div>
             </div>
@@ -311,7 +311,7 @@ const content = () => {
             </div>
             <motion.div className="final-cta" variants={itemVariants}>
                 <p>Are you ready to stop searching and start following your path?</p>
-                <Link to="/career/roadmap/search" className="btn-secondary">Let's Build Your Roadmap <Sparkles size={16} /></Link>
+                <Link to="/career" className="btn-secondary">Let's Build Your Roadmap <Sparkles size={16} /></Link>
             </motion.div>
         </motion.section>
 

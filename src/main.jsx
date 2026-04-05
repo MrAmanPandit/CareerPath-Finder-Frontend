@@ -19,7 +19,6 @@ const MathCourses = lazy(() => import('./streams/mathCourses.jsx'))
 const CommerceCourses = lazy(() => import('./streams/commerceCourses.jsx'))
 const ArtCourses = lazy(() => import('./streams/artCourses.jsx'))
 const Profile = lazy(() => import('./component/profile.jsx'))
-const Career = lazy(() => import('./component/career.jsx'))
 const SoftwareEngineer = lazy(() => import('./roadmaps/softwareEngineer.jsx'))
 const InvestmentBanker = lazy(() => import('./roadmaps/investmentBanker.jsx'))
 const ClinicalPsychologistRoadmap = lazy(() => import('./roadmaps/clinicalPsychologist.jsx'))
@@ -145,7 +144,11 @@ const routers = createBrowserRouter([
       },
       {
         path: "/career",
-        element: <Career />
+        element: <RoadmapSearchPage />
+      },
+      {
+        path: "/career/roadmap/:jobTitle",
+        element: <RoadmapSearchPage />
       },
       {
         path: "/career/roadmap/software-engineer",
@@ -170,10 +173,6 @@ const routers = createBrowserRouter([
       {
         path: "/career/roadmap/data-scientist",
         element: <DataScientistRoadmap />
-      },
-      {
-        path: "/career/roadmap/search",
-        element: <RoadmapSearchPage />
       },
       {
         path: "/career/roadmap/:jobTitle/insights",
