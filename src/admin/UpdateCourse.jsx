@@ -84,18 +84,59 @@ const UpdateCourse = () => {
     };
 
     const addSemester = (yearIndex) => {
-        const newYears = [...course.years];
-        const nextSemNumber = newYears[yearIndex].semesters.length + 1;
-        newYears[yearIndex].semesters.push({ semesterNumber: nextSemNumber, subjects: [] });
-        setCourse(prev => ({ ...prev, years: newYears }));
+        setCourse(prev => {
+            const newYears = [...prev.years];
+            let targetYearIdx = yearIndex;
+
+            // If target year is full (2 sems), go to next year
+            if (newYears[targetYearIdx].semesters.length >= 2) {
+                // If next year doesn't exist, create it
+                if (targetYearIdx + 1 >= newYears.length) {
+                    newYears.push({ yearNumber: newYears.length + 1, semesters: [] });
+                }
+                targetYearIdx++;
+            }
+
+            // Always assign semantic semester number based on position
+            let totalSems = 0;
+            newYears.forEach(y => totalSems += y.semesters.length);
+            
+            const nextSemNumber = totalSems + 1;
+            newYears[targetYearIdx].semesters.push({ semesterNumber: nextSemNumber, subjects: [] });
+            
+            return { ...prev, years: reindexYearsAndSemesters(newYears) };
+        });
     };
 
     const removeSemester = (yearIndex, semIndex) => {
-        const newYears = [...course.years];
-        newYears[yearIndex].semesters = newYears[yearIndex].semesters.filter((_, i) => i !== semIndex);
-        newYears[yearIndex].semesters = newYears[yearIndex].semesters.map((s, i) => ({ ...s, semesterNumber: i + 1 }));
-        setCourse(prev => ({ ...prev, years: newYears }));
+        setCourse(prev => {
+            const newYears = [...prev.years];
+            newYears[yearIndex].semesters.splice(semIndex, 1);
+            return { ...prev, years: reindexYearsAndSemesters(newYears) };
+        });
     };
+
+    // Helper to keep curriculum consistent: Only 2 sems per year, strictly sequential numbering
+    const reindexYearsAndSemesters = (years) => {
+        const allSemesters = [];
+        years.forEach(y => {
+            allSemesters.push(...y.semesters);
+        });
+
+        const reindexedYears = [];
+        allSemesters.forEach((sem, idx) => {
+            const yearNum = Math.floor(idx / 2) + 1;
+            const semNum = idx + 1;
+            
+            if (!reindexedYears[yearNum - 1]) {
+                reindexedYears[yearNum - 1] = { yearNumber: yearNum, semesters: [] };
+            }
+            reindexedYears[yearNum - 1].semesters.push({ ...sem, semesterNumber: semNum });
+        });
+        
+        return reindexedYears;
+    };
+
 
     const addSubject = (yearIndex, semIndex) => {
         const newYears = [...course.years];
