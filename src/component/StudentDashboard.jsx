@@ -92,6 +92,27 @@ const StudentDashboard = ({ user: propUser }) => {
                 <p>Track your progress and stay ahead in your career journey.</p>
             </div>
 
+            {/* Profile Header Section */}
+            <motion.div className="dashboard-profile-header glass-card" variants={itemVariants}>
+                <div className="profile-info-wrapper">
+                    <div className="profile-avatar-container">
+                        {user.avatar ? (
+                            <img src={user.avatar} alt="Profile" className="dashboard-avatar" />
+                        ) : (
+                            <div className="dashboard-avatar-placeholder">
+                                {user.firstName?.charAt(0).toUpperCase()}
+                            </div>
+                        )}
+                    </div>
+                    <div className="profile-text-details">
+                        <h2>Welcome back, {user.firstName}!</h2>
+                    </div>
+                </div>
+                <Link to="/edit-details" className="edit-profile-btn">
+                    Edit Profile
+                </Link>
+            </motion.div>
+
             {/* AI Insight Section */}
             {loading ? (
                 <motion.div className="insight-marquee-container glass-card" variants={itemVariants} style={{ marginBottom: '24px', padding: '20px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>

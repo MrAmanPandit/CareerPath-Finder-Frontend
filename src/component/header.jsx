@@ -115,7 +115,14 @@ const Header = () => {
             <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn" to="/admin/dashboard">Admin Panel</MotionLink>
           )}
           {isLoggedIn ? (
-            <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn" to="/profile">👤 {user?.firstName}</MotionLink>
+            <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn profile-link-flex" to="/profile">
+              {user?.avatar ? (
+                <img src={user.avatar} alt="Profile" className="nav-avatar" />
+              ) : (
+                <span className="nav-icon-placeholder">👤</span>
+              )}
+              {user?.firstName}
+            </MotionLink>
           ) : (
             <MotionLink whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="loginBtn" to="/login">Login</MotionLink>
           )}
@@ -146,7 +153,14 @@ const Header = () => {
           <NavLink to="/admin/dashboard" className={({ isActive }) => `mobileNavLink ${isActive ? 'active-link' : 'inactive-link'}`} onClick={closeMenu}>Admin Panel</NavLink>
         )}
         {isLoggedIn ? (
-          <Link to="/profile" className="mobileLoginBtn" onClick={closeMenu}>{user?.firstName ? `👤 ${user?.firstName}` : "Profile"}</Link>
+          <Link to="/profile" className="mobileLoginBtn mobile-profile-flex" onClick={closeMenu}>
+            {user?.avatar ? (
+              <img src={user.avatar} alt="Profile" className="mobile-nav-avatar" />
+            ) : (
+              <span className="mobile-nav-icon-placeholder">👤</span>
+            )}
+            {user?.firstName ? user.firstName : "Profile"}
+          </Link>
         ) : (
           <Link to="/login" className="mobileLoginBtn" onClick={closeMenu}>Login</Link>
         )}

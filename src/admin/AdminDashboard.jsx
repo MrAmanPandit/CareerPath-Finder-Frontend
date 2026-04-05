@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [adminName, setAdminName] = useState('');
+  const [user, setUser] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [unreadCounts, setUnreadCounts] = useState({ unreadSuggestions: 0, unreadComplaints: 0 });
 
@@ -26,14 +26,14 @@ const AdminDashboard = () => {
         });
         if (response.data.data.role === 'admin') {
           setIsAdmin(true);
-          setAdminName(response.data.data.firstName);
+          setUser(response.data.data);
         } else {
           setIsAdmin(true); // Allow non-admins to stay
-          setAdminName("Guest Admin");
+          setUser({ firstName: "Guest Admin", role: "admin" });
         }
       } catch (error) {
         setIsAdmin(true); // Allow unauthenticated to stay
-        setAdminName("Guest");
+        setUser({ firstName: "Guest", role: "admin" });
       } finally {
         setLoading(false);
       }
@@ -148,7 +148,16 @@ const AdminDashboard = () => {
             <span className="h-bar hbar2"></span>
             <span className="h-bar hbar3"></span>
           </button>
-          <span style={{color:"#594ae6ff",fontWeight:"500"}}>Welcome back, <span style={{color:"#9f309dff",fontWeight:"bold",fontStyle:'italic'}}>Mr. {adminName}</span></span>
+          <div className="admin-welcome-flex">
+            <span className="welcome-text">Welcome back, <span className="admin-name-highlight">Mr. {user?.firstName}</span></span>
+            {user?.avatar ? (
+              <img src={user.avatar} alt="Admin Profile" className="admin-topbar-avatar" />
+            ) : (
+              <div className="admin-topbar-avatar-placeholder">
+                {user?.firstName?.charAt(0).toUpperCase()}
+              </div>
+            )}
+          </div>
         </header>
 
         {/* 3. The Outlet - This is where your nested pages will render! */}

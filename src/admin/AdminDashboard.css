@@ -161,6 +161,45 @@
   color: var(--text-color);
 }
 
+.admin-welcome-flex {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.welcome-text {
+  color: #594ae6ff !important;
+  font-weight: 500 !important;
+}
+
+.admin-name-highlight {
+  color: #9f309dff !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+}
+
+.admin-topbar-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.admin-topbar-avatar-placeholder {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
 .admin-content-area {
   max-height: 80vh;
   padding: 20px 50px;

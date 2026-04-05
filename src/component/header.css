@@ -132,6 +132,44 @@
     transform: translateY(-2px);
 }
 
+.profile-link-flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 18px !important;
+}
+
+.nav-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+}
+
+.nav-icon-placeholder {
+    font-size: 1.2rem;
+}
+
+.mobile-profile-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.mobile-nav-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.mobile-nav-icon-placeholder {
+    font-size: 1.5rem;
+}
+
 
 /* Hide mobile toggle button on desktop */
 .mobileToggle {

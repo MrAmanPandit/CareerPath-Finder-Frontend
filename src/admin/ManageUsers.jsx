@@ -123,7 +123,11 @@ const ManageUsers = () => {
                                         <td>
                                             <div className="user-name">
                                                 <div className="avatar-circle">
-                                                    {user.firstName ? user.firstName.charAt(0).toUpperCase() : "U"}
+                                                    {user.avatar ? (
+                                                        <img src={user.avatar} alt={user.firstName} className="table-avatar" />
+                                                    ) : (
+                                                        user.firstName ? user.firstName.charAt(0).toUpperCase() : "U"
+                                                    )}
                                                 </div>
                                                 {user.firstName} {user.lastName}
                                             </div>
