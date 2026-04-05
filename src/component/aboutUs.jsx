@@ -162,9 +162,9 @@ const About = () => {
           viewport={{ once: true }}
         >
           {[
-            { name: "Aman Pandey", role: "Founder & Backend Architect", img: amanImg },
-            { name: "Yuvraj Upadhyay", role: "Co-Founder & Frontend Lead", img: yuvImg },
+            { name: "Aman Pandey", role: "Backend Architect", img: amanImg },
             { name: "Mohit", role: "Core Developer", img: mohitImg },
+            { name: "Yuvraj Upadhyay", role: "Frontend Lead", img: yuvImg },
             { name: "Harshika Singh", role: "Strategic Operations", img: harshikaImg },
             { name: "Antra", role: "Community Engagement", img: null }
           ].map((member, idx) => (
