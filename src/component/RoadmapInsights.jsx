@@ -5,6 +5,7 @@ import './RoadmapInsights.css';
 import AnimatedPage from './animation';
 import SkeletonLoader from './SkeletonLoader';
 import { TrendingUp, DollarSign, Briefcase, Award, Building, ChevronLeft, Calendar, UserCheck, ShieldCheck } from 'lucide-react';
+import useSEO from '../utils/useSEO';
 
 const RoadmapInsights = () => {
     const { jobTitle } = useParams();
@@ -12,12 +13,19 @@ const RoadmapInsights = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState(null);
 
+    useSEO({
+        title: `${jobTitle} Career Insights | Salary & Growth Trends`,
+        description: `Get in-depth market results for ${jobTitle} — including salary ranges, future demand, and essential skills required for success.`,
+        keywords: `${jobTitle} salary, ${jobTitle} career growth, ${jobTitle} market demand, job insights`,
+        canonical: `/career/roadmap/${encodeURIComponent(jobTitle)}/insights`
+    });
+
     useEffect(() => {
         const fetchInsights = async () => {
             try {
                 // Fetch by name from our search endpoint
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/roadmaps/search?q=${encodeURIComponent(jobTitle)}`);
-                
+
                 // The search returns an array, find the exact match or first match
                 if (response.data.data && response.data.data.length > 0) {
                     const matched = response.data.data.find(r => r.jobTitle.toLowerCase() === jobTitle.toLowerCase()) || response.data.data[0];
@@ -65,13 +73,13 @@ const RoadmapInsights = () => {
                 <button onClick={() => navigate(-1)} className="back-btn"><ChevronLeft size={18} /> Back to Roadmap</button>
 
                 <div className="insights-header">
-                    <h1 className="text-gradient">{data.jobTitle} Career <span style={{color: "var(--text-color)"}}>Insights</span></h1>
+                    <h1 className="text-gradient">{data.jobTitle} Career <span style={{ color: "var(--text-color)" }}>Insights</span></h1>
                     <p>Comprehensive analysis of market demand, salary trends, and growth trajectory.</p>
                 </div>
 
                 <div className="insights-container">
                     <div className="insights-main">
-                        
+
                         {/* 1. Salary Card */}
                         <div className="insights-card">
                             <div className="card-title">
@@ -168,11 +176,11 @@ const RoadmapInsights = () => {
                             <div className="card-title">Work Life Impact</div>
                             <div className="stat-row">
                                 <span className="stat-label">Remote Possible</span>
-                                <span className="stat-value" style={{color: "#fbbf24"}}>Partial</span>
+                                <span className="stat-value" style={{ color: "#fbbf24" }}>Partial</span>
                             </div>
                             <div className="stat-row">
                                 <span className="stat-label">Learning Curve</span>
-                                <span className="stat-value" style={{color: "#a855f7"}}>Steep</span>
+                                <span className="stat-value" style={{ color: "#a855f7" }}>Steep</span>
                             </div>
                         </div>
                     </div>

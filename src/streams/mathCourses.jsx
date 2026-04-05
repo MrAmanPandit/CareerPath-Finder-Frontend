@@ -2,10 +2,17 @@ import React from 'react';
 import './Courses.css'; // Reuses the exact same CSS file!
 import AnimatedPage from '../component/animation';
 import SaveCourseBtn from '../component/SaveCourseBtn';
+import useSEO from '../utils/useSEO';
 
 import { Cpu, Building2, Monitor, Ship, ShieldCheck, Sigma, Bot } from 'lucide-react';
 
 const MathCourses = () => {
+  useSEO({
+    title: 'Mathematics Stream Courses | Engineering & Technical Careers',
+    description: 'Discover the best career options and degrees after 12th Maths (PCM), including Engineering, Architecture, Data Science, and Pure Sciences.',
+    keywords: 'maths courses, PCM careers, engineering roadmap, data science careers, architecture courses India',
+    canonical: '/streams/maths'
+  });
   const courseCategories = [
     {
       title: "Engineering & Technology",
@@ -84,39 +91,39 @@ const MathCourses = () => {
   ];
 
   return (
-   <AnimatedPage>
-    <div className="coursesWrapper">
-      <div className="coursesHeader">
-        <h1 className="coursesTitle">Mathematics Stream <span className="text-gradient">Courses</span></h1>
-        <p className="coursesSubtitle">Explore an expanded list of top engineering, science, and tech degrees available after 12th PCM.</p>
-      </div>
+    <AnimatedPage>
+      <div className="coursesWrapper">
+        <div className="coursesHeader">
+          <h1 className="coursesTitle">Mathematics Stream <span className="text-gradient">Courses</span></h1>
+          <p className="coursesSubtitle">Explore an expanded list of top engineering, science, and tech degrees available after 12th PCM.</p>
+        </div>
 
-      <div className="coursesGrid">
-        {courseCategories.map((category, index) => (
-          <div className="categoryCard" key={index}>
-            <div className="categoryHeader">
-              <span className="categoryIcon">{category.icon}</span>
-              <h2 className="categoryTitle">{category.title}</h2>
+        <div className="coursesGrid">
+          {courseCategories.map((category, index) => (
+            <div className="categoryCard" key={index}>
+              <div className="categoryHeader">
+                <span className="categoryIcon">{category.icon}</span>
+                <h2 className="categoryTitle">{category.title}</h2>
+              </div>
+
+              <ul className="courseList">
+                {category.courses.map((course, idx) => (
+                  <li className="courseItem" key={idx}>
+                    <div className="courseInfo">
+                      <span className="courseName">{course.name}</span>
+                      <span className="courseDetail">{course.detail}</span>
+                    </div>
+                    <div className="courseActions">
+                      <span className="courseDuration">{course.duration}</span>
+                      <SaveCourseBtn courseName={course.name} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            
-            <ul className="courseList">
-              {category.courses.map((course, idx) => (
-                <li className="courseItem" key={idx}>
-                  <div className="courseInfo">
-                    <span className="courseName">{course.name}</span>
-                    <span className="courseDetail">{course.detail}</span>
-                  </div>
-                  <div className="courseActions">
-                    <span className="courseDuration">{course.duration}</span>
-                    <SaveCourseBtn courseName={course.name} />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </AnimatedPage>
   );
 };

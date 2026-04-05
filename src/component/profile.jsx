@@ -127,7 +127,13 @@ const Profile = () => {
 
           {/* Profile Header (Avatar & Name) */}
           <div className="profileHeader">
-            <div className="profileAvatar">{getInitial(user?.firstName)}</div>
+            <div className="profileAvatar">
+              {user?.avatar ? (
+                <img src={user.avatar} alt="Profile" className="avatarImage" />
+              ) : (
+                getInitial(user?.firstName)
+              )}
+            </div>
             <h2 className="profileName">{user?.firstName} {user?.lastName}</h2>
             <p className="profileRole">{user?.currentStudy || user?.grade} • Student</p>
           </div>

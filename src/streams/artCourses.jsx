@@ -1,12 +1,19 @@
 import React from 'react';
 import './Courses.css'; // Reuses the exact same CSS file!
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 import { Globe, Languages, Camera, Gavel, Palette, ConciergeBell, Music } from 'lucide-react';
 
 import SaveCourseBtn from '../component/SaveCourseBtn';
 
 const ArtsCourses = () => {
+  useSEO({
+    title: 'Arts & Humanities Courses | Creative & Social Science Careers',
+    description: 'Discover diverse career paths after 12th Arts, including Design, Fine Arts, Psychology, Mass Communication, and Civil Services.',
+    keywords: 'arts courses, humanities careers, psychology roadmap, design careers, UPSC preparation, fine arts India',
+    canonical: '/streams/arts'
+  });
   const courseCategories = [
     {
       title: "Humanities & Social Sciences",

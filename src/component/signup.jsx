@@ -19,7 +19,8 @@ const Signup = () => {
     branch: '',
     dream: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    avatar: null
   });
 
   // OTP Verification States
@@ -34,6 +35,13 @@ const Signup = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    setUser(prevUser => ({
+      ...prevUser,
+      avatar: e.target.files[0]
+    }));
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
 
@@ -43,16 +51,23 @@ const Signup = () => {
     }
 
     try {
-      // 1. Register User
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/signup`, {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        password: user.password,
-        currentStudy: user.currentStudy,
-        branch: user.branch,
-        dream: user.dream,
-        mobileNumber: user.mobileNumber
+      // 1. Register User (Using FormData for Optional Image Upload)
+      const formData = new FormData();
+      formData.append("firstName", user.firstName);
+      formData.append("lastName", user.lastName);
+      formData.append("email", user.email);
+      formData.append("password", user.password);
+      formData.append("currentStudy", user.currentStudy);
+      formData.append("branch", user.branch);
+      formData.append("dream", user.dream);
+      formData.append("mobileNumber", user.mobileNumber);
+      
+      if (user.avatar) {
+        formData.append("avatar", user.avatar);
+      }
+
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/signup`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
       });
 
       // 2. Automatically Login to get JWT cookies needed for OTP routes
@@ -138,6 +153,18 @@ const Signup = () => {
                 <div className="inputGroup">
                   <label className="inputLabel" htmlFor="mobileNumber">Phone Number</label>
                   <input type="tel" placeholder="Mobile number" className="inputField" value={user.mobileNumber} onChange={handleInputChange} name="mobileNumber" required />
+                </div>
+
+                <div className="inputGroup">
+                  <label className="inputLabel" htmlFor="avatar">Profile Picture (Optional)</label>
+                  <input 
+                    type="file" 
+                    id="avatar" 
+                    name="avatar" 
+                    accept="image/*" 
+                    className="inputField fileInput" 
+                    onChange={handleFileChange} 
+                  />
                 </div>
 
                 <div className="inputRow">

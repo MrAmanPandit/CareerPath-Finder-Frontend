@@ -1,12 +1,19 @@
 import React from 'react';
 import './Courses.css'; // Reuses the exact same CSS file!
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 import { BarChart4, Briefcase, TrendingUp, PieChart, Gavel, Landmark, Palette } from 'lucide-react';
 
 import SaveCourseBtn from '../component/SaveCourseBtn';
 
 const CommerceCourses = () => {
+  useSEO({
+    title: 'Commerce Stream Courses | Finance, Business & Accounting Careers',
+    description: 'Explore top career paths after 12th Commerce, including Chartered Accountancy, MBA, Economics, Finance, and Law.',
+    keywords: 'commerce courses, CA roadmap, business degrees, finance careers, law after commerce India',
+    canonical: '/streams/commerce'
+  });
   const courseCategories = [
     {
       title: "Core Commerce & Accounting",
@@ -85,38 +92,38 @@ const CommerceCourses = () => {
 
   return (
     <AnimatedPage>
-    <div className="coursesWrapper">
-      <div className="coursesHeader">
-        <h1 className="coursesTitle">Commerce Stream <span className="text-gradient">Courses</span></h1>
-        <p className="coursesSubtitle">Explore the top degrees, professional certifications, and management paths available after 12th Commerce.</p>
-      </div>
+      <div className="coursesWrapper">
+        <div className="coursesHeader">
+          <h1 className="coursesTitle">Commerce Stream <span className="text-gradient">Courses</span></h1>
+          <p className="coursesSubtitle">Explore the top degrees, professional certifications, and management paths available after 12th Commerce.</p>
+        </div>
 
-      <div className="coursesGrid">
-        {courseCategories.map((category, index) => (
-          <div className="categoryCard" key={index}>
-            <div className="categoryHeader">
-              <span className="categoryIcon">{category.icon}</span>
-              <h2 className="categoryTitle">{category.title}</h2>
+        <div className="coursesGrid">
+          {courseCategories.map((category, index) => (
+            <div className="categoryCard" key={index}>
+              <div className="categoryHeader">
+                <span className="categoryIcon">{category.icon}</span>
+                <h2 className="categoryTitle">{category.title}</h2>
+              </div>
+
+              <ul className="courseList">
+                {category.courses.map((course, idx) => (
+                  <li className="courseItem" key={idx}>
+                    <div className="courseInfo">
+                      <span className="courseName">{course.name}</span>
+                      <span className="courseDetail">{course.detail}</span>
+                    </div>
+                    <div className="courseActions">
+                      <span className="courseDuration">{course.duration}</span>
+                      <SaveCourseBtn courseName={course.name} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            
-            <ul className="courseList">
-              {category.courses.map((course, idx) => (
-                <li className="courseItem" key={idx}>
-                  <div className="courseInfo">
-                    <span className="courseName">{course.name}</span>
-                    <span className="courseDetail">{course.detail}</span>
-                  </div>
-                  <div className="courseActions">
-                    <span className="courseDuration">{course.duration}</span>
-                    <SaveCourseBtn courseName={course.name} />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </AnimatedPage>
   );
 };

@@ -1,12 +1,19 @@
 import React from 'react';
 import './Courses.css';
 import AnimatedPage from '../component/animation';
+import useSEO from '../utils/useSEO';
 
 import { Stethoscope, Leaf, PawPrint, Pill, Microscope, Dna, Rocket } from 'lucide-react';
 
 import SaveCourseBtn from '../component/SaveCourseBtn';
 
 const BiologyCourses = () => {
+  useSEO({
+    title: 'Biology Stream Courses | Best Medical & Life Science Degrees',
+    description: 'Explore top career paths and degrees available after 12th Biology (PCB), including MBBS, BDS, Pharmacy, Biotechnology, and more.',
+    keywords: 'biology courses, PCB careers, medical courses, biotechnology roadmap, nursing careers India',
+    canonical: '/streams/biology'
+  });
   const courseCategories = [
     {
       title: "Core Medical & Dental",

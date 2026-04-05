@@ -28,6 +28,8 @@ const EditDetails = () => {
     dream: '',
   });
 
+  const [avatarFile, setAvatarFile] = useState(null);
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
@@ -70,22 +72,32 @@ const EditDetails = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    setAvatarFile(e.target.files[0]);
+  };
+
   const handleEditDetail = async (e) => {
     e.preventDefault(); // Prevents the page from reloading
 
     try {
-      // 1. Send a POST request to your backend URL
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/edit-user`, {
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        currentStudy: userData.currentStudy,
-        branch: userData.branch,
-        dream: userData.dream,
-        mobileNumber: userData.mobileNumber
-      },
+      // 1. Send data using FormData for optional image upload
+      const formData = new FormData();
+      formData.append("firstName", userData.firstName);
+      formData.append("lastName", userData.lastName);
+      formData.append("currentStudy", userData.currentStudy);
+      formData.append("branch", userData.branch);
+      formData.append("dream", userData.dream);
+      formData.append("mobileNumber", userData.mobileNumber);
+      
+      if (avatarFile) {
+        formData.append("avatar", avatarFile);
+      }
+
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/edit-user`, formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Content-Type": "multipart/form-data"
           },
           withCredentials: true
         }
@@ -186,6 +198,18 @@ const EditDetails = () => {
                   value={userData.dream}
                   onChange={handleInputChange}
                   placeholder={`Your Current Dream: ${user.dream}`} required />
+              </div>
+
+              <div className="form-group full-width">
+                <label htmlFor="avatar">Update Profile Picture (Optional)</label>
+                <input
+                  type="file"
+                  name="avatar"
+                  id="avatar"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="inputField fileInput"
+                />
               </div>
             </div>
 

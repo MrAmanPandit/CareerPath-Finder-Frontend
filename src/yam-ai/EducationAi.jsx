@@ -2,9 +2,16 @@ import React from 'react';
 import { GraduationCap, MessageSquare, Briefcase } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ChatCore from './ChatCore';
+import useSEO from '../utils/useSEO';
 
 const EducationAi = () => {
     const navigate = useNavigate();
+    useSEO({
+        title: 'Education AI Hub | Specialized Study Guidance',
+        description: 'Get specialized education advice, study schedules, and subject guidance from our Education AI Intelligence Hub.',
+        keywords: 'education AI, study help, exam preparation AI, academic roadmap generator',
+        canonical: '/education-ai'
+    });
     
     const suggestions = [
         "Help me with a study schedule",
