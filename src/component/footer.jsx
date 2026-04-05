@@ -36,7 +36,8 @@ const Footer = () => {
     <motion.footer 
       className="footer"
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
     >
       <div className="footer-glow"></div>
@@ -70,24 +71,26 @@ const Footer = () => {
             <h4 className="footer-title">Connect With Us</h4>
             <p className="footer-subtitle">Join us for the latest career insights.</p>
             <div className="social-links">
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="social-icon">
-                <Github size={20} />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-icon">
-                <Linkedin size={20} />
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="social-icon">
-                <Twitter size={20} />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="social-icon">
-                <Instagram size={20} />
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="social-icon">
-                <Youtube size={20} />
-              </a>
-              <a href="mailto:careerpathsfinder@gmail.com" className="social-icon">
-                <Mail size={20} />
-              </a>
+              {[
+                { icon: <Github size={20} />, href: "https://github.com" },
+                { icon: <Linkedin size={20} />, href: "https://linkedin.com" },
+                { icon: <Twitter size={20} />, href: "https://twitter.com" },
+                { icon: <Instagram size={20} />, href: "https://instagram.com" },
+                { icon: <Youtube size={20} />, href: "https://youtube.com" },
+                { icon: <Mail size={20} />, href: "mailto:careerpathsfinder@gmail.com" }
+              ].map((social, i) => (
+                <motion.a 
+                  key={i}
+                  href={social.href} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="social-icon"
+                  whileHover={{ scale: 1.2, rotate: 5, color: 'var(--primary)' }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
             </div>
             
             <div className="status-indicator">
