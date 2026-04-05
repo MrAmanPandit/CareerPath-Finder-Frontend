@@ -29,6 +29,7 @@ const EditDetails = () => {
   });
 
   const [avatarFile, setAvatarFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -53,6 +54,7 @@ const EditDetails = () => {
           branch: fetchedUser.branch || '',
           dream: fetchedUser.dream || '',
         });
+        setPreviewUrl(fetchedUser.avatar || null);
 
       } catch (err) {
         setError(err.response?.data?.message || "Failed to load profile");
@@ -73,7 +75,13 @@ const EditDetails = () => {
   };
 
   const handleFileChange = (e) => {
-    setAvatarFile(e.target.files[0]);
+    const file = e.target.files[0];
+    setAvatarFile(file);
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+    } else {
+      setPreviewUrl(user?.avatar || null);
+    }
   };
 
   const handleEditDetail = async (e) => {
@@ -88,7 +96,7 @@ const EditDetails = () => {
       formData.append("branch", userData.branch);
       formData.append("dream", userData.dream);
       formData.append("mobileNumber", userData.mobileNumber);
-      
+
       if (avatarFile) {
         formData.append("avatar", avatarFile);
       }
@@ -129,6 +137,16 @@ const EditDetails = () => {
           <div className="edit-header">
             <h2>Personal Details</h2>
             <p>Update your profile information and career goals.</p>
+          </div>
+
+          <div className="profile-preview-container">
+            <div className="profile-preview-circle">
+              {previewUrl ? (
+                <img src={previewUrl} alt="Preview" className="preview-image" />
+              ) : (
+                <div className="preview-placeholder">👤</div>
+              )}
+            </div>
           </div>
 
           <form className="updateForm" onSubmit={handleEditDetail}>

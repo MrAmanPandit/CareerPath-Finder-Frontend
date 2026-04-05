@@ -26,6 +26,7 @@ const Signup = () => {
   // OTP Verification States
   const [emailOTP, setEmailOTP] = useState('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,10 +37,16 @@ const Signup = () => {
   };
 
   const handleFileChange = (e) => {
+    const file = e.target.files[0];
     setUser(prevUser => ({
       ...prevUser,
-      avatar: e.target.files[0]
+      avatar: file
     }));
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+    } else {
+      setPreviewUrl(null);
+    }
   };
 
   const handleSignup = async (e) => {
@@ -136,6 +143,16 @@ const Signup = () => {
             <>
               <h2 className="signupTitle">Create Account</h2>
               <p className="signupSubtitle">Join CareerPath Finder and discover your future.</p>
+
+              <div className="profile-preview-container">
+                <div className="profile-preview-circle">
+                  {previewUrl ? (
+                    <img src={previewUrl} alt="Preview" className="preview-image" />
+                  ) : (
+                    <div className="preview-placeholder">👤</div>
+                  )}
+                </div>
+              </div>
 
               <form className="signupForm" onSubmit={handleSignup}>
                 <div className="inputGroup">
