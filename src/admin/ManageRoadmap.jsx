@@ -9,6 +9,8 @@ import { showConfirmDialog, showSuccessAlert, showErrorAlert } from "../utils/cu
 const ManageRoadmaps = () => {
     const navigate = useNavigate();
     const [roadmaps, setRoadmaps] = useState([]);
+    const [filteredRoadmaps, setFilteredRoadmaps] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [message, setMessage] = useState({ text: "", type: "" });
     const [userRole, setUserRole] = useState("user");
@@ -18,6 +20,14 @@ const ManageRoadmaps = () => {
         fetchUserInfo();
         fetchRoadmaps();
     }, []);
+
+    // Filter roadmaps locally when search term changes
+    useEffect(() => {
+        const results = roadmaps.filter(roadmap =>
+            roadmap.jobTitle.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredRoadmaps(results);
+    }, [searchTerm, roadmaps]);
 
     const fetchUserInfo = async () => {
         try {
@@ -79,8 +89,21 @@ const ManageRoadmaps = () => {
             <div className="manage-roadmaps-container">
 
                 <header className="form-header">
-                    <h2>Manage Career Roadmaps</h2>
-                    <p>View all published step-by-step career journeys or remove outdated ones from the database.</p>
+                    <div className="header-text">
+                        <h2>Manage Career Roadmaps</h2>
+                        <p>View all published step-by-step career journeys or remove outdated ones from the database.</p>
+                    </div>
+                    <div className="header-actions">
+                        <div className="search-bar">
+                            <input 
+                                type="text" 
+                                placeholder="Search roadmaps by title..." 
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="table-search-input"
+                            />
+                        </div>
+                    </div>
                 </header>
 
                 {message.text && (
@@ -103,38 +126,46 @@ const ManageRoadmaps = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {roadmaps.map((roadmap) => (
-                                    <tr key={roadmap._id}>
-                                        <td>
-                                            <div className="roadmap-name-cell">
-                                                <div className="roadmap-icon">🗺️</div>
-                                                <span className="font-semibold text-dark">
-                                                    {roadmap.jobTitle}
+                                {filteredRoadmaps.length > 0 ? (
+                                    filteredRoadmaps.map((roadmap) => (
+                                        <tr key={roadmap._id}>
+                                            <td>
+                                                <div className="roadmap-name-cell">
+                                                    <div className="roadmap-icon">🗺️</div>
+                                                    <span className="font-semibold text-dark">
+                                                        {roadmap.jobTitle}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span className="steps-badge">
+                                                    {roadmap.steps?.length || 0} Steps
                                                 </span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span className="steps-badge">
-                                                {roadmap.steps?.length || 0} Steps
-                                            </span>
-                                        </td>
-                                        <td>{new Date(roadmap.createdAt).toLocaleDateString()}</td>
-                                        <td>
-                                            <div className="action-cells">
-                                                {userRole === 'admin' && (
+                                            </td>
+                                            <td>{new Date(roadmap.createdAt).toLocaleDateString()}</td>
+                                            <td>
+                                                <div className="action-cells">
+                                                    {userRole === 'admin' && (
+                                                        <button
+                                                            className="btn-action btn-delete"
+                                                            onClick={() => handleDelete(roadmap._id, roadmap.jobTitle)}
+                                                        >Delete</button>
+                                                    )}
                                                     <button
-                                                        className="btn-action btn-delete"
-                                                        onClick={() => handleDelete(roadmap._id, roadmap.jobTitle)}
-                                                    >Delete</button>
-                                                )}
-                                                <button
-                                                    className="btn-action btn-update"
-                                                    onClick={() => navigate(`/admin/update-roadmap/${roadmap._id}`)}
-                                                >Update</button>
-                                            </div>
+                                                        className="btn-action btn-update"
+                                                        onClick={() => navigate(`/admin/update-roadmap/${roadmap._id}`)}
+                                                    >Update</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="4" className="empty-state">
+                                            {searchTerm ? `No roadmaps found matching "${searchTerm}"` : "No roadmaps available in the database."}
                                         </td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     )}

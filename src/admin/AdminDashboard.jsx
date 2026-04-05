@@ -127,7 +127,8 @@ const AdminDashboard = () => {
             { to: "/admin/manage-courses", label: "📚 Manage Courses" },
             { to: "/admin/manage-roadmaps", label: "🗺️ Manage Roadmaps" },
             { to: "/admin/manage-suggestions", label: "💡 User Suggestions", type: 'suggestions' },
-            { to: "/admin/manage-complaints", label: "🚩 User Complaints", type: 'complaints' }
+            { to: "/admin/manage-complaints", label: "🚩 User Complaints", type: 'complaints' },
+            { to: "/mentor/dashboard", label: "👨‍🏫 Mentor Panel" }
           ].map((item, i) => (
             <motion.div
               key={item.to}

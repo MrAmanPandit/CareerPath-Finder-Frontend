@@ -1,124 +1,207 @@
 
 :root {
-  --mentor-primary: #8b5cf6; /* Indigo/Violet */
-  --mentor-primary-dark: #7c3aed;
-  --mentor-accent: #dbeafe;
-  --mentor-bg: #f8fafc;
-  --mentor-card-bg: rgba(255, 255, 255, 0.8);
+  --mentor-primary: var(--primary); /* Teal Accent */
+  --mentor-primary-hover: var(--primary-hover);
 }
 
 .mentor-theme {
   --primary: var(--mentor-primary);
-  --primary-hover: var(--mentor-primary-dark);
+  --primary-hover: var(--mentor-primary-hover);
+  background-color: var(--bg-color);
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  color: var(--text);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  position: relative;
 }
 
-.mentor-loader {
+/* Reusing Admin Layout Classes but with Mentor Scope */
+.mentor-theme .admin-dashboard-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: var(--bg-color);
+  min-height: calc(100vh - var(--nav-height)); /* Exactly below Navbar */
+  max-height: calc(100vh - var(--nav-height));
+  position: relative;
+  overflow: hidden; /* Contains absolute sidebar and overlay */
 }
 
-.mentor-header h2 {
-  color: var(--mentor-primary) !important;
-  text-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
-}
-
-.mentor-badge-main {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, var(--mentor-primary), #c084fc);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-}
-
-.mentor-topbar {
-  background: var(--mentor-bg);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  padding: 2rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.mentor-topbar h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  margin: 0;
-}
-
-.gradient-text {
-  background: linear-gradient(to right, var(--mentor-primary), #ec4899);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.mentor-metrics {
-  display: flex;
-  gap: 1rem;
-}
-
-.metric-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: white;
-  padding: 10px 20px;
-  border-radius: 12px;
-  font-weight: 600;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.1);
-  color: var(--mentor-primary);
-}
-
-/* Sidebar Specifics */
+/* Sidebar Styles */
 .mentor-theme .admin-sidebar {
-  background: #1e1b4b; /* Deep Indigo */
+  width: 260px;
+  background-color: #0f172a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100%; /* Fill wrapper height */
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  transition: transform 0.3s ease;
 }
 
-.mentor-theme .sidebar-divider {
-  color: #6366f1;
-  border-top-color: #312e81;
+.mentor-theme .sidebar-header {
+  padding: 24px;
+  border-bottom: 2px solid #1e293b;
+  text-align: center;
 }
 
-.mentor-content {
-  background-color: var(--mentor-bg);
+.mentor-theme .sidebar-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--primary);
+}
+
+.mentor-theme .sidebar-header p {
+  margin: 5px 0 0 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.mentor-theme .sidebar-nav {
+  padding: 20px 0;
+  flex: 1;
+}
+
+.mentor-theme .nav-link {
+  display: block;
+  padding: 16px 24px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-left: 4px solid transparent;
+  transition: all 0.2s;
+}
+
+.mentor-theme .nav-link:hover {
+  background-color: #1e293b;
+  color: white;
+  border-left-color: var(--primary-hover);
+}
+
+.mentor-theme .nav-link.active {
+  background-color: #1e293b;
+  color: white;
+  border-left-color: var(--primary);
+  font-weight: 600;
+}
+
+.mentor-theme .sidebar-footer {
+  padding: 20px 24px;
+  border-top: 2px solid #1e293b;
+}
+
+/* Main Content */
+.mentor-theme .admin-main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
-.mentor-theme .nav-link:hover, 
-.mentor-theme .nav-link.active {
-  background-color: rgba(99, 102, 241, 0.15);
+.mentor-theme .admin-topbar {
+  background: rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.mentor-theme .admin-welcome-flex {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.mentor-theme .admin-name-highlight {
+  color: var(--primary) !important;
+  font-weight: bold !important;
+}
+
+.mentor-theme .admin-topbar-avatar,
+.mentor-theme .admin-topbar-avatar-placeholder {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+}
+
+.mentor-theme .admin-content-area {
+  padding: 2rem;
+  flex: 1;
+}
+
+/* Mobile Sidebar & Hamburger */
+.mentor-theme .hamburger-menu {
+  display: none;
+  background: transparent;
+  border: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.mentor-theme .h-bar {
+  width: 24px;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.mentor-theme .sidebar-overlay {
+  display: none;
+  position: absolute; /* Relative to wrapper */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1050;
+}
+
+.mentor-theme .sidebar-overlay.open {
+  display: block;
+}
+
+.mentor-theme .close-sidebar-btn {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
   color: white;
-  border-left-color: #fbbf24; /* Golden accent for mentor */
+  font-size: 28px;
 }
 
-/* Glassmorphism Contribution Widget (The "New & Good Look" thing) */
-.contribution-widget {
-  margin: 20px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-}
+@media (max-width: 1024px) {
+  .mentor-theme .admin-sidebar {
+    position: absolute; /* Contained within wrapper */
+    left: -100%;
+    height: 100%;
+    z-index: 1100;
+    transition: left 0.3s ease;
+  }
+  
+  .mentor-theme .admin-sidebar.open {
+    left: 0;
+  }
 
-@media (max-width: 768px) {
-  .mentor-topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.5rem;
+  .mentor-theme .hamburger-menu {
+    display: flex;
+  }
+
+  .mentor-theme .close-sidebar-btn {
+    display: block;
   }
 }

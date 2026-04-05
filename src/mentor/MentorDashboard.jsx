@@ -74,105 +74,102 @@ const MentorDashboard = () => {
 
   return (
     <div className="admin-dashboard-wrapper mentor-theme">
-      {/* Mobile Toggle */}
-      <button className="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+      {/* Sidebar Overlay */}
+      <div 
+        className={`sidebar-overlay ${isSidebarOpen ? 'open' : ''}`} 
+        onClick={() => setIsSidebarOpen(false)}
+      ></div>
 
-      {/* Sidebar */}
-      <aside className={`admin-sidebar ${isSidebarOpen ? 'active' : ''}`}>
-        <div className="sidebar-header mentor-header">
-          <div className="mentor-badge-main">
-            <Award size={20} className="badge-icon" />
-            <span>Mentor Portal</span>
-          </div>
-          <h2>{user?.firstName}</h2>
-          <p>Content Curator</p>
+      {/* 1. The Fixed Sidebar */}
+      <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <div className="sidebar-header">
+          <h2>CareerPath</h2>
+          <p>Mentor Workspace</p>
+          {/* Mobile Close Button */}
+          <button className="close-sidebar-btn" onClick={() => setIsSidebarOpen(false)}>
+            &times;
+          </button>
         </div>
 
         <nav className="sidebar-nav">
-          <motion.div custom={0} variants={navVariants} initial="hidden" animate="visible">
-            <NavLink to="/mentor/dashboard" className="nav-link" end onClick={() => setIsSidebarOpen(false)}>
-              <div className="nav-link-content">
-                <LayoutDashboard size={20} />
-                <span>Dashboard</span>
-              </div>
-            </NavLink>
-          </motion.div>
-
-          <motion.div custom={1} variants={navVariants} initial="hidden" animate="visible">
-            <NavLink to="/mentor/manage-courses" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
-              <div className="nav-link-content">
-                <BookOpen size={20} />
-                <span>Manage Courses</span>
-              </div>
-            </NavLink>
-          </motion.div>
-
-          <motion.div custom={2} variants={navVariants} initial="hidden" animate="visible">
-            <NavLink to="/mentor/manage-roadmaps" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
-              <div className="nav-link-content">
-                <Map size={20} />
-                <span>Manage Roadmaps</span>
-              </div>
-            </NavLink>
-          </motion.div>
-
-          <div className="sidebar-divider">Secondary</div>
-
-          <motion.div custom={3} variants={navVariants} initial="hidden" animate="visible">
-            <NavLink to="/" className="nav-link" onClick={() => setIsSidebarOpen(false)}>
-              <div className="nav-link-content">
-                <Home size={20} />
-                <span>Return to Site</span>
-              </div>
-            </NavLink>
-          </motion.div>
+          {[
+            { to: "/mentor/dashboard", label: "📊 Dashboard Home", end: true },
+            { to: "/mentor/manage-courses", label: "📚 Manage Courses" },
+            { to: "/mentor/manage-roadmaps", label: "🗺️ Manage Roadmaps" },
+            { to: "/admin/dashboard", label: "👨‍🏫 Admin Panel", adminOnly: true },
+            { to: "/", label: "🏠 Return to Site" }
+          ].map((item, i) => (
+             item.adminOnly && user?.role !== 'admin' ? null : (
+              <motion.div 
+                key={item.to} 
+                custom={i} 
+                variants={navVariants} 
+                initial="hidden" 
+                animate="visible"
+              >
+                <NavLink 
+                  to={item.to} 
+                  className={({isActive}) => isActive ? "nav-link active" : "nav-link"}
+                  end={item.end} 
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <span className="nav-link-content">
+                    {item.label}
+                  </span>
+                </NavLink>
+              </motion.div>
+             )
+          ))}
         </nav>
 
-        <div className="sidebar-footer">
-          <button className="logout-btn-sidebar" onClick={handleLogout}>
-            <LogOut size={18} />
-            <span>Sign Out</span>
-          </button>
-        </div>
+        <motion.div 
+          className="sidebar-footer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          <button className="logout-btn" onClick={handleLogout}>Log Out</button>
+        </motion.div>
       </aside>
 
-      {/* Main Content Area */}
-      <main className="admin-main-content mentor-content">
-        <header className="admin-topbar mentor-topbar">
-          <div className="welcome-text">
-            <h1>Welcome back, <span className="gradient-text">{user?.firstName}</span>!</h1>
-            <p>Ready to guide the next generation of professionals?</p>
-          </div>
-          
-          <div className="mentor-metrics">
-            <div className="metric-item">
-              <Rocket size={18} />
-              <span>Contribute</span>
-            </div>
-          </div>
-        </header>
+      {/* 2. The Main Content Side */}
+      <main className="admin-main-content">
+        <motion.header 
+          className="admin-topbar"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <button
+            className={`hamburger-menu ${isSidebarOpen ? 'open' : ''}`}
+            onClick={() => setIsSidebarOpen(true)}
+            aria-label="Open navigation"
+          >
+            <span className="h-bar hbar1"></span>
+            <span className="h-bar hbar2"></span>
+            <span className="h-bar hbar3"></span>
+          </button>
 
-        <div className="content-scroll-area">
-          <Suspense fallback={<div className="p-4"><SkeletonLoader type="table" /></div>}>
-            <Outlet />
-          </Suspense>
+          <div className="admin-welcome-flex">
+            <span className="welcome-text">Welcome back, Mentor <span className="admin-name-highlight"> {user?.firstName}</span></span>
+            {user?.avatar ? (
+              <img src={user.avatar} alt="Profile" className="admin-topbar-avatar" />
+            ) : (
+              <div className="admin-topbar-avatar-placeholder">
+                {user?.firstName?.charAt(0).toUpperCase()}
+              </div>
+            )}
+          </div>
+        </motion.header>
+
+        <div className="admin-content-area mentor-content">
+          <div className="content-scroll-area">
+            <Suspense fallback={<div className="p-4"><SkeletonLoader type="table" /></div>}>
+              <Outlet />
+            </Suspense>
+          </div>
         </div>
       </main>
-
-      {/* Overlay for mobile sidebar */}
-      <AnimatePresence>
-        {isSidebarOpen && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="sidebar-overlay"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 };

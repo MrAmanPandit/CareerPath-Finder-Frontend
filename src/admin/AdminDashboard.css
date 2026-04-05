@@ -2,13 +2,12 @@
 
 .admin-dashboard-wrapper {
   display: flex;
-  min-height: 60vh;
+  min-height: calc(100vh - var(--nav-height));
+  max-height: calc(100vh - var(--nav-height));
   background-color: var(--bg-color);
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  /* Makes this the positioning context so the sidebar/overlay
-     can never bleed outside (over navbar or footer) */
   position: relative;
-  overflow: scroll;
+  overflow: hidden; /* Contains absolute sidebar and overlay */
 }
 
 /* --- Sidebar Styles --- */
@@ -20,7 +19,7 @@
   flex-direction: column;
   position: sticky;
   top: 0;
-  height: 90vh;
+  height: 100%; /* Fill wrapper height */
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -292,8 +291,7 @@
 
 .sidebar-overlay {
   display: none;
-  /* absolute keeps the overlay inside the wrapper, not over navbar/footer */
-  position: absolute;
+  position: absolute; /* Relative to wrapper */
   top: 0;
   left: 0;
   width: 100%;
@@ -317,9 +315,7 @@
   }
   
   .admin-sidebar {
-    /* absolute instead of fixed — contained within .admin-dashboard-wrapper,
-       so it NEVER overlaps the global navbar or footer */
-    position: absolute;
+    position: absolute; /* Contained within wrapper */
     left: -100%;
     top: 0;
     width: 260px;

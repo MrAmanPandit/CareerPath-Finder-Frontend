@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../admin/DashboardHome.css';
@@ -9,9 +10,10 @@ import { BookOpen, Map, PlusCircle, TrendingUp, Award, Zap } from 'lucide-react'
 const MentorHome = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState({
-    totalCourses: 0,
-    totalRoadmaps: 0
+  const [data, setData] = useState({
+    stats: { totalCourses: 0, totalRoadmaps: 0 },
+    recentCourses: [],
+    recentRoadmaps: []
   });
 
   useEffect(() => {
@@ -22,9 +24,10 @@ const MentorHome = () => {
             withCredentials: true
         });
         if (response.data) {
-          setStats({
-            totalCourses: response.data.stats.totalCourses,
-            totalRoadmaps: response.data.stats.totalRoadmaps
+          setData({
+            stats: response.data.stats,
+            recentCourses: response.data.recentCourses || [],
+            recentRoadmaps: response.data.recentRoadmaps || []
           });
         }
       } catch (error) {
@@ -39,69 +42,101 @@ const MentorHome = () => {
   if (loading) return <div className="dashboard-loading"><SkeletonLoader type="dashboard" /></div>;
 
   return (
-    <div className="mentor-home-container">
+    <div className="dashboard-home-container">
       <div className="dashboard-intro">
-        <h2>Curator Insights</h2>
-        <p>Maintain the platform's educational Excellence.</p>
+        <h2>Platform Overview (Mentor)</h2>
+        <p>Monitor your educational contributions and platform growth.</p>
       </div>
 
       <div className="stats-grid">
         <Link to="/mentor/manage-courses">
-          <div className="stat-card mentor-stat-card">
-            <div className="stat-icon courses-icon"><BookOpen size={32} /></div>
+          <div className="stat-card">
+            <div className="stat-icon courses-icon">📚</div>
             <div className="stat-details">
-              <p className="stat-label">Total Courses</p>
-              <h3 className="stat-number">{stats.totalCourses}</h3>
+              <p className="stat-label">Published Courses</p>
+              <h3 className="stat-number">{data.stats.totalCourses}</h3>
             </div>
           </div>
         </Link>
 
         <Link to="/mentor/manage-roadmaps">
-          <div className="stat-card mentor-stat-card">
-            <div className="stat-icon roadmaps-icon"><Map size={32} /></div>
+          <div className="stat-card">
+            <div className="stat-icon roadmaps-icon">🗺️</div>
             <div className="stat-details">
-              <p className="stat-label">Total Roadmaps</p>
-              <h3 className="stat-number">{stats.totalRoadmaps}</h3>
+              <p className="stat-label">Career Roadmaps</p>
+              <h3 className="stat-number">{data.stats.totalRoadmaps}</h3>
             </div>
           </div>
         </Link>
 
-        <div className="stat-card mentor-stat-card contribution-highlight">
-            <div className="stat-icon"><Award size={32} /></div>
-            <div className="stat-details">
-              <p className="stat-label">Mentor Status</p>
-              <h3 className="stat-number">Certified</h3>
-            </div>
+        <div className="stat-card">
+          <div className="stat-icon active-icon">⚡</div>
+          <div className="stat-details">
+            <p className="stat-label">Mentor Status</p>
+            <h3 className="stat-number">Certified</h3>
+          </div>
         </div>
       </div>
 
       <div className="dashboard-lower-grid">
-        <div className="quick-actions-section mentor-quick-actions">
+        <div className="recent-activity-section">
           <div className="section-header">
-            <h3>Curation Shortcuts</h3>
+            <h3>Recently Added Content</h3>
+            <button className="view-all-btn" onClick={() => navigate('/mentor/manage-courses')}>View All</button>
           </div>
-          <div className="actions-grid">
-            <button className="action-btn mentor-btn" onClick={() => navigate('/mentor/add-course')}>
-              <PlusCircle size={20} />
-              <span className="action-text">New Course</span>
-            </button>
-            <button className="action-btn mentor-btn" onClick={() => navigate('/mentor/add-roadmap')}>
-              <Zap size={20} />
-              <span className="action-text">New Roadmap</span>
-            </button>
+
+          <div className="table-container">
+            <table className="admin-table">
+              <thead className='table-head'>
+                <tr>
+                  <th>Content Name</th>
+                  <th>Type</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.recentCourses.map((course) => (
+                  <tr key={course.id}>
+                    <td className="font-semibold text-dark">{course.name}</td>
+                    <td>Course</td>
+                    <td>{course.date}</td>
+                  </tr>
+                ))}
+                {data.recentRoadmaps.map((roadmap) => (
+                  <tr key={roadmap.id}>
+                    <td className="font-semibold text-dark">{roadmap.title}</td>
+                    <td>Roadmap</td>
+                    <td>{roadmap.date}</td>
+                  </tr>
+                ))}
+                {data.recentCourses.length === 0 && data.recentRoadmaps.length === 0 && (
+                  <tr>
+                    <td colSpan="3" style={{textAlign:'center', padding:'20px'}}>No recent activity.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <div className="contribution-widget mentor-widget">
-          <div className="widget-header">
-            <TrendingUp size={20} />
-            <h3>Platform Guidelines</h3>
+        <div className="quick-actions-section">
+          <div className="section-header">
+            <h3>Quick Actions</h3>
           </div>
-          <ul className="guideline-list">
-            <li>Ensure all course fees are updated monthly.</li>
-            <li>Verify roadmap steps for industry relevance.</li>
-            <li>Mention certified government bodies in course descriptions.</li>
-          </ul>
+          <div className="actions-grid">
+            <button className="action-btn" onClick={() => navigate('/mentor/add-course')}>
+              <span className="action-icon">➕</span>
+              <span className="action-text">Create New Course</span>
+            </button>
+            <button className="action-btn" onClick={() => navigate('/mentor/add-roadmap')}>
+              <span className="action-icon">🛤️</span>
+              <span className="action-text">Build Roadmap</span>
+            </button>
+            <button className="action-btn outline-btn" onClick={() => navigate('/')}>
+              <span className="action-icon">👁️</span>
+              <span className="action-text">View Live Site</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

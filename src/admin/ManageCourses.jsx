@@ -7,6 +7,8 @@ import { showConfirmDialog, showSuccessAlert, showErrorAlert } from "../utils/cu
 
 const ManageCourses = () => {
     const [courses, setCourses] = useState([]);
+    const [filteredCourses, setFilteredCourses] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [message, setMessage] = useState({ text: "", type: "" });
     const [userRole, setUserRole] = useState("user");
@@ -16,6 +18,15 @@ const ManageCourses = () => {
         fetchUserInfo();
         fetchCourses();
     }, []);
+
+    // Filter courses locally when search term changes
+    useEffect(() => {
+        const results = courses.filter(course =>
+            course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            course.stream.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredCourses(results);
+    }, [searchTerm, courses]);
 
     const fetchUserInfo = async () => {
         try {
@@ -73,8 +84,21 @@ const ManageCourses = () => {
             <div className="manage-courses-container">
 
                 <header className="form-header">
-                    <h2 style={{color:"var(--text-color)"}}>Manage Course Directory</h2>
-                    <p>View all published educational programs or remove outdated ones from the database.</p>
+                    <div className="header-text">
+                        <h2 style={{color:"var(--text)"}}>Manage Course Directory</h2>
+                        <p>View all published educational programs or remove outdated ones from the database.</p>
+                    </div>
+                    <div className="header-actions">
+                        <div className="search-bar">
+                            <input 
+                                type="text" 
+                                placeholder="Search courses by name or stream..." 
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="table-search-input"
+                            />
+                        </div>
+                    </div>
                 </header>
 
                 {message.text && (
@@ -98,35 +122,48 @@ const ManageCourses = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {courses.map((course) => (
-                                    <tr key={course._id}>
-                                        <td>
-                                            <div className="course-name-cell">
-                                                <div className="course-icon">📚</div>
-                                                <span className="text-dark">
-                                                    {course.name || course.title}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td className="data-feild">{course.duration} Yrs</td>
-                                        <td className="data-feild">{course.governmentCollegesFees || course.avgFees || "N/A"}</td>
-                                        <td className="data-feild">{course.privateCollegesFees || course.avgFees || "N/A"}</td>
-                                        <td>
-                                            <div className="action-cells">
-                                                {userRole === 'admin' && (
+                                {filteredCourses.length > 0 ? (
+                                    filteredCourses.map((course) => (
+                                        <tr key={course._id}>
+                                            <td>
+                                                <div className="course-name-cell">
+                                                    <div className="course-icon">📚</div>
+                                                    <div className="course-info">
+                                                        <span className="text-dark">
+                                                            {course.name || course.title}
+                                                        </span>
+                                                        <span style={{display: 'block', fontSize: '11px', opacity: 0.7, color: 'var(--text)'}}>
+                                                            {course.stream}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="data-feild">{course.duration} Yrs</td>
+                                            <td className="data-feild">{course.governmentCollegesFees || course.avgFees || "N/A"}</td>
+                                            <td className="data-feild">{course.privateCollegesFees || course.avgFees || "N/A"}</td>
+                                            <td>
+                                                <div className="action-cells">
+                                                    {userRole === 'admin' && (
+                                                        <button
+                                                            className="btn-action btn-delete"
+                                                            onClick={() => handleDelete(course._id, course.name || course.title)}
+                                                        >Delete</button>
+                                                    )}
                                                     <button
-                                                        className="btn-action btn-delete"
-                                                        onClick={() => handleDelete(course._id, course.name || course.title)}
-                                                    >Delete</button>
-                                                )}
-                                                <button
-                                                    className="btn-action btn-update"
-                                                    onClick={() => window.location.href = `/admin/update-course/${course._id}`}
-                                                >Update</button>
-                                            </div>
+                                                        className="btn-action btn-update"
+                                                        onClick={() => window.location.href = `/admin/update-course/${course._id}`}
+                                                    >Update</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="5" className="empty-state">
+                                            {searchTerm ? `No courses found matching "${searchTerm}"` : "No courses available in the database."}
                                         </td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     )}

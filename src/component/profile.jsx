@@ -337,13 +337,19 @@ const Profile = () => {
 
           {/* Action Buttons */}
           <div className="profileActions">
-            {(user?.role === 'admin' || user?.role === 'mentor') && (
-              <Link 
-                to={user.role === 'admin' ? "/admin/dashboard" : "/mentor/dashboard"} 
-                className="editBtn" 
-                style={{ backgroundColor: user.role === 'admin' ? '#2563eb' : '#8b5cf6', color: 'white', border: 'none' }}
-              >
-                Go to {user.role === 'admin' ? 'Admin' : 'Mentor'} Panel
+            {user?.role === 'admin' && (
+              <>
+                <Link to="/admin/dashboard" className="editBtn" style={{ backgroundColor: '#2563eb', color: 'white', border: 'none' }}>
+                  Go to Admin Panel
+                </Link>
+                <Link to="/mentor/dashboard" className="editBtn" style={{ backgroundColor: '#8b5cf6', color: 'white', border: 'none' }}>
+                  Go to Mentor Panel
+                </Link>
+              </>
+            )}
+            {user?.role === 'mentor' && (
+              <Link to="/mentor/dashboard" className="editBtn" style={{ backgroundColor: '#8b5cf6', color: 'white', border: 'none' }}>
+                Go to Mentor Panel
               </Link>
             )}
             <Link to="/edit-details" className="editBtn">Edit Details</Link>

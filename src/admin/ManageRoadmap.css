@@ -20,14 +20,15 @@
 
 .manage-roadmaps-container {
   background-color: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   width: 100%;
   max-width: 1100px;
-  /* Nice and wide for the table data */
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 30px var(--shadow);
   border: 1px solid var(--border);
   padding: 40px;
-  border-top: 6px solid #2563eb;
+  border-top: 6px solid var(--primary);
 }
 
 /* --- Header & Banners --- */
@@ -60,15 +61,15 @@
 }
 
 .banner-success {
-  background-color: var(--bg-color);
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background-color: var(--card-bg);
+  color: #4ecdc4;
+  border: 1px solid var(--primary);
 }
 
 .banner-error {
-  background-color: var(--bg-color);
-  color: #991b1b;
-  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  color: #ff6b6b;
+  border: 1px solid var(--secondary);
 }
 
 /* --- Table Styling --- */
@@ -214,24 +215,26 @@ body.dark-mode .roadmap-icon {
 }
 
 .btn-delete {
-  background: linear-gradient(135deg, #fee2e2, #fecaca);
-  color: #dc2626;
-  border: 1px solid #fca5a5;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 107, 107, 0.2));
+  color: var(--secondary);
+  border: 1px solid var(--secondary);
 }
 
 .btn-delete:hover {
-  background-color: #fee2e2;
-  border-color: #fca5a5;
+  background: var(--secondary);
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
 }
 
 .btn-update {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: #ffffff;
-  border: 1px solid #1d4ed8;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: #0f172a;
+  border: 1px solid var(--primary);
 }
 
 .btn-update:hover {
-  background: #1e40af;
+  background: var(--primary-hover);
+  box-shadow: var(--hover-glow);
 }
 
 /* --- States --- */
@@ -244,14 +247,16 @@ body.dark-mode .roadmap-icon {
 }
 
 .table-summary {
-  height: 40px;
+  height: 48px;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 5px 20px;
-  color: #dce1e7;
-  background-color: #2563eb;
-  border-radius: 0 0 5px 5px;
+  align-items: center;
+  padding: 0 24px;
+  color: var(--text);
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+  border-radius: 0 0 12px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @media (max-width: 1000px) {
