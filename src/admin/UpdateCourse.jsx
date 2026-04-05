@@ -19,7 +19,9 @@ const UpdateCourse = () => {
         eligibility: "",
         addmissionProcess: "",
         governmentCollegesFees: "",
-        privateCollegesFees: ""
+        privateCollegesFees: "",
+        stream: "",
+        years: []
     });
 
     // Fetch existing course data
@@ -37,11 +39,12 @@ const UpdateCourse = () => {
                         name: data.name || data.title || "",
                         duration: data.duration || "",
                         description: data.description || "",
-                        // These fields might not be fully filled previously, so default to empty string
                         eligibility: data.eligibility || "",
                         addmissionProcess: data.addmissionProcess || "",
                         governmentCollegesFees: data.governmentCollegesFees || data.avgFees || "",
-                        privateCollegesFees: data.privateCollegesFees || data.avgFees || ""
+                        privateCollegesFees: data.privateCollegesFees || data.avgFees || "",
+                        stream: data.stream || "",
+                        years: data.years || []
                     });
                 }
             } catch (error) {
@@ -65,21 +68,63 @@ const UpdateCourse = () => {
         }));
     };
 
+    // --- Dynamic Nested State Helpers ---
+    const addYear = () => {
+        const nextYearNumber = course.years.length + 1;
+        setCourse(prev => ({
+            ...prev,
+            years: [...prev.years, { yearNumber: nextYearNumber, semesters: [] }]
+        }));
+    };
+
+    const removeYear = (index) => {
+        const newYears = course.years.filter((_, i) => i !== index);
+        const indexedYears = newYears.map((y, i) => ({ ...y, yearNumber: i + 1 }));
+        setCourse(prev => ({ ...prev, years: indexedYears }));
+    };
+
+    const addSemester = (yearIndex) => {
+        const newYears = [...course.years];
+        const nextSemNumber = newYears[yearIndex].semesters.length + 1;
+        newYears[yearIndex].semesters.push({ semesterNumber: nextSemNumber, subjects: [] });
+        setCourse(prev => ({ ...prev, years: newYears }));
+    };
+
+    const removeSemester = (yearIndex, semIndex) => {
+        const newYears = [...course.years];
+        newYears[yearIndex].semesters = newYears[yearIndex].semesters.filter((_, i) => i !== semIndex);
+        newYears[yearIndex].semesters = newYears[yearIndex].semesters.map((s, i) => ({ ...s, semesterNumber: i + 1 }));
+        setCourse(prev => ({ ...prev, years: newYears }));
+    };
+
+    const addSubject = (yearIndex, semIndex) => {
+        const newYears = [...course.years];
+        newYears[yearIndex].semesters[semIndex].subjects.push({ name: "" });
+        setCourse(prev => ({ ...prev, years: newYears }));
+    };
+
+    const removeSubject = (yearIndex, semIndex, subIndex) => {
+        const newYears = [...course.years];
+        newYears[yearIndex].semesters[semIndex].subjects = newYears[yearIndex].semesters[semIndex].subjects.filter((_, i) => i !== subIndex);
+        setCourse(prev => ({ ...prev, years: newYears }));
+    };
+
+    const handleSubjectChange = (yearIndex, semIndex, subIndex, value) => {
+        const newYears = [...course.years];
+        newYears[yearIndex].semesters[semIndex].subjects[subIndex].name = value;
+        setCourse(prev => ({ ...prev, years: newYears }));
+    };
+    // ------------------------------------
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setMessage({ text: "", type: "" });
 
         try {
-            // Send a PUT request for updating
             await axios.put(`${import.meta.env.VITE_API_URL}/api/v1/admin/courses/${id}`, {
-                name: course.name,
-                duration: Number(course.duration),
-                description: course.description,
-                eligibility: course.eligibility,
-                addmissionProcess: course.addmissionProcess,
-                governmentCollegesFees: course.governmentCollegesFees,
-                privateCollegesFees: course.privateCollegesFees
+                ...course,
+                duration: Number(course.duration)
             }, {
                 withCredentials: true,
                 headers: {
@@ -89,7 +134,6 @@ const UpdateCourse = () => {
 
             setMessage({ text: "Course updated successfully!", type: "success" });
 
-            // Wait slightly so they see the success message
             setTimeout(() => {
                 navigate("/admin/manage-courses");
             }, 1000);
@@ -141,6 +185,17 @@ const UpdateCourse = () => {
                                 />
                             </div>
                             <div className="input-group">
+                                <label>Stream / Branch</label>
+                                <input
+                                    type="text"
+                                    name="stream"
+                                    value={course.stream}
+                                    onChange={handleInputChange}
+                                    placeholder="e.g. Engineering, Arts"
+                                    required
+                                />
+                            </div>
+                            <div className="input-group">
                                 <label>Duration (in Years)</label>
                                 <input
                                     type="number"
@@ -163,6 +218,55 @@ const UpdateCourse = () => {
                                 rows="4"
                                 required
                             />
+                        </div>
+                    </div>
+
+                    <div className="form-section">
+                        <h3 style={{ color: "var(--text-color)" }}>Curriculum Structure</h3>
+                        <div className="years-container">
+                            {course.years && course.years.map((year, yIdx) => (
+                                <div key={yIdx} className="year-card">
+                                    <div className="card-header">
+                                        <h4>Year {year.yearNumber}</h4>
+                                        <button type="button" onClick={() => removeYear(yIdx)} className="remove-btn">Remove Year</button>
+                                    </div>
+
+                                    <div className="semesters-container">
+                                        {year.semesters && year.semesters.map((sem, sIdx) => (
+                                            <div key={sIdx} className="semester-box">
+                                                <div className="box-header">
+                                                    <h5>Semester {sem.semesterNumber}</h5>
+                                                    <button type="button" onClick={() => removeSemester(yIdx, sIdx)} className="remove-btn secondary">Remove Sem</button>
+                                                </div>
+
+                                                <div className="subjects-list">
+                                                    {sem.subjects && sem.subjects.map((sub, subIdx) => (
+                                                        <div key={subIdx} className="subject-input-row">
+                                                            <input
+                                                                type="text"
+                                                                value={sub.name}
+                                                                onChange={(e) => handleSubjectChange(yIdx, sIdx, subIdx, e.target.value)}
+                                                                placeholder="Subject Name"
+                                                                required
+                                                            />
+                                                            <button type="button" onClick={() => removeSubject(yIdx, sIdx, subIdx)} className="remove-sub-btn">&times;</button>
+                                                        </div>
+                                                    ))}
+                                                    <button type="button" onClick={() => addSubject(yIdx, sIdx)} className="add-sub-btn">
+                                                        + Add Subject
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <button type="button" onClick={() => addSemester(yIdx)} className="add-sem-btn">
+                                            + Add Semester
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                            <button type="button" onClick={addYear} className="add-year-btn">
+                                + Add Year to Curriculum
+                            </button>
                         </div>
                     </div>
 

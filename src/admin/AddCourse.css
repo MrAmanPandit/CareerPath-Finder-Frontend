@@ -203,6 +203,151 @@ body.dark-mode {
   cursor: not-allowed;
 }
 
+/* --- Dynamic Curriculum Structure Styles --- */
+.years-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.year-card {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.card-header, .box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.card-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #2563eb;
+}
+
+.box-header h5 {
+  margin: 0;
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.semesters-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .semesters-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.semester-box {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.subjects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subject-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.subject-input-row input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* --- Buttons --- */
+.add-year-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.2s;
+}
+
+.add-year-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.add-sem-btn, .add-sub-btn {
+  background-color: transparent;
+  color: #2563eb;
+  border: 2px dashed #2563eb;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.add-sem-btn:hover, .add-sub-btn:hover {
+  background-color: #eff6ff;
+}
+
+.remove-btn {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.remove-btn.secondary {
+  padding: 4px 10px;
+  opacity: 0.8;
+}
+
+.remove-btn:hover {
+  background-color: #fecaca;
+}
+
+.remove-sub-btn {
+  background-color: transparent;
+  color: #94a3b8;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 5px;
+  line-height: 1;
+}
+
+.remove-sub-btn:hover {
+  color: #ef4444;
+}
+
 /* ── Mobile (≤ 480px) ── */
 @media (max-width: 480px) {
   .add-course-wrapper {
@@ -225,5 +370,9 @@ body.dark-mode {
   .submit-course-btn {
     padding: 14px;
     font-size: 16px;
+  }
+
+  .semesters-container {
+    grid-template-columns: 1fr;
   }
 }
