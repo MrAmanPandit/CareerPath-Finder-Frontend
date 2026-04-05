@@ -299,9 +299,11 @@ const UpdateCourse = () => {
                                                 </div>
                                             </div>
                                         ))}
-                                        <button type="button" onClick={() => addSemester(yIdx)} className="add-sem-btn">
-                                            + Add Semester
-                                        </button>
+                                        {yIdx === course.years.length - 1 && (
+                                            <button type="button" onClick={() => addSemester(yIdx)} className="add-sem-btn">
+                                                + Add Semester
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             ))}
