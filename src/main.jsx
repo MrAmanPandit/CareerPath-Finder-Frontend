@@ -1,4 +1,4 @@
-import { StrictMode, lazy, Suspense } from 'react'
+import { StrictMode, lazy, Suspense } from 'react' // Triggering rebuild for new routes
 import { createRoot } from 'react-dom/client'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -43,6 +43,7 @@ const CareerAi = lazy(() => import('./yam-ai/CareerAi.jsx'))
 const RoadmapInsights = lazy(() => import('./component/RoadmapInsights.jsx'))
 const ManageSuggestions = lazy(() => import('./admin/ManageSuggestions.jsx'))
 const ManageComplaints = lazy(() => import('./admin/ManageComplaints.jsx'))
+const SecurityPolicy = lazy(() => import('./component/SecurityPolicy.jsx'))
 
 const routers = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ const routers = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />
+      },
+      {
+        path: "/privacy-policy",
+        element: <SecurityPolicy />
       },
       {
         path: "/login",

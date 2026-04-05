@@ -35,7 +35,7 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  grid-template-columns: 2fr 1.5fr;
   gap: 60px;
   margin-bottom: 60px;
 }
@@ -253,25 +253,9 @@
   color: var(--text);
 }
 
-/* Responsive Scaling */
-@media (max-width: 1100px) {
-  .footer-grid {
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 40px;
-  }
-}
-
 @media (max-width: 850px) {
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
     gap: 40px;
-  }
-  .brand-col {
-    grid-column: span 2;
-    margin-bottom: 20px;
-  }
-  .footer-description {
-    max-width: 100%;
   }
 }
 

@@ -8,7 +8,6 @@ import {
   Twitter, 
   Mail, 
   MapPin, 
-  ChevronRight,
   ShieldCheck,
   Globe,
   Instagram,
@@ -66,29 +65,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Column 2: Platform Links */}
-          <motion.div className="footer-col" variants={itemVariants}>
-            <h4 className="footer-title">Platform</h4>
-            <ul className="footer-links">
-              <li><Link to="/"><ChevronRight size={14} /> Home</Link></li>
-              <li><Link to="/career"><ChevronRight size={14} /> Career Roadmaps</Link></li>
-              <li><Link to="/streams"><ChevronRight size={14} /> Academic Paths</Link></li>
-              <li><Link to="/profile"><ChevronRight size={14} /> Student Profile</Link></li>
-            </ul>
-          </motion.div>
-
-          {/* Column 3: Resources & Support */}
-          <motion.div className="footer-col" variants={itemVariants}>
-            <h4 className="footer-title">Resources</h4>
-            <ul className="footer-links">
-              <li><Link to="/about"><ChevronRight size={14} /> About Our Vision</Link></li>
-              <li><Link to="/contact"><ChevronRight size={14} /> Contact Support</Link></li>
-              <li><Link to="/yam-ai"><ChevronRight size={14} /> Yam AI Assistant</Link></li>
-              <li><Link to="/login"><ChevronRight size={14} /> Login / Register</Link></li>
-            </ul>
-          </motion.div>
-
-          {/* Column 4: Stay Connected */}
+          {/* Column 2: Stay Connected */}
           <motion.div className="footer-col connect-col" variants={itemVariants}>
             <h4 className="footer-title">Connect With Us</h4>
             <p className="footer-subtitle">Join us for the latest career insights.</p>
@@ -130,7 +107,7 @@ const Footer = () => {
             © {new Date().getFullYear()} CareerPath Finder. Developed for future leaders.
           </div>
           <div className="bottom-links">
-            <Link to="/about"><ShieldCheck size={14} /> Privacy Policy</Link>
+            <Link to="/privacy-policy"><ShieldCheck size={14} /> Privacy Policy</Link>
             <Link to="/contact"><Globe size={14} /> Terms of Service</Link>
           </div>
         </div>

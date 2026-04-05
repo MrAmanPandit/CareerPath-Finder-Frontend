@@ -23,13 +23,13 @@
   --hover-scale: 1.03;
   --hover-glow: 0 10px 40px rgba(78, 205, 196, 0.15);
   
-  /* Spacing & Layout */
-  --nav-height: 70px;
-  --nav-offset: 80px;
-  --section-padding: 4rem 5%;
-  --section-margin: 3.5rem;
-  --section-title-margin: 2.5rem;
-  --container-max-width: 1200px;
+  /* Fluid Spacing & Typography */
+  --nav-height: clamp(60px, 8vh, 80px);
+  --section-padding: clamp(2rem, 5vw, 6rem);
+  --container-max-width: 1400px;
+  --fs-hero: clamp(2rem, 8vw, 4rem);
+  --fs-h2: clamp(1.5rem, 5vw, 2.5rem);
+  --fs-p: clamp(0.9rem, 1.5vw, 1.1rem);
 }
 
 @media (max-width: 1024px) {

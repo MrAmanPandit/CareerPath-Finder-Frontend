@@ -7,8 +7,27 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AnimatedPage from './animation';
 import SkeletonLoader from './SkeletonLoader';
-import { showSuccessAlert } from '../utils/customAlert';
+import { showSuccessAlert, showErrorAlert, showConfirmationAlert } from '../utils/customAlert';
 import StudentDashboard from './StudentDashboard';
+import { ShieldCheck, Download, Trash2, Bell, Cpu, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.5, ease: "easeOut" } 
+  }
+};
+
+const staggerContainer = {
+  visible: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
 
 const Profile = () => {
 
@@ -20,6 +39,14 @@ const Profile = () => {
   const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [verifyType, setVerifyType] = useState(null); // 'email' or 'phone'
   const [otp, setOtp] = useState('');
+  
+  // Privacy & Data States
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const [privacyPrefs, setPrivacyPrefs] = useState({
+    wantsMarketingEmails: true,
+    wantsAiInsights: true
+  });
 
   const handleSendOTP = async (type) => {
     try {
@@ -51,6 +78,60 @@ const Profile = () => {
     }
   };
 
+  const handleTogglePreference = async (key) => {
+    try {
+      const newValue = !privacyPrefs[key];
+      const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/users/privacy-preferences`, 
+        { [key]: newValue },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }, withCredentials: true }
+      );
+      setPrivacyPrefs(response.data.data);
+      showSuccessAlert("Privacy preference updated!");
+    } catch (err) {
+      showErrorAlert("Failed to update preference");
+    }
+  };
+
+  const handleExportData = async () => {
+    setIsExporting(true);
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/users/export-data`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        withCredentials: true
+      });
+      
+      const dataStr = JSON.stringify(response.data.data, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `CareerPath_Finder_MyData_${user?.firstName}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showSuccessAlert("Your personal data has been prepared and downloaded.");
+    } catch (err) {
+      showErrorAlert("Failed to export data");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/users/delete-account`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        withCredentials: true
+      });
+      
+      localStorage.clear();
+      await showSuccessAlert("Your account has been permanently deleted. We're sorry to see you go.");
+      window.location.href = '/signup';
+    } catch (err) {
+      showErrorAlert("Failed to delete account. Please try again.");
+    }
+  };
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -64,6 +145,9 @@ const Profile = () => {
         });
 
         setUser(response.data.data); // Correctly extract user from 'data' property
+        if (response.data.data.privacyPreferences) {
+          setPrivacyPrefs(response.data.data.privacyPreferences);
+        }
       } catch (err) {
         setError(err.response?.data?.message || "Failed to load profile");
       } finally {
@@ -179,11 +263,105 @@ const Profile = () => {
 
           <StudentDashboard user={user} />
 
+          <motion.div 
+            className="privacySettingsSection"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+          >
+            <div className="sectionSubHeader">
+              <ShieldCheck size={20} className="headerIcon" />
+              <h3>Security & Privacy Management</h3>
+            </div>
+            
+            <motion.div className="privacyGrid" variants={staggerContainer}>
+              <motion.div className="privacyControl" variants={cardVariants} whileHover={{ x: 5 }}>
+                <div className="controlInfo">
+                  <span className="controlTitle"><Bell size={16} /> Marketing Communications</span>
+                  <p>Receive updates about new career features and roadmaps.</p>
+                </div>
+                <label className="switch">
+                  <input 
+                    type="checkbox" 
+                    checked={privacyPrefs.wantsMarketingEmails} 
+                    onChange={() => handleTogglePreference('wantsMarketingEmails')}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </motion.div>
+
+              <motion.div className="privacyControl" variants={cardVariants} whileHover={{ x: 5 }}>
+                <div className="controlInfo">
+                  <span className="controlTitle"><Cpu size={16} /> Personalized AI Insights</span>
+                  <p>Allow Yam AI to process profile data for tailored guidance.</p>
+                </div>
+                <label className="switch">
+                  <input 
+                    type="checkbox" 
+                    checked={privacyPrefs.wantsAiInsights} 
+                    onChange={() => handleTogglePreference('wantsAiInsights')}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </motion.div>
+            </motion.div>
+
+            <div className="dataActions">
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="exportBtn" 
+                onClick={handleExportData} 
+                disabled={isExporting}
+              >
+                <Download size={18} /> {isExporting ? "Preparing Data..." : "Download My Data (JSON)"}
+              </motion.button>
+              
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="deleteAccountBtnSec" 
+                onClick={() => setShowDeleteModal(true)}
+              >
+                <Trash2 size={18} /> Delete Account Permanently
+              </motion.button>
+            </div>
+            
+            <p className="privacyNote">
+              <ExternalLink size={12} /> View our fully updated <Link to="/privacy-policy" className="legalLink">Security Policy</Link> for more details.
+            </p>
+          </motion.div>
+
+          <div className="divider"></div>
+
           {/* Action Buttons */}
           <div className="profileActions">
             <Link to="/edit-details" className="editBtn">Edit Details</Link>
             <button className="logoutBtn" onClick={handleLogout}>Log Out</button>
           </div>
+
+          {/* Account Deletion Confirmation Modal */}
+          <AnimatePresence>
+            {showDeleteModal && (
+              <div className="modal-overlay">
+                <motion.div 
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="otp-modal-profile danger-modal"
+                >
+                  <div className="warningIcon"><Trash2 size={40} /></div>
+                  <h3>Permanent Account Deletion</h3>
+                  <p>This action <strong>cannot be undone</strong>. You will lose all your saved roadmaps, courses, and personalized insights.</p>
+                  <div className="modal-actions-profile">
+                    <button className="modal-btn delete-action" onClick={handleDeleteAccount}>Yes, Delete Permanently</button>
+                    <button className="modal-btn cancel-action" onClick={() => setShowDeleteModal(false)}>Cancel & Stay</button>
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
 
           {/* OTP Verification Modal */}
           {showVerifyModal && (
