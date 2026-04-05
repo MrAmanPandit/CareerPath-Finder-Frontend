@@ -106,6 +106,11 @@ const StudentDashboard = ({ user: propUser }) => {
                     </div>
                     <div className="profile-text-details">
                         <h2>Welcome back, {user.firstName}!</h2>
+                        <p className="profile-email">{user.email}</p>
+                        <div className="profile-badges">
+                            <span className="badge-item">{user.currentStudy || "Student"}</span>
+                            <span className="badge-item">{user.branch || "General"}</span>
+                        </div>
                     </div>
                 </div>
                 <Link to="/edit-details" className="edit-profile-btn">

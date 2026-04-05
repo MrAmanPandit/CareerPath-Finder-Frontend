@@ -3,6 +3,7 @@ import './signup.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import AnimatedPage from './animation';
+import ImageCropper from './ImageCropper';
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
 import { CheckCircle, Mail, Phone, ArrowRight, Camera } from 'lucide-react';
 
@@ -28,6 +29,8 @@ const Signup = () => {
   const [emailOTP, setEmailOTP] = useState('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [tempImage, setTempImage] = useState(null);
+  const [isCropping, setIsCropping] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,15 +42,28 @@ const Signup = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setTempImage(reader.result);
+        setIsCropping(true);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const onCropDone = (croppedFile, croppedPreviewUrl) => {
     setUser(prevUser => ({
       ...prevUser,
-      avatar: file
+      avatar: croppedFile
     }));
-    if (file) {
-      setPreviewUrl(URL.createObjectURL(file));
-    } else {
-      setPreviewUrl(null);
-    }
+    setPreviewUrl(croppedPreviewUrl);
+    setIsCropping(false);
+  };
+
+  const onCropCancel = () => {
+    setIsCropping(false);
+    setTempImage(null);
   };
 
   const handleCircleClick = () => {
@@ -73,7 +89,7 @@ const Signup = () => {
       formData.append("branch", user.branch);
       formData.append("dream", user.dream);
       formData.append("mobileNumber", user.mobileNumber);
-      
+
       if (user.avatar) {
         formData.append("avatar", user.avatar);
       }
@@ -223,6 +239,13 @@ const Signup = () => {
               <p className="loginText">
                 Already have an account? <Link to="/login" className="loginLink">Login</Link>
               </p>
+              {isCropping && (
+                <ImageCropper
+                  image={tempImage}
+                  onCropDone={onCropDone}
+                  onCancel={onCropCancel}
+                />
+              )}
             </>
           ) : (
             <div className="otp-verification-container">

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AnimatedPage from './animation';
 import './editDetail.css';
+import ImageCropper from './ImageCropper';
 import SkeletonLoader from './SkeletonLoader';
 import { showSuccessAlert, showErrorAlert } from '../utils/customAlert';
 import { Camera } from 'lucide-react';
@@ -34,6 +35,8 @@ const EditDetails = () => {
 
   const [avatarFile, setAvatarFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [tempImage, setTempImage] = useState(null);
+  const [isCropping, setIsCropping] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -80,12 +83,25 @@ const EditDetails = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setAvatarFile(file);
     if (file) {
-      setPreviewUrl(URL.createObjectURL(file));
-    } else {
-      setPreviewUrl(user?.avatar || null);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setTempImage(reader.result);
+        setIsCropping(true);
+      };
+      reader.readAsDataURL(file);
     }
+  };
+
+  const onCropDone = (croppedFile, croppedPreviewUrl) => {
+    setAvatarFile(croppedFile);
+    setPreviewUrl(croppedPreviewUrl);
+    setIsCropping(false);
+  };
+
+  const onCropCancel = () => {
+    setIsCropping(false);
+    setTempImage(null);
   };
 
   const handleCircleClick = () => {
@@ -132,6 +148,26 @@ const EditDetails = () => {
     }
   };
 
+  if (isCropping) {
+    return (
+      <ImageCropper
+        image={tempImage}
+        onCropDone={onCropDone}
+        onCancel={onCropCancel}
+      />
+    );
+  }
+
+
+  if (isCropping) {
+    return (
+      <ImageCropper
+        image={tempImage}
+        onCropDone={onCropDone}
+        onCancel={onCropCancel}
+      />
+    );
+  }
 
   if (loading) {
     return <div className="edit-page-container"><SkeletonLoader type="form" /></div>;
