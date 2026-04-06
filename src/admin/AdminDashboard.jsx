@@ -97,7 +97,7 @@ const AdminDashboard = () => {
     }
   };
 
-  if (loading) return <div style={{textAlign: 'center', marginTop: '50px'}}><SkeletonLoader type="text" /></div>;
+  if (loading) return <div className="loading-page-container"><SkeletonLoader type="text" /></div>;
   if (!isAdmin) return null;
 
   return (

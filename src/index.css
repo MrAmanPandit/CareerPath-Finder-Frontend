@@ -192,3 +192,19 @@ label {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Global Loading Page Container */
+.loading-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--bg-color);
+  background: var(--bg-gradient);
+  color: var(--text);
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}

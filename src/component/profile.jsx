@@ -160,7 +160,11 @@ const Profile = () => {
 
   // 4. Show a loading screen while waiting for the backend
   if (loading) {
-    return <SkeletonLoader type="profile" />;
+    return (
+      <div className="loading-page-container">
+        <SkeletonLoader type="profile" />
+      </div>
+    );
   }
 
 

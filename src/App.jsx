@@ -25,21 +25,23 @@ function App() {
   }, [location.pathname]);
 
   const isAiPage = ['/yam-ai', '/education-ai', '/career-ai'].includes(location.pathname);
+  const isAdminOrMentorPage = location.pathname.startsWith('/admin') || location.pathname.startsWith('/mentor');
+  const showAiIcon = !isAiPage && !isAdminOrMentorPage;
 
   return (
     <div className="app-theme-provider">
+      <FeedbackThankYou />
       {!isAiPage && <Headers />}
       <div className={location.pathname === "/" || isAiPage ? "" : "navbar-spacing"}>
         <PageTransition key={location.pathname}>
-          <Suspense fallback={<div style={{padding: '50px'}}><SkeletonLoader type="text" /></div>}>
+          <Suspense fallback={<div className="loading-page-container"><SkeletonLoader type="text" /></div>}>
             <Outlet />
           </Suspense>
         </PageTransition>
       </div>
       {!isAiPage && <Footer />}
-      <YamAiIcon />
+      {showAiIcon && <YamAiIcon />}
       {/* Thank-you popup: fires once when admin marks user feedback as Done */}
-      <FeedbackThankYou />
     </div>
   );
 }

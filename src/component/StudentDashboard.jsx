@@ -49,7 +49,7 @@ const StudentDashboard = ({ user: propUser }) => {
 
     if (loading) {
         return (
-            <div className="dashboard-loading">
+            <div className="loading-page-container">
                 <Loader2 className="animate-spin" size={32} />
                 <p>Loading your progress...</p>
             </div>

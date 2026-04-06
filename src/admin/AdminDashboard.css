@@ -7,7 +7,7 @@
   background-color: var(--bg-color);
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   position: relative;
-  overflow: hidden; /* Contains absolute sidebar and overlay */
+  overflow: hidden; /* Lock viewport and use internal scrolling */
 }
 
 /* --- Sidebar Styles --- */
@@ -18,8 +18,8 @@
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: 0;
-  height: 100%; /* Fill wrapper height */
+  top: var(--nav-height); /* Stick below the site navbar */
+  height: calc(100vh - var(--nav-height)); /* Fill screen while sticky */
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -141,7 +141,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: auto; /* Re-enabled internal scrolling */
 }
 
 .admin-topbar {
@@ -215,11 +215,34 @@
   }
 }
 
+.demo-thankyou-btn {
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 15px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.demo-thankyou-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+  filter: brightness(1.1);
+}
+
+.demo-thankyou-btn:active {
+  transform: translateY(0);
+}
+
 .admin-content-area {
-  max-height: 85vh;
   padding: clamp(1rem, 5vw, 3rem) clamp(1rem, 5vw, 4rem);
   flex: 1;
-  overflow-y: auto;
+  /* Natural flow within the main content scroll area */
 }
 
 

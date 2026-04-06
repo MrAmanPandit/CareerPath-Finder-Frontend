@@ -31,17 +31,29 @@ const FeedbackThankYou = () => {
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
 
-                if (res.data?.hasPending) {
-                    setPopup({ type: res.data.type, message: res.data.message });
+                if (res.data?.data?.hasPending) {
+                    setPopup({ 
+                        type: res.data.data.type, 
+                        message: res.data.data.message,
+                        date: res.data.data.date 
+                    });
                     // Small delay so page loads first, then popup slides in
-                    setTimeout(() => setVisible(true), 1200);
+                    setTimeout(() => setVisible(true), 2000); // 2s delay for a premium feel
                 }
             } catch {
                 // Silently fail — this is a non-critical enhancement
             }
         };
 
+        // Demo Trigger Listener (kept for Admin testing, no logs)
+        const handleDemo = (e) => {
+            setPopup(e.detail || { type: "suggestion", message: "Wow, your suggestion was amazing! We've implemented the dark mode improvements you mentioned." });
+            setVisible(true);
+        };
+        window.addEventListener("trigger-thankyou-demo", handleDemo);
+
         checkThankYou();
+        return () => window.removeEventListener("trigger-thankyou-demo", handleDemo);
     }, []);
 
     const handleClose = () => {

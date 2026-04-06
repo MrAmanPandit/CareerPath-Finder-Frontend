@@ -70,7 +70,7 @@ const MentorDashboard = () => {
     }
   };
 
-  if (loading) return <div className="mentor-loader"><SkeletonLoader type="profile" /></div>;
+  if (loading) return <div className="loading-page-container"><SkeletonLoader type="profile" /></div>;
 
   return (
     <div className="admin-dashboard-wrapper mentor-theme">

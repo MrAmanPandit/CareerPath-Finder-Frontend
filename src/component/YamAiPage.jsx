@@ -15,7 +15,7 @@ const YamAiPage = () => {
     return (
         <div className="yam-page-container">
             <Suspense fallback={
-                <div className="yam-loading-container">
+                <div className="loading-page-container">
                     <div className="yam-loading-spinner"></div>
                     <h2>Initializing Intelligence Core...</h2>
                     <p>Connecting to YAM Neural Network</p>
