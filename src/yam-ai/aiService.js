@@ -28,6 +28,11 @@ export const generateResponse = async (userPrompt, chatHistory = []) => {
             return "QUOTA_EXCEEDED";
         }
 
+        // Return the specific error from the backend if available
+        if (error.response?.data?.message) {
+            return `⚠️ **Backend Error:** ${error.response.data.message}`;
+        }
+
         return "I'm having trouble connecting to my knowledge base right now. Please try again in a moment.";
     }
 };
